@@ -40,6 +40,10 @@ public class Player : MonoBehaviour
 		_renderer = GetComponent<SpriteRenderer>();
 
 		_shapeshift = GetComponent<Shapeshift>();
+	}
+
+	void Start()
+	{
 		_shapeshift.FSM.Changed += ShapeshiftStateChanged;
 	}
 

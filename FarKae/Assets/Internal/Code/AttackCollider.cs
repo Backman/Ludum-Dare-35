@@ -3,7 +3,13 @@ using System.Collections;
 
 public class AttackCollider : MonoBehaviour
 {
-	static LayerMask _hitboxLayer = LayerMask.NameToLayer("HitboxCollider");
+	LayerMask _hitboxLayer;
+
+	void Awake()
+	{
+		_hitboxLayer = LayerMask.NameToLayer("HitboxCollider");
+	}
+
 	void OnTriggerEnter2D(Collider2D collider)
 	{
 		var iAmEnemy = GetComponentInParent<BasicEnemy>();
