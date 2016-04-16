@@ -10,6 +10,7 @@ public struct IntRect
 	public int yMax;
 }
 
+[System.Serializable]
 public class EnemySpawner
 {
 	public List<Transform> spawnPoints = new List<Transform>();
