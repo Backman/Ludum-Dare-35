@@ -9,9 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 423132}
   - 61: {fileID: 6185068}
-  - 114: {fileID: 11466588}
-  m_Layer: 9
-  m_Name: collider_punch
+  m_Layer: 11
+  m_Name: collider_attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,11 +29,10 @@ GameObject:
   - 50: {fileID: 5018164}
   - 61: {fileID: 6101632}
   - 114: {fileID: 11447478}
-  - 114: {fileID: 11488680}
   - 114: {fileID: 11471596}
   - 114: {fileID: 11475502}
   - 114: {fileID: 11419048}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: basic_enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +66,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 450430}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!4 &450430
 Transform:
   m_ObjectHideFlags: 1
@@ -79,8 +77,8 @@ Transform:
   m_LocalPosition: {x: 1.67, y: -0.886, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 450714}
   - {fileID: 423132}
+  - {fileID: 450714}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &450714
@@ -94,7 +92,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 450430}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!50 &5018164
 Rigidbody2D:
   serializedVersion: 2
@@ -201,17 +199,6 @@ MonoBehaviour:
   multiplier: 1
   canMove: 1
   direction: 0
---- !u!114 &11466588
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 118342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8c14efc53227a44195ad43f4baa91d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11471596
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -223,7 +210,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c132b95654f2cc439cff7599314a15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 1135b333dba2b934581bcdffbef3ac97, type: 2}
+  _enemyConfig: {fileID: 11400000, guid: 1135b333dba2b934581bcdffbef3ac97, type: 2}
+  _healthConfig: {fileID: 11400000, guid: 42328c00071d5cb419bb2a704a1716ad, type: 2}
+  attackCollider: {fileID: 6185068}
+  hitCollider: {fileID: 6176274}
 --- !u!114 &11475502
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -235,33 +225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f1768bc0e42f14e984f63eabbd7292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11488680
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 159656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06baf87361050ab45878ac542e13e8f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 42328c00071d5cb419bb2a704a1716ad, type: 2}
-  onDamage:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11471596}
-        m_MethodName: Event_OnDamage
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!212 &21278308
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -287,7 +250,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 88
   m_Sprite: {fileID: 21300000, guid: a8fb57fe5dc53ef41ae1296d3c387b06, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

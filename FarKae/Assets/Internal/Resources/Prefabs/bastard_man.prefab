@@ -9,9 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 444900}
   - 61: {fileID: 6163686}
-  - 114: {fileID: 11412912}
-  m_Layer: 9
-  m_Name: collider_punch
+  m_Layer: 10
+  m_Name: collider_attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +30,6 @@ GameObject:
   - 61: {fileID: 6152488}
   - 114: {fileID: 11446150}
   - 114: {fileID: 11494326}
-  - 114: {fileID: 11407750}
   - 114: {fileID: 11450328}
   - 114: {fileID: 11480568}
   m_Layer: 10
@@ -171,33 +169,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11407750
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 172770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06baf87361050ab45878ac542e13e8f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 3b3854c6e9edb5647934c6eb856ab4ec, type: 2}
-  onDamage:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
---- !u!114 &11412912
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 119788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8c14efc53227a44195ad43f4baa91d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11446150
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -237,7 +208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _candyConfig: {fileID: 11400000, guid: 27e78883b4554c14b9fe3e998d6d6c40, type: 2}
   _lightningConfig: {fileID: 11400000, guid: 1fd6424dc7c42c24d9b3d67bd52a3acf, type: 2}
-  _magicConfig: {fileID: 0}
+  _magicConfig: {fileID: 11400000, guid: c51cd286768256d45b284179c546b834, type: 2}
   _avocadoConfig: {fileID: 11400000, guid: bd22d4c7b2983354497f648950324f7f, type: 2}
 --- !u!114 &11494326
 MonoBehaviour:
@@ -251,6 +222,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashRepeatDuration: 0.3
+  attackCollider: {fileID: 6163686}
+  hitCollider: {fileID: 6142816}
 --- !u!212 &21282274
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -42,7 +42,7 @@ public class EnemySpawner
 		var point = spawnPoints[Random.Range(0, spawnPoints.Count)];
 		var go = (GameObject)Object.Instantiate(enemyPrefab, point.transform.position, Quaternion.identity);
 		var shapeshift = go.GetComponent<Shapeshift>();
-		shapeshift.FSM.ChangeState((Shapeshift.State)Random.Range(0, (int)Shapeshift.State.Count));
+		shapeshift.FSM.ChangeState((Shapeshift.ShapeshiftState)Random.Range(0, (int)Shapeshift.ShapeshiftState.Count));
 		return shapeshift.gameObject;
 	}
 

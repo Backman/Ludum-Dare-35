@@ -4,7 +4,7 @@ using MonsterLove.StateMachine;
 
 public class Shapeshift : MonoBehaviour
 {
-	public enum State
+	public enum ShapeshiftState
 	{
 		Candy = 0,
 		Lightning,
@@ -22,7 +22,7 @@ public class Shapeshift : MonoBehaviour
 	[SerializeField]
 	StateConfig _avocadoConfig;
 
-	public StateMachine<State> FSM;
+	public StateMachine<ShapeshiftState> FSM;
 
 	public System.Action onCandyEnter;
 	public System.Action onCandyUpdate;
@@ -33,7 +33,7 @@ public class Shapeshift : MonoBehaviour
 	public System.Action onAvocadoEnter;
 	public System.Action onAvocadoUpdate;
 
-	public State CurrentState
+	public ShapeshiftState State
 	{
 		get { return FSM.State; }
 		set { FSM.ChangeState(value); }
@@ -41,25 +41,25 @@ public class Shapeshift : MonoBehaviour
 
 	void Awake()
 	{
-		FSM = StateMachine<State>.Initialize(this);
+		FSM = StateMachine<ShapeshiftState>.Initialize(this);
 		FSM.Changed += StateChanged;
-		FSM.ChangeState(State.Candy);
+		FSM.ChangeState(ShapeshiftState.Candy);
 	}
 
-	void StateChanged(State state)
+	void StateChanged(ShapeshiftState state)
 	{
 		switch (state)
 		{
-			case State.Candy:
+			case ShapeshiftState.Candy:
 				GetComponent<SpriteRenderer>().color = _candyConfig.color;
 				break;
-			case State.Lightning:
+			case ShapeshiftState.Lightning:
 				GetComponent<SpriteRenderer>().color = _lightningConfig.color;
 				break;
-			case State.Magic:
+			case ShapeshiftState.Magic:
 				GetComponent<SpriteRenderer>().color = _magicConfig.color;
 				break;
-			case State.Avocado:
+			case ShapeshiftState.Avocado:
 				GetComponent<SpriteRenderer>().color = _avocadoConfig.color;
 				break;
 			default:

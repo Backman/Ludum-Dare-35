@@ -16,7 +16,7 @@ TagManager:
   - HitboxCollider
   - AttackCollider
   - Character
-  - 
+  - Enemy
   - 
   - 
   - 

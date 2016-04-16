@@ -4,7 +4,7 @@ using MonsterLove.StateMachine;
 
 public class BasicEnemy : MonoBehaviour
 {
-	public enum State
+	public enum EnemyState
 	{
 		Walking,
 		Idle,
@@ -13,19 +13,40 @@ public class BasicEnemy : MonoBehaviour
 	}
 
 	[SerializeField]
-	BasicEnemyConfig _config;
+	BasicEnemyConfig _enemyConfig;
+	[SerializeField]
+	HealthConfig _healthConfig;
+
+	public BoxCollider2D attackCollider;
+	public BoxCollider2D hitCollider;
+
+	BoxCollider2D[] _overlappedHitColliders = new BoxCollider2D[8];
 
 	Animator _animator;
 	Movable _movable;
 	Player _player;
 
-	StateMachine<State> _fsm;
+	StateMachine<EnemyState> _fsm;
 	Shapeshift _shapeshift;
 
 	float _staggerTime;
 	float _attackTime;
 
+	public EnemyState State
+	{
+		get { return _fsm.State; }
+		set { _fsm.ChangeState(value); }
+	}
+
+	public Shapeshift.ShapeshiftState ShapeshiftState
+	{
+		get { return _shapeshift.State; }
+		set { _shapeshift.State = value; }
+	}
+
 	Transform _transform;
+	float _health;
+
 	public new Transform transform
 	{
 		get { return _transform == null ? (_transform = GetComponent<Transform>()) : _transform; }
@@ -36,11 +57,12 @@ public class BasicEnemy : MonoBehaviour
 		_movable = GetComponent<Movable>();
 		_animator = GetComponent<Animator>();
 
-		_fsm = StateMachine<State>.Initialize(this);
+		_fsm = StateMachine<EnemyState>.Initialize(this);
 		_fsm.Changed += StateChanged;
-		_fsm.ChangeState(State.Walking);
+		_fsm.ChangeState(EnemyState.Walking);
 
 		_shapeshift = GetComponent<Shapeshift>();
+		_health = _healthConfig.maxHealth;
 	}
 
 	void Start()
@@ -48,37 +70,34 @@ public class BasicEnemy : MonoBehaviour
 		_player = FindObjectOfType<Player>();
 	}
 
-	void Update()
+	public void Damage(float amount)
 	{
+		if (_fsm.State == EnemyState.Hit)
+		{
+			return;
+		}
 
-	}
-
-	public void ChangeState(State state)
-	{
-		_fsm.ChangeState(state);
-	}
-
-	public void Event_OnDamage(float health)
-	{
-		if (health <= 0)
+		_health -= amount;
+		if (_health <= 0)
 		{
 			WaveController.instance.RemoveEnemy(gameObject);
 			Destroy(gameObject);
 		}
 		else
 		{
-			_fsm.ChangeState(State.Hit);
+			_fsm.ChangeState(EnemyState.Hit);
 		}
-		//Debug.LogFormat("{0} health: {1}", name, health);
+
 	}
 
-	void StateChanged(State state)
+	void StateChanged(EnemyState state)
 	{
 		//Debug.LogFormat("Enemy state changed: {0}", state.ToString());
 	}
 
 	void Hit_Enter()
 	{
+		BlinkManager.instance.AddBlink(gameObject, Color.white, 0.1f);
 		_animator.SetTrigger("Hit");
 	}
 
@@ -94,9 +113,9 @@ public class BasicEnemy : MonoBehaviour
 	{
 		var playerPos = _player.transform.position;
 		var moveDir = playerPos - transform.position;
-		if (moveDir.sqrMagnitude <= _config.attackRange)
+		if (moveDir.sqrMagnitude <= _enemyConfig.attackRange)
 		{
-			_fsm.ChangeState(State.Attack);
+			_fsm.ChangeState(EnemyState.Attack);
 			_movable.Move(Vector2.zero);
 			return;
 		}
@@ -105,7 +124,7 @@ public class BasicEnemy : MonoBehaviour
 
 	void Idle_Enter()
 	{
-		_fsm.ChangeState(State.Walking);
+		_fsm.ChangeState(EnemyState.Walking);
 	}
 
 	void Idle_Update()
@@ -122,16 +141,45 @@ public class BasicEnemy : MonoBehaviour
 		var playerPos = _player.transform.position;
 		var length = (playerPos - transform.position).sqrMagnitude;
 
-		if (_attackTime + _config.attackInterval <= Time.time)
+		if (_attackTime + _enemyConfig.attackInterval <= Time.time)
 		{
 			_attackTime = Time.time;
 			_animator.SetTrigger("Attack_Punch");
 		}
 
-		if (length > _config.attackRange)
+		if (length > _enemyConfig.attackRange)
 		{
-			_fsm.ChangeState(State.Walking);
+			_fsm.ChangeState(EnemyState.Walking);
 			return;
+		}
+
+		if (!attackCollider || !attackCollider.enabled)
+		{
+			return;
+		}
+
+		var min = attackCollider.offset + (Vector2)transform.position + attackCollider.size / 2.0f;
+		var max = min + attackCollider.offset;
+
+		if (Physics2D.OverlapAreaNonAlloc(min, max, _overlappedHitColliders) <= 0)
+		{
+			return;
+		}
+
+		for (int i = 0; i < _overlappedHitColliders.Length; i++)
+		{
+			var otherCollider = _overlappedHitColliders[i];
+			if (otherCollider
+				&& LayerMask.LayerToName(otherCollider.gameObject.layer) == "HitboxCollider"
+				&& otherCollider.gameObject != gameObject)
+			{
+				Debug.LogFormat("Hit {0}", otherCollider.name);
+				var enemy = otherCollider.GetComponentInParent<BasicEnemy>();
+				if (enemy)
+				{
+					enemy.Damage(50f);
+				}
+			}
 		}
 	}
 }
