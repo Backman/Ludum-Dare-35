@@ -1,0 +1,272 @@
+fileFormatVersion: 2
+guid: f44e5b29f26d1bf4f8845af83d74f48b
+timeCreated: 1460826204
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: protagonist_attack1_green_0
+    21300002: protagonist_attack1_green_1
+    21300004: protagonist_attack1_green_2
+    21300006: protagonist_attack1_green_3
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: protagonist_attack1_green_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 162
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 30, y: 64}
+        - {x: 26, y: 60}
+        - {x: 18, y: 77}
+        - {x: -28, y: 77}
+        - {x: -39, y: 67}
+        - {x: -36, y: 58}
+        - {x: -32, y: 59}
+        - {x: -30, y: 61}
+        - {x: -30, y: 62}
+        - {x: -27, y: 65}
+        - {x: -25, y: 65}
+        - {x: -29, y: 63}
+        - {x: -30, y: 61}
+        - {x: -33, y: 57}
+        - {x: -45, y: 58}
+        - {x: -50, y: 45}
+        - {x: -50, y: 19}
+        - {x: -37, y: 10}
+        - {x: -28, y: 11}
+        - {x: -29, y: 6}
+        - {x: -27, y: 0}
+        - {x: 4, y: 0}
+        - {x: 49, y: 32}
+        - {x: 49, y: 53}
+        - {x: 37, y: 66}
+    - name: protagonist_attack1_green_1
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 0
+        width: 162
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 65, y: 71}
+        - {x: 49, y: 71}
+        - {x: 43, y: 58}
+        - {x: 36, y: 68}
+        - {x: 22, y: 70}
+        - {x: 9, y: 68}
+        - {x: 3, y: 65}
+        - {x: 9, y: 70}
+        - {x: 22, y: 83}
+        - {x: -30, y: 83}
+        - {x: -53, y: 49}
+        - {x: -53, y: 37}
+        - {x: -43, y: 13}
+        - {x: -36, y: 14}
+        - {x: -32, y: 16}
+        - {x: -36, y: 13}
+        - {x: -47, y: 4}
+        - {x: -47, y: 0}
+        - {x: -14, y: 0}
+        - {x: 52, y: 3}
+        - {x: 77, y: 18}
+        - {x: 77, y: 47}
+      - - {x: -77, y: 73}
+        - {x: -77, y: 0}
+        - {x: -51, y: 0}
+        - {x: -48, y: 1}
+        - {x: -39, y: 14}
+        - {x: -39, y: 46}
+        - {x: -47, y: 73}
+    - name: protagonist_attack1_green_2
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 0
+        width: 162
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 78, y: 13}
+        - {x: 78, y: 55}
+        - {x: 71, y: 75}
+        - {x: 49, y: 78}
+        - {x: 42, y: 54}
+        - {x: 42, y: 64}
+        - {x: 40, y: 68}
+        - {x: 26, y: 70}
+        - {x: 13, y: 68}
+        - {x: 26, y: 83}
+        - {x: -17, y: 83}
+        - {x: -40, y: 45}
+        - {x: -38, y: 13}
+        - {x: -32, y: 14}
+        - {x: -28, y: 16}
+        - {x: -32, y: 13}
+        - {x: -43, y: 4}
+        - {x: -43, y: 0}
+        - {x: -34, y: 0}
+        - {x: -15, y: 9}
+        - {x: 23, y: 0}
+        - {x: 55, y: 0}
+      - - {x: -48, y: 5}
+        - {x: -46, y: 3}
+        - {x: -43, y: 4}
+        - {x: -43, y: 7}
+        - {x: -45, y: 9}
+        - {x: -48, y: 8}
+      - - {x: -50, y: 63}
+        - {x: -64, y: 57}
+        - {x: -69, y: 44}
+        - {x: -69, y: 14}
+        - {x: -66, y: 6}
+        - {x: -45, y: 6}
+        - {x: -39, y: 13}
+        - {x: -39, y: 47}
+        - {x: -43, y: 63}
+      - - {x: -78, y: 42}
+        - {x: -75, y: 41}
+        - {x: -68, y: 41}
+        - {x: -66, y: 42}
+        - {x: -66, y: 45}
+        - {x: -68, y: 48}
+        - {x: -75, y: 48}
+        - {x: -79, y: 45}
+      - - {x: -47, y: 41}
+        - {x: -44, y: 42}
+        - {x: -44, y: 45}
+        - {x: -47, y: 46}
+        - {x: -49, y: 44}
+      - - {x: -69, y: 70}
+        - {x: -71, y: 68}
+        - {x: -70, y: 64}
+        - {x: -66, y: 58}
+        - {x: -64, y: 58}
+        - {x: -61, y: 61}
+        - {x: -61, y: 63}
+        - {x: -66, y: 70}
+      - - {x: -50, y: 75}
+        - {x: -51, y: 73}
+        - {x: -52, y: 67}
+        - {x: -47, y: 63}
+        - {x: -44, y: 64}
+        - {x: -44, y: 74}
+        - {x: -46, y: 75}
+    - name: protagonist_attack1_green_3
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 0
+        width: 162
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -13, y: 85}
+        - {x: -19, y: 76}
+        - {x: -31, y: 54}
+        - {x: -32, y: 37}
+        - {x: -29, y: 34}
+        - {x: -35, y: 20}
+        - {x: -34, y: 15}
+        - {x: -31, y: 14}
+        - {x: -27, y: 16}
+        - {x: -31, y: 13}
+        - {x: -42, y: 4}
+        - {x: -42, y: 0}
+        - {x: 79, y: 0}
+        - {x: 79, y: 82}
+        - {x: 64, y: 85}
+      - - {x: -70, y: 47}
+        - {x: -70, y: 15}
+        - {x: -65, y: 15}
+        - {x: -50, y: 28}
+        - {x: -47, y: 41}
+        - {x: -47, y: 47}
+      - - {x: -49, y: 37}
+        - {x: -50, y: 34}
+        - {x: -47, y: 31}
+        - {x: -42, y: 31}
+        - {x: -41, y: 33}
+        - {x: -41, y: 35}
+        - {x: -44, y: 37}
+      - - {x: -80, y: 44}
+        - {x: -78, y: 42}
+        - {x: -75, y: 43}
+        - {x: -75, y: 46}
+        - {x: -77, y: 48}
+        - {x: -80, y: 47}
+      - - {x: -70, y: 72}
+        - {x: -72, y: 70}
+        - {x: -72, y: 69}
+        - {x: -68, y: 62}
+        - {x: -66, y: 62}
+        - {x: -63, y: 65}
+        - {x: -64, y: 69}
+        - {x: -68, y: 72}
+      - - {x: -50, y: 73}
+        - {x: -49, y: 70}
+        - {x: -46, y: 70}
+        - {x: -44, y: 72}
+        - {x: -45, y: 75}
+        - {x: -48, y: 75}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
