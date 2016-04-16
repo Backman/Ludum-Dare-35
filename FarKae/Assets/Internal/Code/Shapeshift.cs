@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using MonsterLove.StateMachine;
+using UnityEngine.Experimental.Director;
 
 public class Shapeshift : MonoBehaviour
 {
@@ -43,7 +44,10 @@ public class Shapeshift : MonoBehaviour
 	GameObject _magicEffect;
 	GameObject _avocadoEffect;
 
-	StateConfig _prevStateConfig;
+	public StateConfig currentStateConfig;
+	public string currentBasicAttackName;
+
+	public AnimationClipPlayable[] playables;
 
 	public ShapeshiftState CurrentState
 	{
@@ -61,6 +65,10 @@ public class Shapeshift : MonoBehaviour
 		CreateStateEffect(_lightningConfig.effect, out _lightningEffect);
 		CreateStateEffect(_magicConfig.effect, out _magicEffect);
 		CreateStateEffect(_avocadoConfig.effect, out _avocadoEffect);
+
+		currentStateConfig = _candyConfig;
+		currentBasicAttackName = _candyConfig.basicAttacks[0].clip.name;
+		ApplyAnimations(currentStateConfig);
 	}
 
 	void CreateStateEffect(GameObject prefab, out GameObject effect)
@@ -93,13 +101,13 @@ public class Shapeshift : MonoBehaviour
 		}
 		else
 		{
-			if (_prevStateConfig)
+			if (currentStateConfig)
 			{
 				ApplyAnimations(config);
 			}
 		}
 
-		_prevStateConfig = config;
+		currentStateConfig = config;
 	}
 
 	void ApplyAnimations(StateConfig stateConfig)
@@ -112,11 +120,9 @@ public class Shapeshift : MonoBehaviour
 		var controller = new AnimatorOverrideController();
 		controller.runtimeAnimatorController = animator.runtimeAnimatorController;
 
-		controller[_prevStateConfig.idle.clip.name] = stateConfig.idle.clip;
-		controller[_prevStateConfig.move.clip.name] = stateConfig.move.clip;
-		controller[_prevStateConfig.attackOne.clip.name] = stateConfig.attackOne.clip;
-		controller[_prevStateConfig.attackTwo.clip.name] = stateConfig.attackTwo.clip;
-		controller[_prevStateConfig.superAttack.clip.name] = stateConfig.superAttack.clip;
+		controller[currentStateConfig.idle.clip.name] = stateConfig.idle.clip;
+		controller[currentStateConfig.move.clip.name] = stateConfig.move.clip;
+		controller[currentStateConfig.superAttack.clip.name] = stateConfig.superAttack.clip;
 
 		animator.runtimeAnimatorController = controller;
 	}
@@ -140,6 +146,23 @@ public class Shapeshift : MonoBehaviour
 			default:
 				break;
 		}
+	}
+
+	public void SetRandomBasicAttackAnimation()
+	{
+		var rand = Random.Range(0, currentStateConfig.basicAttacks.Length);
+
+		var animator = GetComponent<Animator>();
+		var controller = new AnimatorOverrideController();
+		controller.runtimeAnimatorController = animator.runtimeAnimatorController;
+
+		var newClip = currentStateConfig.basicAttacks[rand].clip;
+
+		controller[currentBasicAttackName] = newClip;
+
+		currentBasicAttackName = newClip.name;
+
+		animator.runtimeAnimatorController = controller;
 	}
 
 	void Candy_Enter()

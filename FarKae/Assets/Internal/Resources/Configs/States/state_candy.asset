@@ -19,6 +19,11 @@ MonoBehaviour:
   move:
     clip: {fileID: 7400000, guid: 770a216d1d964de44ad258504bec57ee, type: 2}
     frameRate: 10
+  basicAttacks:
+  - clip: {fileID: 7400000, guid: fbe56af0dc6c8a540afce058c921c370, type: 2}
+    frameRate: 0
+  - clip: {fileID: 7400000, guid: 5ed82efdc1ddfb74cbfa4513f4752555, type: 2}
+    frameRate: 0
   attackOne:
     clip: {fileID: 7400000, guid: fbe56af0dc6c8a540afce058c921c370, type: 2}
     frameRate: 10

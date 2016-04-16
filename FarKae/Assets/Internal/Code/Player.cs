@@ -4,6 +4,7 @@ using MonsterLove.StateMachine;
 using System;
 using InControl;
 using System.Collections.Generic;
+using UnityEngine.Experimental.Director;
 
 public class Player : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour
 	public enum AttackState
 	{
 		NoneAttack,
+		BasicAttack,
 		AttackOne,
 		AttackTwo,
 		SuperAttack,
@@ -32,6 +34,8 @@ public class Player : MonoBehaviour
 
 	AudioSource _audioSource;
 
+	int _attackIndex;
+
 	LayerMask _hitboxColliderLayer;
 	LayerMask _attackColliderLayer;
 
@@ -46,7 +50,7 @@ public class Player : MonoBehaviour
 
 	StateMachine<PlayerState> _fsm;
 	StateMachine<AttackState> _attackFSM;
-	Shapeshift.ShapeshiftState _shapeshiftState;
+	Shapeshift.ShapeshiftState _shapeshiftWhenAttack;
 
 	float _health;
 
@@ -71,10 +75,11 @@ public class Player : MonoBehaviour
 	{
 		_hitboxColliderLayer = LayerMask.NameToLayer("HitboxCollider");
 		_attackColliderLayer = LayerMask.NameToLayer("AttackCollider");
+
 		_movable = GetComponent<Movable>();
 		_animator = GetComponent<Animator>();
 		_renderer = GetComponent<SpriteRenderer>();
-		_audioSource = GetComponent<AudioSource> ();
+		_audioSource = GetComponent<AudioSource>();
 
 		_shapeshift = GetComponent<Shapeshift>();
 
@@ -91,6 +96,7 @@ public class Player : MonoBehaviour
 			}
 			else
 			{
+				_attackIndex = 0;
 				_fsm.ChangeState(PlayerState.Normal);
 			}
 		};
@@ -142,62 +148,61 @@ public class Player : MonoBehaviour
 		_screenShake.Shake();
 	}
 
-	private void AttackOne_Enter()
+	void BasicAttack_Enter()
 	{
-		_shapeshiftState = _shapeshift.CurrentState;
-		_animator.SetTrigger("AttackOne");
-
+		Debug.Log("BasicAttack");
+		_shapeshiftWhenAttack = _shapeshift.CurrentState;
 		_swingTime = Time.time;
-		TryDash(_config.attackOne);
+
+		_attackIndex++;
+		_shapeshift.SetRandomBasicAttackAnimation();
+		_animator.Play("BasicAttack", 1, 0f);
+		_swingTime = Time.time;
 	}
 
-	private void AttackOne_Update()
+	void BasicAttack_Update()
 	{
 		if (_swingTime + _config.attackSwingDuration < Time.time)
 		{
 			_attackFSM.ChangeState(AttackState.NoneAttack);
 			return;
 		}
+
 		if (_actions.StateActions[_shapeshift.CurrentState].WasPressed)
 		{
-			_attackFSM.ChangeState(AttackState.AttackTwo);
+			if (++_attackIndex >= _config.basicAttackCount)
+			{
+				_attackFSM.ChangeState(AttackState.SuperAttack);
+			}
+			else
+			{
+				_shapeshift.SetRandomBasicAttackAnimation();
+				_animator.Play("BasicAttack", 1, 0f);
+				_swingTime = Time.time;
+			}
 			return;
 		}
-		CheckEnemyHit(_config.attackOne);
+
+		CheckEnemyHit(_config.basicAttack);
 	}
 
-	private void AttackTwo_Enter()
+	void BasicAttack_Finally()
 	{
-		_animator.SetTrigger("AttackTwo");
-
-		_swingTime = Time.time;
-		TryDash(_config.attackTwo);
-	}
-
-	private void AttackTwo_Update()
-	{
-		if (_swingTime + _config.attackSwingDuration < Time.time)
-		{
-			_attackFSM.ChangeState(AttackState.NoneAttack);
-			return;
-		}
-		if (_actions.StateActions[_shapeshift.CurrentState].WasPressed)
-		{
-			_attackFSM.ChangeState(AttackState.SuperAttack);
-			return;
-		}
-
-		if (CheckEnemyHit(_config.attackTwo))
-		{
-		}
+		attackCollider.enabled = false;
 	}
 
 	private void SuperAttack_Enter()
 	{
-		_animator.SetTrigger("SuperAttack");
+		Debug.Log("SuperAttack");
+		_animator.Play("BoomMOFO", 1, 0f);
 
 		_attackStaggerTime = Time.time;
 		TryDash(_config.superAttack);
+	}
+
+	void SuperAttack_Finally()
+	{
+		attackCollider.enabled = false;
 	}
 
 	private void SuperAttack_Update()
@@ -283,35 +288,39 @@ public class Player : MonoBehaviour
 
 		if (candy)
 		{
-			_shapeshift.FSM.ChangeState(Shapeshift.ShapeshiftState.Candy);
-			if (_shapeshiftState != Shapeshift.ShapeshiftState.Candy)
+			if (_shapeshiftWhenAttack != Shapeshift.ShapeshiftState.Candy)
 			{
-				_attackFSM.ChangeState(AttackState.NoneAttack, StateTransition.Overwrite);
+				//_attackFSM.ChangeState(AttackState.NoneAttack, StateTransition.Overwrite);
+				_attackIndex = 0;
 			}
+			_shapeshift.FSM.ChangeState(Shapeshift.ShapeshiftState.Candy);
 		}
 		else if (lightning)
 		{
-			_shapeshift.FSM.ChangeState(Shapeshift.ShapeshiftState.Lightning);
-			if (_shapeshiftState != Shapeshift.ShapeshiftState.Lightning)
+			if (_shapeshiftWhenAttack != Shapeshift.ShapeshiftState.Lightning)
 			{
-				_attackFSM.ChangeState(AttackState.NoneAttack, StateTransition.Overwrite);
+				//_attackFSM.ChangeState(AttackState.NoneAttack, StateTransition.Overwrite);
+				_attackIndex = 0;
 			}
+			_shapeshift.FSM.ChangeState(Shapeshift.ShapeshiftState.Lightning);
 		}
 		else if (magic)
 		{
-			_shapeshift.FSM.ChangeState(Shapeshift.ShapeshiftState.Magic);
-			if (_shapeshiftState != Shapeshift.ShapeshiftState.Magic)
+			if (_shapeshiftWhenAttack != Shapeshift.ShapeshiftState.Magic)
 			{
-				_attackFSM.ChangeState(AttackState.NoneAttack, StateTransition.Overwrite);
+				//_attackFSM.ChangeState(AttackState.NoneAttack, StateTransition.Overwrite);
+				_attackIndex = 0;
 			}
+			_shapeshift.FSM.ChangeState(Shapeshift.ShapeshiftState.Magic);
 		}
 		else if (avocado)
 		{
-			_shapeshift.FSM.ChangeState(Shapeshift.ShapeshiftState.Avocado);
-			if (_shapeshiftState != Shapeshift.ShapeshiftState.Avocado)
+			if (_shapeshiftWhenAttack != Shapeshift.ShapeshiftState.Avocado)
 			{
 				_attackFSM.ChangeState(AttackState.NoneAttack, StateTransition.Overwrite);
+				_attackIndex = 0;
 			}
+			_shapeshift.FSM.ChangeState(Shapeshift.ShapeshiftState.Avocado);
 		}
 	}
 
@@ -321,7 +330,7 @@ public class Player : MonoBehaviour
 
 		if (attack)
 		{
-			_attackFSM.ChangeState(AttackState.AttackOne);
+			_attackFSM.ChangeState(AttackState.BasicAttack);
 		}
 	}
 

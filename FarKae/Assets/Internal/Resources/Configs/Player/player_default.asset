@@ -11,6 +11,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5ed24524506c1946b8d0521d61d9f96, type: 3}
   m_Name: player_default
   m_EditorClassIdentifier: 
+  basicAttackCount: 4
+  basicAttack:
+    damage: 30
+    doDash: 0
+    dashCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    dashLength: 0.3
+    dashDuration: 0.1
+    freezeDuration: 0.03
+    freezeValue: 0
   attackOne:
     damage: 30
     doDash: 0

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Experimental.Director;
 
 [CreateAssetMenu]
 public class StateConfig : ScriptableObject
@@ -24,6 +25,7 @@ public class StateConfig : ScriptableObject
 
 	public AnimationState idle;
 	public AnimationState move;
+	public AnimationState[] basicAttacks;
 	public AnimationState attackOne;
 	public AnimationState attackTwo;
 	public AnimationState superAttack;
