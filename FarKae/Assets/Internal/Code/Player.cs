@@ -65,6 +65,7 @@ public class Player : MonoBehaviour
 	Transform _transform;
 	private float _swingTime;
 	private float _attackStaggerTime;
+	private float _attackCooldownTimer;
 
 	public new Transform transform
 	{
@@ -151,13 +152,13 @@ public class Player : MonoBehaviour
 	void BasicAttack_Enter()
 	{
 		Debug.Log("BasicAttack");
-		_shapeshiftWhenAttack = _shapeshift.CurrentState;
 		_swingTime = Time.time;
 
 		_attackIndex++;
 		_shapeshift.SetRandomBasicAttackAnimation();
 		_animator.Play("BasicAttack", 1, 0f);
-		_swingTime = Time.time;
+		_swingTime = Time.time + _config.attackCooldown;
+		_attackCooldownTimer = Time.time;
 	}
 
 	void BasicAttack_Update()
@@ -168,7 +169,8 @@ public class Player : MonoBehaviour
 			return;
 		}
 
-		if (_actions.StateActions[_shapeshift.CurrentState].WasPressed)
+		if (_attackCooldownTimer + _config.attackCooldown < Time.time
+			&& _actions.StateActions[_shapeshift.CurrentState].WasPressed)
 		{
 			if (++_attackIndex >= _config.basicAttackCount)
 			{
@@ -178,7 +180,8 @@ public class Player : MonoBehaviour
 			{
 				_shapeshift.SetRandomBasicAttackAnimation();
 				_animator.Play("BasicAttack", 1, 0f);
-				_swingTime = Time.time;
+				_swingTime = Time.time + _config.attackCooldown;
+				_attackCooldownTimer = Time.time;
 			}
 			return;
 		}
