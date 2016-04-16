@@ -12,3 +12,19 @@ MonoBehaviour:
   m_Name: state_lightning
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 0, a: 1}
+  effect: {fileID: 140576, guid: 645c84e3e5a694449a1fa1ec100263bf, type: 2}
+  idle:
+    clip: {fileID: 7400000, guid: a30316a2082126b43af23be530467aa1, type: 2}
+    frameRate: 20
+  move:
+    clip: {fileID: 7400000, guid: 5db9c0060a78ccb4cbd2cade0ae2a0a0, type: 2}
+    frameRate: 10
+  attackOne:
+    clip: {fileID: 7400000, guid: d5a6d9e5755a15e41ba5d9487262ed54, type: 2}
+    frameRate: 10
+  attackTwo:
+    clip: {fileID: 7400000, guid: d5a6d9e5755a15e41ba5d9487262ed54, type: 2}
+    frameRate: 10
+  superAttack:
+    clip: {fileID: 7400000, guid: d5a6d9e5755a15e41ba5d9487262ed54, type: 2}
+    frameRate: 10

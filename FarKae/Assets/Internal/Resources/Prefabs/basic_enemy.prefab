@@ -151,7 +151,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.0001, y: 0.0001}
 --- !u!95 &9518192
 Animator:
   serializedVersion: 3
@@ -180,6 +180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5326516f08ed74b88626eb122809de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playStateChangeEffects: 0
+  _stateEffectSocket: {fileID: 0}
   _candyConfig: {fileID: 11400000, guid: 27e78883b4554c14b9fe3e998d6d6c40, type: 2}
   _lightningConfig: {fileID: 11400000, guid: 1fd6424dc7c42c24d9b3d67bd52a3acf, type: 2}
   _magicConfig: {fileID: 11400000, guid: c51cd286768256d45b284179c546b834, type: 2}

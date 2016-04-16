@@ -40,8 +40,8 @@ public class BasicEnemy : MonoBehaviour
 
 	public Shapeshift.ShapeshiftState ShapeshiftState
 	{
-		get { return _shapeshift.State; }
-		set { _shapeshift.State = value; }
+		get { return _shapeshift.CurrentState; }
+		set { _shapeshift.CurrentState = value; }
 	}
 
 	Transform _transform;
@@ -144,7 +144,7 @@ public class BasicEnemy : MonoBehaviour
 		if (_attackTime + _enemyConfig.attackInterval <= Time.time)
 		{
 			_attackTime = Time.time;
-			_animator.SetTrigger("Attack_Punch");
+			_animator.SetTrigger("Attack");
 		}
 
 		if (length > _enemyConfig.attackRange)
@@ -158,8 +158,10 @@ public class BasicEnemy : MonoBehaviour
 			return;
 		}
 
-		var min = attackCollider.offset + (Vector2)transform.position + attackCollider.size / 2.0f;
-		var max = min + attackCollider.offset;
+		var min = attackCollider.offset;
+		min.x *= _movable.GetDirection();
+		min += (Vector2)transform.position;
+		var max = min + (Vector2)attackCollider.bounds.max;
 
 		if (Physics2D.OverlapAreaNonAlloc(min, max, _overlappedHitColliders) <= 0)
 		{
@@ -173,13 +175,46 @@ public class BasicEnemy : MonoBehaviour
 				&& LayerMask.LayerToName(otherCollider.gameObject.layer) == "HitboxCollider"
 				&& otherCollider.gameObject != gameObject)
 			{
-				Debug.LogFormat("Hit {0}", otherCollider.name);
-				var enemy = otherCollider.GetComponentInParent<BasicEnemy>();
-				if (enemy)
+				var player = otherCollider.GetComponentInParent<Player>();
+				if (player)
 				{
-					enemy.Damage(50f);
+					player.Damage(50f);
 				}
 			}
 		}
 	}
+#if UNITY_EDITOR
+	void OnDrawGizmos()
+	{
+		var moveCollider = GetComponent<BoxCollider2D>();
+		if (moveCollider)
+		{
+			var origin = moveCollider.offset;
+			origin.x *= _movable ? _movable.GetDirection() : 1f;
+			origin += (Vector2)transform.position;
+
+			Gizmos.color = new Color(0f, 1f, 0f, 0.3f);
+			Gizmos.DrawCube(origin, moveCollider.size);
+		}
+
+		if (attackCollider)
+		{
+			var origin = attackCollider.offset;
+			origin.x *= _movable ? _movable.GetDirection() : 1f;
+			origin += (Vector2)transform.position;
+
+			Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
+			Gizmos.DrawCube(origin, attackCollider.size);
+		}
+		if (hitCollider)
+		{
+			var origin = hitCollider.offset;
+			origin.x *= _movable ? _movable.GetDirection() : 1f;
+			origin += (Vector2)transform.position;
+
+			Gizmos.color = new Color(1f, 1f, 0f, 0.3f);
+			Gizmos.DrawCube(origin, hitCollider.size);
+		}
+	}
+#endif
 }

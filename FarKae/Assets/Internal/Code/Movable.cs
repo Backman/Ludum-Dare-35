@@ -77,6 +77,7 @@ public class Movable : MonoBehaviour
 		{
 			_animator.SetBool("IsMoving", isMoving);
 		}
+		_direction = Vector2.zero;
 	}
 
 	void FixedUpdate()
@@ -87,5 +88,10 @@ public class Movable : MonoBehaviour
 	public void Move(Vector2 direction)
 	{
 		_direction = direction;
+	}
+
+	public float GetDirection()
+	{
+		return direction == MoveDirection.Right ? 1f : -1f;
 	}
 }

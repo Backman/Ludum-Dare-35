@@ -45,7 +45,6 @@ public class BlinkManager : MonoBehaviour
 				toRemove.Add(blink.Key);
 				continue;
 			}
-			Debug.LogFormat("Updating blink: {0}", blink.Key.name);
 			var state = blink.Value;
 			if (Time.unscaledTime > state.EndTime)
 			{

@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 481608}
   - 198: {fileID: 19816088}
   - 199: {fileID: 19913352}
+  - 114: {fileID: 11458236}
   m_Layer: 0
   m_Name: colour_transformation_blue
   m_TagString: Untagged
@@ -29,6 +30,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11458236
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 111632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d7e242c775438c4ebbd98e77ffa396b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroy: 0
 --- !u!198 &19816088
 ParticleSystem:
   m_ObjectHideFlags: 1

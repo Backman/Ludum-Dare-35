@@ -12,3 +12,19 @@ MonoBehaviour:
   m_Name: state_avocado
   m_EditorClassIdentifier: 
   color: {r: 0, g: 1, b: 0, a: 1}
+  effect: {fileID: 179560, guid: 3fb9b008fbd150b4ba9f790b5c8bce21, type: 2}
+  idle:
+    clip: {fileID: 7400000, guid: 9e81e498b4baef64e8da0399f8c8835f, type: 2}
+    frameRate: 20
+  move:
+    clip: {fileID: 7400000, guid: bb42029a74ff801428e0eacd6a8cde03, type: 2}
+    frameRate: 10
+  attackOne:
+    clip: {fileID: 7400000, guid: 9c11e9668fb10024e8e91dd52a162429, type: 2}
+    frameRate: 10
+  attackTwo:
+    clip: {fileID: 7400000, guid: 9c11e9668fb10024e8e91dd52a162429, type: 2}
+    frameRate: 10
+  superAttack:
+    clip: {fileID: 7400000, guid: 9c11e9668fb10024e8e91dd52a162429, type: 2}
+    frameRate: 10

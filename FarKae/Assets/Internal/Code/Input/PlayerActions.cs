@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using InControl;
+using System.Collections.Generic;
 
 public class PlayerActions : PlayerActionSet
 {
@@ -18,6 +19,8 @@ public class PlayerActions : PlayerActionSet
 
 	public PlayerTwoAxisAction Move;
 
+	public Dictionary<Shapeshift.ShapeshiftState, PlayerAction> StateActions = new Dictionary<Shapeshift.ShapeshiftState, PlayerAction>();
+
 	public PlayerActions()
 	{
 		Attack = CreatePlayerAction("Attack");
@@ -32,6 +35,11 @@ public class PlayerActions : PlayerActionSet
 		Avocado = CreatePlayerAction("Poop");
 
 		Move = CreateTwoAxisPlayerAction(Left, Right, Down, Up);
+
+		StateActions[Shapeshift.ShapeshiftState.Candy] = Candy;
+		StateActions[Shapeshift.ShapeshiftState.Lightning] = Lightning;
+		StateActions[Shapeshift.ShapeshiftState.Magic] = Magic;
+		StateActions[Shapeshift.ShapeshiftState.Avocado] = Avocado;
 	}
 
 	public static PlayerActions CreateWithDefaultBindings()

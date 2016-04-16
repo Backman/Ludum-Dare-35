@@ -96,9 +96,9 @@ AnimationClip:
         tangentMode: 10
       - time: 0.33333334
         value: 0.2272891
-        inSlope: -1.1590663
-        outSlope: -1.1590663
-        tangentMode: 10
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
       - time: 0.5
         value: 0.22728908
         inSlope: -0.000000089406974
@@ -116,19 +116,19 @@ AnimationClip:
       m_Curve:
       - time: 0
         value: 1
-        inSlope: -2.4025984
-        outSlope: -2.4025984
+        inSlope: -2.5050244
+        outSlope: -2.5050244
         tangentMode: 10
       - time: 0.33333334
-        value: 0.19913387
-        inSlope: -1.3045356
-        outSlope: -1.3045356
-        tangentMode: 10
+        value: 0.16499183
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
       - time: 0.5
         value: 0.16472173
-        inSlope: -0.20647289
-        outSlope: -0.20647289
-        tangentMode: 10
+        inSlope: 0.035611708
+        outSlope: 0.035611708
+        tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -302,9 +302,9 @@ AnimationClip:
         tangentMode: 10
       - time: 0.33333334
         value: 0.2272891
-        inSlope: -1.1590663
-        outSlope: -1.1590663
-        tangentMode: 10
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
       - time: 0.5
         value: 0.22728908
         inSlope: -0.000000089406974
@@ -322,19 +322,19 @@ AnimationClip:
       m_Curve:
       - time: 0
         value: 1
-        inSlope: -2.4025984
-        outSlope: -2.4025984
+        inSlope: -2.5050244
+        outSlope: -2.5050244
         tangentMode: 10
       - time: 0.33333334
-        value: 0.19913387
-        inSlope: -1.3045356
-        outSlope: -1.3045356
-        tangentMode: 10
+        value: 0.16499183
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
       - time: 0.5
         value: 0.16472173
-        inSlope: -0.20647289
-        outSlope: -0.20647289
-        tangentMode: 10
+        inSlope: 0.035611708
+        outSlope: 0.035611708
+        tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -347,8 +347,15 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
   m_Events:
+  - time: 0.5
+    functionName: AllowAttack
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.6666667
-    functionName: ChangeState
+    functionName: set_State
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
