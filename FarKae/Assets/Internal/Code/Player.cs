@@ -6,10 +6,8 @@ public class Player : MonoBehaviour
 {
 	public enum State
 	{
-		Candy,
-		Lightning,
-		Crystal,
-		Avocado
+		Normal,
+		Attacking,
 	}
 
 	public float dashRepeatDuration = 0.3f;
@@ -27,20 +25,12 @@ public class Player : MonoBehaviour
 	SpriteRenderer _renderer;
 	Movable _movable;
 	PlayerActions _actions;
-
-
-	StateMachine<State> _fsm;
+	Shapeshift _shapeshift;
 
 	Transform _transform;
 	public new Transform transform
 	{
 		get { return _transform == null ? (_transform = GetComponent<Transform>()) : _transform; }
-	}
-
-	public State CurrentState
-	{
-		get { return _fsm.State; }
-		set { _fsm.ChangeState(value); }
 	}
 
 	void Awake()
@@ -49,9 +39,8 @@ public class Player : MonoBehaviour
 		_animator = GetComponent<Animator>();
 		_renderer = GetComponent<SpriteRenderer>();
 
-		_fsm = StateMachine<State>.Initialize(this);
-		_fsm.Changed += StateChanged;
-		_fsm.ChangeState(State.Candy);
+		_shapeshift = GetComponent<Shapeshift>();
+		_shapeshift.FSM.Changed += ShapeshiftStateChanged;
 	}
 
 	void OnEnable()
@@ -75,73 +64,28 @@ public class Player : MonoBehaviour
 
 		var candy = _actions.Candy.WasPressed;
 		var lightning = _actions.Lightning.WasPressed;
-		var piss = _actions.Crystal.WasPressed;
-		var poop = _actions.Avocado.WasPressed;
+		var magic = _actions.Magic.WasPressed;
+		var avocado = _actions.Avocado.WasPressed;
 
-		switch (_fsm.State)
+		if (candy)
 		{
-			case State.Candy:
-				attack = candy;
-				if (lightning)
-				{
-					_fsm.ChangeState(State.Lightning);
-				}
-				if (piss)
-				{
-					_fsm.ChangeState(State.Crystal);
-				}
-				if (poop)
-				{
-					_fsm.ChangeState(State.Avocado);
-				}
-				break;
-			case State.Lightning:
-				attack = lightning;
-				if (candy)
-				{
-					_fsm.ChangeState(State.Candy);
-				}
-				if (piss)
-				{
-					_fsm.ChangeState(State.Crystal);
-				}
-				if (poop)
-				{
-					_fsm.ChangeState(State.Avocado);
-				}
-				break;
-			case State.Crystal:
-				attack = piss;
-				if (candy)
-				{
-					_fsm.ChangeState(State.Candy);
-				}
-				if (lightning)
-				{
-					_fsm.ChangeState(State.Lightning);
-				}
-				if (poop)
-				{
-					_fsm.ChangeState(State.Avocado);
-				}
-				break;
-			case State.Avocado:
-				attack = poop;
-				if (candy)
-				{
-					_fsm.ChangeState(State.Candy);
-				}
-				if (lightning)
-				{
-					_fsm.ChangeState(State.Lightning);
-				}
-				if (piss)
-				{
-					_fsm.ChangeState(State.Crystal);
-				}
-				break;
-			default:
-				break;
+			attack = true;
+			_shapeshift.FSM.ChangeState(Shapeshift.State.Candy);
+		}
+		else if (lightning)
+		{
+			attack = true;
+			_shapeshift.FSM.ChangeState(Shapeshift.State.Lightning);
+		}
+		else if (magic)
+		{
+			attack = true;
+			_shapeshift.FSM.ChangeState(Shapeshift.State.Magic);
+		}
+		else if (avocado)
+		{
+			attack = true;
+			_shapeshift.FSM.ChangeState(Shapeshift.State.Avocado);
 		}
 
 		if (attack)
@@ -150,63 +94,44 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	void StateChanged(State state)
+	void ShapeshiftStateChanged(Shapeshift.State state)
 	{
 		switch (state)
 		{
-			case State.Candy:
-				_renderer.color = _candyConfig.color;
+			case Shapeshift.State.Candy:
+				_animator.CrossFade("Candy.Idle", 0f, 0, 0f);
 				break;
-			case State.Lightning:
-				_renderer.color = _lightningConfig.color;
+			case Shapeshift.State.Lightning:
+				_animator.CrossFade("Lightning.Idle", 0f, 0, 0f);
 				break;
-			case State.Crystal:
-				_renderer.color = _crystalConfig.color;
+			case Shapeshift.State.Magic:
+				_animator.CrossFade("Magic.Idle", 0f, 0, 0f);
 				break;
-			case State.Avocado:
-				_renderer.color = _avocadoConfig.color;
+			case Shapeshift.State.Avocado:
+				_animator.CrossFade("Avocado.Idle", 0f, 0, 0f);
 				break;
 			default:
 				break;
 		}
 	}
 
-	void Candy_Enter()
+	void OnCandyEnter()
 	{
-		_animator.CrossFade("Candy", 0f, 0, 0f);
+		_animator.CrossFade("Candy.Idle", 0f, 0, 0f);
 	}
 
-	void Candy_Update()
+	void OnLightningEnter()
 	{
+		_animator.CrossFade("Lightning.Idle", 0f, 0, 0f);
 	}
 
-	void Lightning_Enter()
+	void OnMagicEnter()
 	{
-		_animator.CrossFade("Lightning", 0f, 0, 0f);
+		_animator.CrossFade("Magic.Idle", 0f, 0, 0f);
 	}
 
-	void Lightning_Update()
+	void OnAvocadoEnter()
 	{
-		Debug.Log("Lightning State");
-	}
-
-	void Crystal_Enter()
-	{
-		_animator.CrossFade("Crystal", 0f, 0, 0f);
-	}
-
-	void Crystal_Update()
-	{
-		Debug.Log("Crystal State");
-	}
-
-	void Avocado_Enter()
-	{
-		_animator.CrossFade("Avocado", 0f, 0, 0f);
-	}
-
-	void Avocado_Update()
-	{
-		Debug.Log("Avocado State");
+		_animator.CrossFade("Avocado.Idle", 0f, 0, 0f);
 	}
 }

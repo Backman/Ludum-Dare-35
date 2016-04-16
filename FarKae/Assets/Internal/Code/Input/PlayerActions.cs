@@ -13,7 +13,7 @@ public class PlayerActions : PlayerActionSet
 
 	public PlayerAction Candy;
 	public PlayerAction Lightning;
-	public PlayerAction Crystal;
+	public PlayerAction Magic;
 	public PlayerAction Avocado;
 
 	public PlayerTwoAxisAction Move;
@@ -28,7 +28,7 @@ public class PlayerActions : PlayerActionSet
 
 		Candy = CreatePlayerAction("Candy");
 		Lightning= CreatePlayerAction("Lightning");
-		Crystal = CreatePlayerAction("Piss");
+		Magic = CreatePlayerAction("Piss");
 		Avocado = CreatePlayerAction("Poop");
 
 		Move = CreateTwoAxisPlayerAction(Left, Right, Down, Up);
@@ -44,12 +44,12 @@ public class PlayerActions : PlayerActionSet
 
 		actions.Candy.AddDefaultBinding(Key.I);
 		actions.Lightning.AddDefaultBinding(Key.O);
-		actions.Crystal.AddDefaultBinding(Key.K);
+		actions.Magic.AddDefaultBinding(Key.K);
 		actions.Avocado.AddDefaultBinding(Key.L);
 
 		actions.Candy.AddDefaultBinding(InputControlType.Action1);
 		actions.Lightning.AddDefaultBinding(InputControlType.Action2);
-		actions.Crystal.AddDefaultBinding(InputControlType.Action3);
+		actions.Magic.AddDefaultBinding(InputControlType.Action3);
 		actions.Avocado.AddDefaultBinding(InputControlType.Action4);
 
 		actions.Up.AddDefaultBinding(Key.UpArrow);

@@ -25,6 +25,12 @@ public class Movable : MonoBehaviour
 	SpriteRenderer _renderer;
 	Rigidbody2D _rb;
 
+	Transform _transform;
+	public new Transform transform
+	{
+		get { return _transform == null ? (_transform = GetComponent<Transform>()) : _transform; }
+	}
+
 	void Awake()
 	{
 		_rb  = GetComponent<Rigidbody2D>();
@@ -50,7 +56,21 @@ public class Movable : MonoBehaviour
 
 		if (_renderer && isMoving)
 		{
-			_renderer.flipX = _velocity.x < 0f;
+			if (direction == MoveDirection.Left
+				&& transform.localScale.x > 0f)
+			{
+				var scale = transform.localScale;
+				scale.x = -1f;
+				transform.localScale = scale;
+			}
+			else if (direction == MoveDirection.Right
+				&& transform.localScale.x < 0f)
+			{
+				var scale = transform.localScale;
+				scale.x = 1f;
+				transform.localScale = scale;
+			}
+			//_renderer.flipX = _velocity.x < 0f;
 		}
 
 		if (_animator)
