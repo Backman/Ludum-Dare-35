@@ -28,7 +28,9 @@ public class Player : MonoBehaviour
 	HealthConfig _healthConfig;
 
 	public BoxCollider2D attackCollider;
-	public BoxCollider2D hitCollider; 
+	public BoxCollider2D hitCollider;
+
+	AudioSource _audioSource;
 
 	LayerMask _hitboxColliderLayer;
 	LayerMask _attackColliderLayer;
@@ -72,6 +74,7 @@ public class Player : MonoBehaviour
 		_movable = GetComponent<Movable>();
 		_animator = GetComponent<Animator>();
 		_renderer = GetComponent<SpriteRenderer>();
+		_audioSource = GetComponent<AudioSource> ();
 
 		_shapeshift = GetComponent<Shapeshift>();
 
@@ -231,6 +234,10 @@ public class Player : MonoBehaviour
 				if (enemy && _shapeshift.CurrentState == enemy.ShapeshiftState
 					&& !_attackedEnemies.Contains(otherCollider))
 				{
+					if (_attackedEnemies.Count == 0 && !_audioSource.isPlaying) {
+						_audioSource.Play ();
+					}
+						
 					Camera.main.GetComponent<ScreenShake>().Shake();
 					enemy.Damage(damage);
 					_attackedEnemies.Add(otherCollider);
