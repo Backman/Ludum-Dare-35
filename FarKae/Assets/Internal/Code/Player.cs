@@ -3,6 +3,7 @@ using System.Collections;
 using MonsterLove.StateMachine;
 using System;
 using InControl;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class Player : MonoBehaviour
 
 	public enum AttackState
 	{
-		None,
+		NoneAttack,
 		AttackOne,
 		AttackTwo,
 		SuperAttack,
@@ -29,9 +30,11 @@ public class Player : MonoBehaviour
 	public BoxCollider2D attackCollider;
 	public BoxCollider2D hitCollider; 
 
-	public bool canAttack = true;
+	LayerMask _hitboxColliderLayer;
+	LayerMask _attackColliderLayer;
 
 	BoxCollider2D[] _overlappedHitColliders = new BoxCollider2D[8];
+	List<BoxCollider2D> _attackedEnemies = new List<BoxCollider2D>();
 
 	Animator _animator;
 	SpriteRenderer _renderer;
@@ -64,6 +67,8 @@ public class Player : MonoBehaviour
 
 	private void Awake()
 	{
+		_hitboxColliderLayer = LayerMask.NameToLayer("HitboxCollider");
+		_attackColliderLayer = LayerMask.NameToLayer("AttackCollider");
 		_movable = GetComponent<Movable>();
 		_animator = GetComponent<Animator>();
 		_renderer = GetComponent<SpriteRenderer>();
@@ -71,7 +76,21 @@ public class Player : MonoBehaviour
 		_shapeshift = GetComponent<Shapeshift>();
 
 		_fsm = StateMachine<PlayerState>.Initialize(this, PlayerState.Normal);
-		_attackFSM = StateMachine<AttackState>.Initialize(this, AttackState.None);
+
+		_attackFSM = StateMachine<AttackState>.Initialize(this, AttackState.NoneAttack);
+		_attackFSM.Changed += (state) =>
+		{
+			attackCollider.enabled = false;
+			_attackedEnemies.Clear();
+			if (state != AttackState.NoneAttack)
+			{
+				_fsm.ChangeState(PlayerState.Attacking);
+			}
+			else
+			{
+				_fsm.ChangeState(PlayerState.Normal);
+			}
+		};
 
 		_health = _healthConfig.maxHealth;
 		_screenShake = Camera.main.GetComponent<ScreenShake>();
@@ -94,10 +113,6 @@ public class Player : MonoBehaviour
 
 	public void Damage(float amount)
 	{
-		if (State == PlayerState.Hit)
-		{
-			return;
-		}
 		_health -= amount;
 		BlinkManager.instance.AddBlink(gameObject, Color.white, 0.1f);
 		if (_health > 0f)
@@ -111,49 +126,33 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	public void AllowAttack()
+	void TryDash(PlayerConfig.Attack attack)
 	{
-		canAttack = true;
+		if (attack.doDash)
+		{
+			_movable.Dash(attack.dashLength, attack.dashDuration, attack.dashCurve);
+		}
 	}
 
 	private void ShapeshiftStateChanged(Shapeshift.ShapeshiftState state)
 	{
 		_screenShake.Shake();
-		switch (state)
-		{
-			case Shapeshift.ShapeshiftState.Candy:
-				//_animator.CrossFade("Candy.Idle", 0f, 0, 0f);
-				break;
-			case Shapeshift.ShapeshiftState.Lightning:
-				//_animator.CrossFade("Lightning.Idle", 0f, 0, 0f);
-				break;
-			case Shapeshift.ShapeshiftState.Magic:
-				//_animator.CrossFade("Magic.Idle", 0f, 0, 0f);
-				break;
-			case Shapeshift.ShapeshiftState.Avocado:
-				//_animator.CrossFade("Avocado.Idle", 0f, 0, 0f);
-				break;
-			default:
-				break;
-		}
 	}
 
 	private void AttackOne_Enter()
 	{
-		_fsm.ChangeState(PlayerState.Attacking);
-		canAttack = false;
 		_shapeshiftState = _shapeshift.CurrentState;
-		_movable.Move(Vector2.zero);
 		_animator.SetTrigger("AttackOne");
 
 		_swingTime = Time.time;
+		TryDash(_config.attackOne);
 	}
 
 	private void AttackOne_Update()
 	{
 		if (_swingTime + _config.attackSwingDuration < Time.time)
 		{
-			_attackFSM.ChangeState(AttackState.None);
+			_attackFSM.ChangeState(AttackState.NoneAttack);
 			return;
 		}
 		if (_actions.StateActions[_shapeshift.CurrentState].WasPressed)
@@ -161,23 +160,22 @@ public class Player : MonoBehaviour
 			_attackFSM.ChangeState(AttackState.AttackTwo);
 			return;
 		}
-		CheckEnemyHit(_config.firstAttackDamage);
+		CheckEnemyHit(_config.attackOne.damage);
 	}
 
 	private void AttackTwo_Enter()
 	{
-		canAttack = false;
-		_movable.Move(Vector2.zero);
 		_animator.SetTrigger("AttackTwo");
 
 		_swingTime = Time.time;
+		TryDash(_config.attackTwo);
 	}
 
 	private void AttackTwo_Update()
 	{
 		if (_swingTime + _config.attackSwingDuration < Time.time)
 		{
-			_attackFSM.ChangeState(AttackState.None);
+			_attackFSM.ChangeState(AttackState.NoneAttack);
 			return;
 		}
 		if (_actions.StateActions[_shapeshift.CurrentState].WasPressed)
@@ -185,23 +183,24 @@ public class Player : MonoBehaviour
 			_attackFSM.ChangeState(AttackState.SuperAttack);
 			return;
 		}
-		CheckEnemyHit(_config.secondAttackDamage);
+		CheckEnemyHit(_config.attackTwo.damage);
 	}
+
 	private void SuperAttack_Enter()
 	{
-		_movable.Move(Vector2.zero);
 		_animator.SetTrigger("SuperAttack");
 
 		_attackStaggerTime = Time.time;
+		TryDash(_config.superAttack);
 	}
 
 	private void SuperAttack_Update()
 	{
-		CheckEnemyHit(_config.superAttackDamage);
+		CheckEnemyHit(_config.superAttack.damage);
 
 		if (_attackStaggerTime + _config.attackStaggerDuration < Time.time)
 		{
-			_attackFSM.ChangeState(AttackState.None);
+			_attackFSM.ChangeState(AttackState.NoneAttack);
 			_fsm.ChangeState(PlayerState.Normal);
 		}
 	}
@@ -218,7 +217,7 @@ public class Player : MonoBehaviour
 		min += (Vector2)transform.position;
 		var max = min + (Vector2)attackCollider.bounds.max;
 
-		if (Physics2D.OverlapAreaNonAlloc(min, max, _overlappedHitColliders) <= 0)
+		if (Physics2D.OverlapAreaNonAlloc(min, max, _overlappedHitColliders, (1 << _hitboxColliderLayer.value) | (1 << _attackColliderLayer.value)) <= 0)
 		{
 			return;
 		}
@@ -226,15 +225,15 @@ public class Player : MonoBehaviour
 		for (int i = 0; i < _overlappedHitColliders.Length; i++)
 		{
 			var otherCollider = _overlappedHitColliders[i];
-			if (otherCollider
-				&& LayerMask.LayerToName(otherCollider.gameObject.layer) == "HitboxCollider"
-				&& otherCollider.gameObject != gameObject)
+			if (otherCollider && otherCollider.gameObject != gameObject)
 			{
 				var enemy = otherCollider.GetComponentInParent<BasicEnemy>();
-				if (enemy && _shapeshift.CurrentState == enemy.ShapeshiftState)
+				if (enemy && _shapeshift.CurrentState == enemy.ShapeshiftState
+					&& !_attackedEnemies.Contains(otherCollider))
 				{
 					Camera.main.GetComponent<ScreenShake>().Shake();
 					enemy.Damage(damage);
+					_attackedEnemies.Add(otherCollider);
 				}
 			}
 		}
@@ -254,11 +253,6 @@ public class Player : MonoBehaviour
 		var move = _actions.Move.Value;
 
 		_movable.Move(move);
-	}
-
-	void None_Update()
-	{
-		bool attack = false;
 
 		var candy = _actions.Candy.WasPressed;
 		var lightning = _actions.Lightning.WasPressed;
@@ -267,24 +261,41 @@ public class Player : MonoBehaviour
 
 		if (candy)
 		{
-			attack = true;
 			_shapeshift.FSM.ChangeState(Shapeshift.ShapeshiftState.Candy);
+			if (_shapeshiftState != Shapeshift.ShapeshiftState.Candy)
+			{
+				_attackFSM.ChangeState(AttackState.NoneAttack, StateTransition.Overwrite);
+			}
 		}
 		else if (lightning)
 		{
-			attack = true;
 			_shapeshift.FSM.ChangeState(Shapeshift.ShapeshiftState.Lightning);
+			if (_shapeshiftState != Shapeshift.ShapeshiftState.Lightning)
+			{
+				_attackFSM.ChangeState(AttackState.NoneAttack, StateTransition.Overwrite);
+			}
 		}
 		else if (magic)
 		{
-			attack = true;
 			_shapeshift.FSM.ChangeState(Shapeshift.ShapeshiftState.Magic);
+			if (_shapeshiftState != Shapeshift.ShapeshiftState.Magic)
+			{
+				_attackFSM.ChangeState(AttackState.NoneAttack, StateTransition.Overwrite);
+			}
 		}
 		else if (avocado)
 		{
-			attack = true;
 			_shapeshift.FSM.ChangeState(Shapeshift.ShapeshiftState.Avocado);
+			if (_shapeshiftState != Shapeshift.ShapeshiftState.Avocado)
+			{
+				_attackFSM.ChangeState(AttackState.NoneAttack, StateTransition.Overwrite);
+			}
 		}
+	}
+
+	void NoneAttack_Update()
+	{
+		bool attack = _actions.StateActions[_shapeshift.CurrentState].WasPressed;
 
 		if (attack)
 		{

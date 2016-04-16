@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 423132}
   - 61: {fileID: 6185068}
-  m_Layer: 11
+  m_Layer: 9
   m_Name: collider_attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playStateChangeEffects: 0
+  applyColors: 1
   _stateEffectSocket: {fileID: 0}
   _candyConfig: {fileID: 11400000, guid: 27e78883b4554c14b9fe3e998d6d6c40, type: 2}
   _lightningConfig: {fileID: 11400000, guid: 1fd6424dc7c42c24d9b3d67bd52a3acf, type: 2}

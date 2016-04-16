@@ -88,7 +88,6 @@ public class BlinkManager : MonoBehaviour
 			_blinks.Remove(toRemove[i]);
 		}
 		toRemove.Clear();
-
 	}
 
 	public void AddBlink(GameObject source, Color color, float duration, AnimationCurve curve = null)
@@ -99,6 +98,16 @@ public class BlinkManager : MonoBehaviour
 		state.EndTime = Time.unscaledTime + duration;
 		state.Curve = curve;
 		state.Renderers = source.GetComponentsInChildren<Renderer>();
+
+		for (int j = 0; j < state.Renderers.Length; j++)
+		{
+			var renderer = state.Renderers[j];
+			renderer.GetPropertyBlock(_block);
+			_block.SetColor("_BlinkColor", new Color(0, 0, 0, 0));
+			renderer.SetPropertyBlock(_block);
+		}
+
+		_block.Clear();
 		_blinks[source] = state;
 	}
 }

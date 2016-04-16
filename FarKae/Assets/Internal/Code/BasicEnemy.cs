@@ -20,6 +20,8 @@ public class BasicEnemy : MonoBehaviour
 	public BoxCollider2D attackCollider;
 	public BoxCollider2D hitCollider;
 
+	bool _attackedPlayer;
+
 	BoxCollider2D[] _overlappedHitColliders = new BoxCollider2D[8];
 
 	Animator _animator;
@@ -72,12 +74,8 @@ public class BasicEnemy : MonoBehaviour
 
 	public void Damage(float amount)
 	{
-		if (_fsm.State == EnemyState.Hit)
-		{
-			return;
-		}
-
 		_health -= amount;
+		Debug.LogFormat("Damage");
 		if (_health <= 0)
 		{
 			WaveController.instance.RemoveEnemy(gameObject);
@@ -87,7 +85,6 @@ public class BasicEnemy : MonoBehaviour
 		{
 			_fsm.ChangeState(EnemyState.Hit);
 		}
-
 	}
 
 	void StateChanged(EnemyState state)
@@ -176,13 +173,20 @@ public class BasicEnemy : MonoBehaviour
 				&& otherCollider.gameObject != gameObject)
 			{
 				var player = otherCollider.GetComponentInParent<Player>();
-				if (player)
+				if (player && !_attackedPlayer)
 				{
+					_attackedPlayer = true;
 					player.Damage(50f);
 				}
 			}
 		}
 	}
+
+	void Attack_Finally()
+	{
+		_attackedPlayer = false;
+	}
+
 #if UNITY_EDITOR
 	void OnDrawGizmos()
 	{

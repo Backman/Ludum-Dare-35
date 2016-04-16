@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class Movable : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class Movable : MonoBehaviour
 	Animator _animator;
 	SpriteRenderer _renderer;
 	Rigidbody2D _rb;
+
+	Tween _dashTween;
 
 	Transform _transform;
 	public new Transform transform
@@ -82,12 +85,27 @@ public class Movable : MonoBehaviour
 
 	void FixedUpdate()
 	{
+		if (_dashTween != null && _dashTween.IsPlaying())
+		{
+			return;
+		}
 		_rb.velocity = _velocity;
 	}
 
 	public void Move(Vector2 direction)
 	{
 		_direction = direction;
+	}
+
+	public void Dash(float length, float duration, AnimationCurve curve)
+	{
+		if (_dashTween != null && _dashTween.IsPlaying())
+		{
+			_dashTween.Kill(false);
+		}
+
+		_dashTween = _rb.DOMoveX(_rb.position.x + (GetDirection() * length), duration)
+			.SetEase(curve);
 	}
 
 	public float GetDirection()
