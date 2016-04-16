@@ -125,7 +125,7 @@ public class Player : MonoBehaviour
 		else
 		{
 			State = PlayerState.Hit;
-			Debug.LogErrorFormat("You fuckign dieadf");
+			Debug.LogErrorFormat("You fucking died");
 		}
 	}
 
@@ -163,7 +163,7 @@ public class Player : MonoBehaviour
 			_attackFSM.ChangeState(AttackState.AttackTwo);
 			return;
 		}
-		CheckEnemyHit(_config.attackOne.damage);
+		CheckEnemyHit(_config.attackOne);
 	}
 
 	private void AttackTwo_Enter()
@@ -186,7 +186,10 @@ public class Player : MonoBehaviour
 			_attackFSM.ChangeState(AttackState.SuperAttack);
 			return;
 		}
-		CheckEnemyHit(_config.attackTwo.damage);
+
+		if (CheckEnemyHit(_config.attackTwo))
+		{
+		}
 	}
 
 	private void SuperAttack_Enter()
@@ -199,20 +202,24 @@ public class Player : MonoBehaviour
 
 	private void SuperAttack_Update()
 	{
-		CheckEnemyHit(_config.superAttack.damage);
-
 		if (_attackStaggerTime + _config.attackStaggerDuration < Time.time)
 		{
 			_attackFSM.ChangeState(AttackState.NoneAttack);
 			_fsm.ChangeState(PlayerState.Normal);
+			return;
+		}
+
+		if (CheckEnemyHit(_config.superAttack))
+		{
+			StartCoroutine(_actions.Vibrate(1f, 0.3f));
 		}
 	}
 
-	private void CheckEnemyHit(float damage)
+	private bool CheckEnemyHit(PlayerConfig.Attack attack)
 	{
 		if (!attackCollider || !attackCollider.enabled)
 		{
-			return;
+			return false;
 		}
 
 		var min = attackCollider.offset;
@@ -222,9 +229,10 @@ public class Player : MonoBehaviour
 
 		if (Physics2D.OverlapAreaNonAlloc(min, max, _overlappedHitColliders, (1 << _hitboxColliderLayer.value) | (1 << _attackColliderLayer.value)) <= 0)
 		{
-			return;
+			return false;
 		}
 
+		bool result = false;
 		for (int i = 0; i < _overlappedHitColliders.Length; i++)
 		{
 			var otherCollider = _overlappedHitColliders[i];
@@ -237,13 +245,20 @@ public class Player : MonoBehaviour
 					if (_attackedEnemies.Count == 0 && !_audioSource.isPlaying) {
 						_audioSource.Play ();
 					}
-						
+					
+					result = true;
 					Camera.main.GetComponent<ScreenShake>().Shake();
-					enemy.Damage(damage);
+					enemy.Damage(attack.damage);
 					_attackedEnemies.Add(otherCollider);
 				}
 			}
 		}
+
+		if (result)
+		{
+			FreezeFrameController.instance.DoFreeze(attack.freezeDuration, attack.freezeValue);
+		}
+		return result;
 	}
 
 	private void Hit_Enter()

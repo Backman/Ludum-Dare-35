@@ -32,6 +32,8 @@ MonoBehaviour:
       m_RotationOrder: 0
     dashLength: 0.3
     dashDuration: 0.1
+    freezeDuration: 0.03
+    freezeValue: 0
   attackTwo:
     damage: 40
     doDash: 0
@@ -53,6 +55,8 @@ MonoBehaviour:
       m_RotationOrder: 0
     dashLength: 0.3
     dashDuration: 0.1
+    freezeDuration: 0.03
+    freezeValue: 0
   superAttack:
     damage: 50
     doDash: 0
@@ -74,5 +78,7 @@ MonoBehaviour:
       m_RotationOrder: 0
     dashLength: 0.3
     dashDuration: 0.1
+    freezeDuration: 0.2
+    freezeValue: 0
   attackStaggerDuration: 0.3
   attackSwingDuration: 1

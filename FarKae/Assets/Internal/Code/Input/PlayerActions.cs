@@ -19,6 +19,9 @@ public class PlayerActions : PlayerActionSet
 
 	public PlayerTwoAxisAction Move;
 
+	public bool isVibrating
+	{ get; private set; }
+
 	public Dictionary<Shapeshift.ShapeshiftState, PlayerAction> StateActions = new Dictionary<Shapeshift.ShapeshiftState, PlayerAction>();
 
 	public PlayerActions()
@@ -42,6 +45,20 @@ public class PlayerActions : PlayerActionSet
 		StateActions[Shapeshift.ShapeshiftState.Avocado] = Avocado;
 	}
 
+	public IEnumerator Vibrate(float intensity, float duration)
+	{
+		var device = Device ?? InputManager.ActiveDevice;
+		device.Vibrate(intensity);
+
+		var start = Time.unscaledTime;
+		while (start + duration >= Time.unscaledTime)
+		{
+			yield return null;
+		}
+
+		device.StopVibration();
+	}
+
 	public static PlayerActions CreateWithDefaultBindings()
 	{
 		var actions = new PlayerActions();
@@ -55,10 +72,10 @@ public class PlayerActions : PlayerActionSet
 		actions.Magic.AddDefaultBinding(Key.K);
 		actions.Avocado.AddDefaultBinding(Key.L);
 
-		actions.Candy.AddDefaultBinding(InputControlType.Action1);
-		actions.Lightning.AddDefaultBinding(InputControlType.Action2);
+		actions.Avocado.AddDefaultBinding(InputControlType.Action1);
+		actions.Candy.AddDefaultBinding(InputControlType.Action2);
 		actions.Magic.AddDefaultBinding(InputControlType.Action3);
-		actions.Avocado.AddDefaultBinding(InputControlType.Action4);
+		actions.Lightning.AddDefaultBinding(InputControlType.Action4);
 
 		actions.Up.AddDefaultBinding(Key.UpArrow);
 		actions.Down.AddDefaultBinding(Key.DownArrow);

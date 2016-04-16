@@ -26,5 +26,5 @@ MonoBehaviour:
     clip: {fileID: 7400000, guid: b98e29448491c554dad185bdf2082df3, type: 2}
     frameRate: 10
   superAttack:
-    clip: {fileID: 7400000, guid: 9c11e9668fb10024e8e91dd52a162429, type: 2}
+    clip: {fileID: 7400000, guid: fff525b3e4d2885499fdf6f2c5b17ca0, type: 2}
     frameRate: 10

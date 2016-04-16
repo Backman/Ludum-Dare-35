@@ -20,6 +20,9 @@ public class BasicEnemy : MonoBehaviour
 	public BoxCollider2D attackCollider;
 	public BoxCollider2D hitCollider;
 
+	LayerMask _hitboxColliderLayer;
+	LayerMask _attackColliderLayer;
+
 	bool _attackedPlayer;
 
 	BoxCollider2D[] _overlappedHitColliders = new BoxCollider2D[8];
@@ -56,6 +59,9 @@ public class BasicEnemy : MonoBehaviour
 
 	void Awake()
 	{
+		_hitboxColliderLayer = LayerMask.NameToLayer("HitboxCollider");
+		_attackColliderLayer = LayerMask.NameToLayer("AttackCollider");
+
 		_movable = GetComponent<Movable>();
 		_animator = GetComponent<Animator>();
 
@@ -160,7 +166,7 @@ public class BasicEnemy : MonoBehaviour
 		min += (Vector2)transform.position;
 		var max = min + (Vector2)attackCollider.bounds.max;
 
-		if (Physics2D.OverlapAreaNonAlloc(min, max, _overlappedHitColliders) <= 0)
+		if (Physics2D.OverlapAreaNonAlloc(min, max, _overlappedHitColliders, (1 << _hitboxColliderLayer.value) | (1 << _attackColliderLayer.value)) <= 0)
 		{
 			return;
 		}

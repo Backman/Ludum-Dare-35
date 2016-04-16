@@ -12,6 +12,8 @@ public class PlayerConfig : ScriptableObject
 		public AnimationCurve dashCurve;
 		public float dashLength = 0.3f;
 		public float dashDuration = 0.1f;
+		public float freezeDuration;
+		public float freezeValue;
 	}
 
 	public Attack attackOne;
