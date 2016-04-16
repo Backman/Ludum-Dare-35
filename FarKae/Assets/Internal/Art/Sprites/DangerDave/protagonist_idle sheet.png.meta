@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: aadcd7575207ea14990e0ae87db271c5
-timeCreated: 1460812648
+guid: 4720fde3f972bc246ae2883d5b5d5711
+timeCreated: 1460816936
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -69,11 +69,12 @@ TextureImporter:
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -9, y: 64}
-        - {x: -29, y: 57}
-        - {x: -31, y: 40}
-        - {x: -31, y: 0}
-        - {x: 30, y: 0}
+      - - {x: -8, y: 64}
+        - {x: -31, y: 59}
+        - {x: -31, y: 13}
+        - {x: -24, y: 0}
+        - {x: 29, y: 0}
+        - {x: 30, y: 4}
         - {x: 30, y: 64}
     - name: protagonist_idle sheet_1
       rect:
@@ -86,11 +87,12 @@ TextureImporter:
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -9, y: 64}
-        - {x: -29, y: 57}
-        - {x: -31, y: 40}
-        - {x: -31, y: 0}
-        - {x: 30, y: 0}
+      - - {x: -8, y: 64}
+        - {x: -31, y: 59}
+        - {x: -31, y: 13}
+        - {x: -24, y: 0}
+        - {x: 29, y: 0}
+        - {x: 30, y: 4}
         - {x: 30, y: 64}
     - name: protagonist_idle sheet_2
       rect:
@@ -103,11 +105,12 @@ TextureImporter:
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -9, y: 64}
-        - {x: -29, y: 57}
-        - {x: -31, y: 40}
-        - {x: -31, y: 0}
-        - {x: 30, y: 0}
+      - - {x: -8, y: 64}
+        - {x: -31, y: 59}
+        - {x: -31, y: 13}
+        - {x: -24, y: 0}
+        - {x: 29, y: 0}
+        - {x: 30, y: 4}
         - {x: 30, y: 64}
     - name: protagonist_idle sheet_3
       rect:
@@ -120,11 +123,10 @@ TextureImporter:
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -31, y: 64}
-        - {x: -31, y: 2}
-        - {x: -27, y: 0}
-        - {x: 19, y: 0}
-        - {x: 30, y: 6}
+      - - {x: -28, y: 64}
+        - {x: -31, y: 61}
+        - {x: -31, y: 0}
+        - {x: 30, y: 0}
         - {x: 30, y: 64}
     - name: protagonist_idle sheet_4
       rect:
@@ -137,11 +139,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -24, y: 64}
-        - {x: -31, y: 63}
-        - {x: -31, y: 0}
-        - {x: 23, y: 0}
-        - {x: 30, y: 4}
+      - - {x: -31, y: 64}
+        - {x: -31, y: 7}
+        - {x: -20, y: 0}
+        - {x: 26, y: 0}
+        - {x: 30, y: 2}
         - {x: 30, y: 64}
     - name: protagonist_idle sheet_5
       rect:
@@ -154,17 +156,15 @@ TextureImporter:
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -7, y: 64}
-        - {x: -28, y: 59}
-        - {x: -29, y: 55}
-        - {x: -29, y: 48}
-        - {x: -27, y: 46}
-        - {x: -31, y: 43}
-        - {x: -31, y: 9}
-        - {x: -24, y: 3}
-        - {x: -11, y: 0}
-        - {x: 19, y: 0}
-        - {x: 30, y: 7}
+      - - {x: -4, y: 64}
+        - {x: -30, y: 55}
+        - {x: -29, y: 47}
+        - {x: -27, y: 45}
+        - {x: -31, y: 42}
+        - {x: -31, y: 6}
+        - {x: -18, y: 0}
+        - {x: 26, y: 0}
+        - {x: 30, y: 8}
         - {x: 30, y: 64}
     - name: protagonist_idle sheet_6
       rect:
@@ -177,12 +177,17 @@ TextureImporter:
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -31, y: 64}
-        - {x: -31, y: 4}
-        - {x: -28, y: 0}
-        - {x: 27, y: 0}
-        - {x: 30, y: 5}
-        - {x: 30, y: 64}
+      - - {x: 26, y: 61}
+        - {x: 22, y: 63}
+        - {x: 11, y: 64}
+        - {x: -31, y: 64}
+        - {x: -31, y: 8}
+        - {x: -24, y: 1}
+        - {x: -15, y: 0}
+        - {x: 23, y: 0}
+        - {x: 30, y: 6}
+        - {x: 30, y: 61}
+        - {x: 29, y: 62}
     - name: protagonist_idle sheet_7
       rect:
         serializedVersion: 2
@@ -194,12 +199,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -13, y: 64}
-        - {x: -31, y: 60}
-        - {x: -31, y: 12}
-        - {x: -21, y: 0}
-        - {x: 20, y: 0}
-        - {x: 30, y: 6}
+      - - {x: -31, y: 64}
+        - {x: -31, y: 5}
+        - {x: -23, y: 0}
+        - {x: 21, y: 0}
+        - {x: 30, y: 7}
         - {x: 30, y: 64}
     outline: []
   spritePackingTag: 
