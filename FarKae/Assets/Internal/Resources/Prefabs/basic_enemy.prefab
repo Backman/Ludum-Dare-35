@@ -66,7 +66,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 450430}
   m_RootOrder: 1
@@ -79,7 +78,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.67, y: -0.886, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 450714}
   - {fileID: 423132}
@@ -94,7 +92,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 450430}
   m_RootOrder: 0
@@ -166,7 +163,7 @@ Animator:
   m_GameObject: {fileID: 159656}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3c910078e4f8dd1428768236f52a57b0, type: 2}
+  m_Controller: {fileID: 9100000, guid: 192f8a39f7ce8e0429c19f10e23afe2d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -187,7 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _candyConfig: {fileID: 11400000, guid: 27e78883b4554c14b9fe3e998d6d6c40, type: 2}
   _lightningConfig: {fileID: 11400000, guid: 1fd6424dc7c42c24d9b3d67bd52a3acf, type: 2}
-  _crystalConfig: {fileID: 11400000, guid: c51cd286768256d45b284179c546b834, type: 2}
+  _magicConfig: {fileID: 11400000, guid: c51cd286768256d45b284179c546b834, type: 2}
   _avocadoConfig: {fileID: 11400000, guid: bd22d4c7b2983354497f648950324f7f, type: 2}
 --- !u!114 &11447478
 MonoBehaviour:

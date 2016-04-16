@@ -7,8 +7,9 @@ public class BasicEnemy : MonoBehaviour
 	public enum State
 	{
 		Walking,
-		Waiting,
-		Attack
+		Idle,
+		Attack,
+		Hit
 	}
 
 	[SerializeField]
@@ -21,6 +22,7 @@ public class BasicEnemy : MonoBehaviour
 	StateMachine<State> _fsm;
 	Shapeshift _shapeshift;
 
+	float _staggerTime;
 	float _attackTime;
 
 	Transform _transform;
@@ -51,6 +53,11 @@ public class BasicEnemy : MonoBehaviour
 
 	}
 
+	public void ChangeState(State state)
+	{
+		_fsm.ChangeState(state);
+	}
+
 	public void Event_OnDamage(float health)
 	{
 		if (health <= 0)
@@ -58,12 +65,25 @@ public class BasicEnemy : MonoBehaviour
 			WaveController.instance.RemoveEnemy(gameObject);
 			Destroy(gameObject);
 		}
+		else
+		{
+			_fsm.ChangeState(State.Hit);
+		}
 		//Debug.LogFormat("{0} health: {1}", name, health);
 	}
 
 	void StateChanged(State state)
 	{
 		//Debug.LogFormat("Enemy state changed: {0}", state.ToString());
+	}
+
+	void Hit_Enter()
+	{
+		_animator.SetTrigger("Hit");
+	}
+
+	void Hit_Update()
+	{
 	}
 
 	void Walking_Enter()
@@ -83,8 +103,18 @@ public class BasicEnemy : MonoBehaviour
 		_movable.Move(moveDir.normalized);
 	}
 
+	void Idle_Enter()
+	{
+		_fsm.ChangeState(State.Walking);
+	}
+
+	void Idle_Update()
+	{
+	}
+
 	void Attack_Enter()
 	{
+		_attackTime = Time.time;
 	}
 
 	void Attack_Update()

@@ -12,15 +12,6 @@ public class Player : MonoBehaviour
 
 	public float dashRepeatDuration = 0.3f;
 
-	[SerializeField]
-	StateConfig _candyConfig;
-	[SerializeField]
-	StateConfig _lightningConfig;
-	[SerializeField]
-	StateConfig _crystalConfig;
-	[SerializeField]
-	StateConfig _avocadoConfig;
-
 	Animator _animator;
 	SpriteRenderer _renderer;
 	Movable _movable;
@@ -100,42 +91,22 @@ public class Player : MonoBehaviour
 
 	void ShapeshiftStateChanged(Shapeshift.State state)
 	{
-		switch (state)
-		{
-			case Shapeshift.State.Candy:
-				_animator.CrossFade("Candy.Idle", 0f, 0, 0f);
-				break;
-			case Shapeshift.State.Lightning:
-				_animator.CrossFade("Lightning.Idle", 0f, 0, 0f);
-				break;
-			case Shapeshift.State.Magic:
-				_animator.CrossFade("Magic.Idle", 0f, 0, 0f);
-				break;
-			case Shapeshift.State.Avocado:
-				_animator.CrossFade("Avocado.Idle", 0f, 0, 0f);
-				break;
-			default:
-				break;
-		}
-	}
-
-	void OnCandyEnter()
-	{
-		_animator.CrossFade("Candy.Idle", 0f, 0, 0f);
-	}
-
-	void OnLightningEnter()
-	{
-		_animator.CrossFade("Lightning.Idle", 0f, 0, 0f);
-	}
-
-	void OnMagicEnter()
-	{
-		_animator.CrossFade("Magic.Idle", 0f, 0, 0f);
-	}
-
-	void OnAvocadoEnter()
-	{
-		_animator.CrossFade("Avocado.Idle", 0f, 0, 0f);
+		//switch (state)
+		//{
+		//	case Shapeshift.State.Candy:
+		//		_animator.CrossFade("Candy.Idle", 0f, 0, 0f);
+		//		break;
+		//	case Shapeshift.State.Lightning:
+		//		_animator.CrossFade("Lightning.Idle", 0f, 0, 0f);
+		//		break;
+		//	case Shapeshift.State.Magic:
+		//		_animator.CrossFade("Magic.Idle", 0f, 0, 0f);
+		//		break;
+		//	case Shapeshift.State.Avocado:
+		//		_animator.CrossFade("Avocado.Idle", 0f, 0, 0f);
+		//		break;
+		//	default:
+		//		break;
+		//}
 	}
 }

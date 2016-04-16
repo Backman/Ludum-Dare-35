@@ -11,4 +11,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c69444c4ffb978e499ac3b0a73c47a38, type: 3}
   m_Name: state_lightning
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 0, b: 1, a: 1}
+  color: {r: 1, g: 1, b: 0, a: 1}

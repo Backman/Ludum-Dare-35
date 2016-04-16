@@ -18,7 +18,7 @@ public class Shapeshift : MonoBehaviour
 	[SerializeField]
 	StateConfig _lightningConfig;
 	[SerializeField]
-	StateConfig _crystalConfig;
+	StateConfig _magicConfig;
 	[SerializeField]
 	StateConfig _avocadoConfig;
 
@@ -57,7 +57,7 @@ public class Shapeshift : MonoBehaviour
 				GetComponent<SpriteRenderer>().color = _lightningConfig.color;
 				break;
 			case State.Magic:
-				GetComponent<SpriteRenderer>().color = _crystalConfig.color;
+				GetComponent<SpriteRenderer>().color = _magicConfig.color;
 				break;
 			case State.Avocado:
 				GetComponent<SpriteRenderer>().color = _avocadoConfig.color;
