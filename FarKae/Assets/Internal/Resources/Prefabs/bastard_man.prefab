@@ -256,7 +256,6 @@ MonoBehaviour:
   _healthConfig: {fileID: 11400000, guid: 3b3854c6e9edb5647934c6eb856ab4ec, type: 2}
   attackCollider: {fileID: 6163686}
   hitCollider: {fileID: 6142816}
-  canAttack: 1
 --- !u!212 &21282274
 SpriteRenderer:
   m_ObjectHideFlags: 1
