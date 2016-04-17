@@ -7,6 +7,7 @@ public class EnemyConfig : EntityConfig
 	[System.Serializable]
 	public class EnemyAttack : AttackState
 	{
+		public AudioSettings attackSound;
 	}
 
 	public float blockStaggerDuration = 0.5f;

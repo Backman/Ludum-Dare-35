@@ -4,13 +4,6 @@ using System.Collections;
 public enum SoundSourceType
 {
 	Unknown,
-	Projectile,
-	WaterSplash,
-	Bomb,
-	Sub,
-	Boat,
-	Air,
-	InkBoost,
 }
 
 public class Music : MonoBehaviour
@@ -18,7 +11,6 @@ public class Music : MonoBehaviour
 	public float MinLowPassValue = 3000f;
 	public float MaxLowPassValue = 22000f;
 	public AudioLowPassFilter LowPassFilter;
-	//public Blokfosk Player;
 	//private GameObject MusicPlayer;
 	private AudioSource[] Songs;
 	public float transition = 0;
@@ -33,7 +25,6 @@ public class Music : MonoBehaviour
 	void Start ()
 	{
 		instance = this;
-		Player = FindObjectOfType<Blokfosk> ();
 		//MusicPlayer = GameObject.Find ("MusicPlayer");
 		Songs = GetComponents<AudioSource> ();
 
@@ -43,8 +34,25 @@ public class Music : MonoBehaviour
 		}
 	}
 
-	public static AudioSource PlayClipAtPoint (AudioClip clip, Vector3 pos, float volume, float pitch, SoundSourceType source)
+	public static AudioSource PlayClipAtPoint(AudioSettings soundSettings, Vector3 pos,
+		SoundSourceType source = SoundSourceType.Unknown)
 	{
+		if (soundSettings != null)
+		{
+			return PlayClipAtPoint(soundSettings.audioClip, pos,
+				soundSettings.volume, soundSettings.RandomPitch());
+		}
+		return null;
+	}
+
+	public static AudioSource PlayClipAtPoint (AudioClip clip, Vector3 pos, float volume, float pitch,
+		SoundSourceType source = SoundSourceType.Unknown)
+	{
+		if (!clip)
+		{
+			return null;
+		}
+
 		var tempGO = new GameObject ("TempAudio"); // create the temp object
 		tempGO.transform.position = pos; // set its position
 		var aSource = tempGO.AddComponent<AudioSource> (); // add an audio source
@@ -58,52 +66,45 @@ public class Music : MonoBehaviour
 		aSource.Play (); // start the sound
 		Destroy (tempGO, clip.length); // destroy object after clip duration
 		return aSource; // return the AudioSource reference
-
-		if (source == SoundSourceType.Sub) {
-			aSource.bypassListenerEffects = true;
-			aSource.volume = volume + 0.2f;
-		}
 	}
 
 	public void PlayRegularMusic ()
 	{
-		Songs [3].Stop ();
-		Songs [0].Play ();
-		Songs [1].Play ();
+		//Songs [3].Stop ();
+		//Songs [0].Play ();
+		//Songs [1].Play ();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		Songs [0].volume = (1 - transition) * Musicvolume;
-		Songs [1].volume = transition * Musicvolume;
-		Songs [2].volume = transition * Musicvolume;
-		Songs [3].volume = Musicvolume;
+		//Songs [0].volume = (1 - transition) * Musicvolume;
+		//Songs [1].volume = transition * Musicvolume;
+		//Songs [2].volume = transition * Musicvolume;
+		//Songs [3].volume = Musicvolume;
 
 
-		var lowPassValue = Mathf.Lerp (MinLowPassValue, MaxLowPassValue, 1 - transition);
-		LowPassFilter.cutoffFrequency = lowPassValue;
+		//var lowPassValue = Mathf.Lerp (MinLowPassValue, MaxLowPassValue, 1 - transition);
+		//LowPassFilter.cutoffFrequency = lowPassValue;
 
-		float threshold = Player.VelocitySettings.BobThreshold;
-
-		if (Player.transform.position.y < threshold - 0.75f) {
-			if (!Songs [2].isPlaying) {
-				Songs [2].Play ();
-			}
-			//Songs[0].volume = (1 - Player.Hype.NormalizedHype) * Musicvolume;
-			//Songs[1].volume = Player.Hype.NormalizedHype * Musicvolume;
-			transition += fadespeed * Time.deltaTime;
+		//if (Player.transform.position.y < threshold - 0.75f) {
+		//	if (!Songs [2].isPlaying) {
+		//		Songs [2].Play ();
+		//	}
+		//	//Songs[0].volume = (1 - Player.Hype.NormalizedHype) * Musicvolume;
+		//	//Songs[1].volume = Player.Hype.NormalizedHype * Musicvolume;
+		//	transition += fadespeed * Time.deltaTime;
 	
-		}
-		if (Player.transform.position.y > threshold - 0.75f) {
-			if (Songs [2].isPlaying && Songs [2].volume == 0f) {
-				Songs [2].Stop ();
-			}
+		//}
+		//if (Player.transform.position.y > threshold - 0.75f) {
+		//	if (Songs [2].isPlaying && Songs [2].volume == 0f) {
+		//		Songs [2].Stop ();
+		//	}
 		
-			transition -= 10 * fadespeed * Time.deltaTime;
-			//Songs[0].volume = Musicvolume;
-			//Songs[1].volume = 0;
-		}
+		//	transition -= 10 * fadespeed * Time.deltaTime;
+		//	//Songs[0].volume = Musicvolume;
+		//	//Songs[1].volume = 0;
+		//}
 		transition = Mathf.Clamp01 (transition);
 	}
 }

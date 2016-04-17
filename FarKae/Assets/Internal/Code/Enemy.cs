@@ -210,6 +210,8 @@ public class Enemy : Entity
 	protected virtual void Attacking_Enter()
 	{
 		PlayRandomBasicAttackAnimation();
+		
+		Music.PlayClipAtPoint(_config.basicAttack.attackSound, transform.position);
 	}
 
 	protected virtual void Attacking_Update()

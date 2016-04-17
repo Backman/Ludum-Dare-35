@@ -41,6 +41,7 @@ public abstract class EntityConfig : ScriptableObject
 	}
 
 	public PowerStates powerStates;
+	public AudioSettings hitSound;
 
 	public float hitStaggerDuration = 0.5f;
 }

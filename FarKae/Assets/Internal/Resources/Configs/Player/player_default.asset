@@ -72,6 +72,11 @@ MonoBehaviour:
       block:
         clip: {fileID: 0}
         frameRate: 10
+  hitSound:
+    audioClip: {fileID: 8300000, guid: 16c83246df29b4d45af801e48042e966, type: 3}
+    volume: 1
+    minPitch: 1
+    maxPitch: 1
   hitStaggerDuration: 0.5
   basicAttackCount: 4
   basicAttack:
@@ -98,6 +103,21 @@ MonoBehaviour:
       frameRate: 10
     freezeDuration: 0.03
     freezeValue: 0
+    hitSound:
+      audioClip: {fileID: 0}
+      volume: 1
+      minPitch: 1
+      maxPitch: 1
+    blockSound:
+      audioClip: {fileID: 8300000, guid: 0c4ab7ebd4b534bef854318434387191, type: 3}
+      volume: 1
+      minPitch: 0.9
+      maxPitch: 1.1
+    punchSound:
+      audioClip: {fileID: 8300000, guid: dc4f973142f4d4873b05808c667452ee, type: 3}
+      volume: 1
+      minPitch: 0.9
+      maxPitch: 1.1
   superAttack:
     damage: 30
     _candyAnimations:
@@ -114,6 +134,21 @@ MonoBehaviour:
       frameRate: 10
     freezeDuration: 0.2
     freezeValue: 0
+    hitSound:
+      audioClip: {fileID: 0}
+      volume: 1
+      minPitch: 1
+      maxPitch: 1
+    blockSound:
+      audioClip: {fileID: 8300000, guid: 0c4ab7ebd4b534bef854318434387191, type: 3}
+      volume: 1
+      minPitch: 0.9
+      maxPitch: 1.1
+    punchSound:
+      audioClip: {fileID: 8300000, guid: dc4f973142f4d4873b05808c667452ee, type: 3}
+      volume: 1
+      minPitch: 0.9
+      maxPitch: 1.1
   attackStaggerDuration: 0.3
   attackSwingDuration: 1
   attackCooldown: 0.2

@@ -98,6 +98,7 @@ public class Player : Entity
 
 	protected override void OnDamage(float amount)
 	{
+		Music.PlayClipAtPoint(_config.hitSound, transform.position);
 		State = PlayerState.Hit;
 	}
 
@@ -112,18 +113,6 @@ public class Player : Entity
 		_screenShake.Shake();
 	}
 
-	void BasicAttack_Enter()
-	{
-		_swingTime = Time.time;
-
-		_attackIndex++;
-		_swingTime = Time.time + _config.attackCooldown;
-		_attackCooldownTimer = Time.time;
-		PlayRandomBasicAttackAnimation();
-
-		_attackedEnemies.Clear();
-	}
-
 	public override void PlayRandomBasicAttackAnimation()
 	{
 		var state = _shapeshift.CurrentState;
@@ -136,6 +125,20 @@ public class Player : Entity
 		var state = _shapeshift.CurrentState;
 		var rand = Random.Range(0, _config.superAttack.animations[state].Length);
 		_animator.Play(_config.superAttack.animations[state][rand].clip.name, 1, 0);
+	}
+
+	void BasicAttack_Enter()
+	{
+		_swingTime = Time.time;
+
+		_attackIndex++;
+		_swingTime = Time.time + _config.attackCooldown;
+		_attackCooldownTimer = Time.time;
+		PlayRandomBasicAttackAnimation();
+
+		Music.PlayClipAtPoint(_config.basicAttack.punchSound, transform.position);
+
+		_attackedEnemies.Clear();
 	}
 
 	void BasicAttack_Update()
@@ -161,6 +164,7 @@ public class Player : Entity
 			else
 			{
 				PlayRandomBasicAttackAnimation();
+				Music.PlayClipAtPoint(_config.basicAttack.punchSound, transform.position);
 				_swingTime = Time.time + _config.attackCooldown;
 				_attackCooldownTimer = Time.time;
 				_attackedEnemies.Clear();
@@ -174,6 +178,8 @@ public class Player : Entity
 	private void SuperAttack_Enter()
 	{
 		PlayRandomSuperAttackAnimation();
+
+		Music.PlayClipAtPoint(_config.superAttack.punchSound, transform.position);
 
 		_attackStaggerTime = Time.time;
 		_attackedEnemies.Clear();
@@ -294,12 +300,8 @@ public class Player : Entity
 				{
 					continue;
 				}
-				if (_attackedEnemies.Count == 0)
-				{
-					_audioSource.Play();
-				}
+
 				Camera.main.GetComponent<ScreenShake>().Shake();
-				_attackedEnemies.Add(otherCollider);
 				hit = true;
 
 				if (_shapeshift.CurrentState == enemy.ShapeshiftState)
@@ -307,13 +309,23 @@ public class Player : Entity
 					enemy.Damage(attack.damage);
 					if (attack == _config.superAttack)
 					{
+						Music.PlayClipAtPoint(attack.hitSound, transform.position);
 						enemy.GetComponent<Movable>().Push(_movable.GetDirection(), 1, 0.2f);
+					}
+					else
+					{
+						Music.PlayClipAtPoint(attack.hitSound, transform.position);
 					}
 				}
 				else
 				{
+					if (_attackedEnemies.Count == 0)
+					{
+						Music.PlayClipAtPoint(attack.blockSound, transform.position);
+					}
 					enemy.Block();
 				}
+				_attackedEnemies.Add(otherCollider);
 			}
 		}
 

@@ -10,6 +10,9 @@ public class PlayerConfig : EntityConfig
 	{
 		public float freezeDuration;
 		public float freezeValue;
+		public AudioSettings hitSound;
+		public AudioSettings blockSound;
+		public AudioSettings punchSound;
 	}
 
 	public int basicAttackCount;

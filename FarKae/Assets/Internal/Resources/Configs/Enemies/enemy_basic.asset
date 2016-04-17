@@ -72,6 +72,11 @@ MonoBehaviour:
       block:
         clip: {fileID: 7400000, guid: 5228567837ad61349962e96a9d725e6a, type: 2}
         frameRate: 10
+  hitSound:
+    audioClip: {fileID: 0}
+    volume: 1
+    minPitch: 1
+    maxPitch: 1
   hitStaggerDuration: 0.5
   blockStaggerDuration: 0.5
   basicAttack:
@@ -88,6 +93,11 @@ MonoBehaviour:
     _avocadoAnimations:
     - clip: {fileID: 7400000, guid: c904e341d30b8ca4fb726ba86505c691, type: 2}
       frameRate: 10
+    attackSound:
+      audioClip: {fileID: 8300000, guid: 8e295a099b0124898825b6d0502fed46, type: 3}
+      volume: 0.7
+      minPitch: 0.9
+      maxPitch: 1.1
   attackRange: 0.5
   minAttackInterval: 1
   maxAttackInterval: 2
