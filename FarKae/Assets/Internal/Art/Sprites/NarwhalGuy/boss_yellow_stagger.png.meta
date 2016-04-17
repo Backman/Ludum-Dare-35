@@ -1,0 +1,261 @@
+fileFormatVersion: 2
+guid: 501a6d7e8ffe11142b0d039e3c176f99
+timeCreated: 1460904552
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: boss_yellow_stagger_0
+    21300002: boss_yellow_stagger_1
+    21300004: boss_yellow_stagger_2
+    21300006: boss_yellow_stagger_3
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: boss_yellow_stagger_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 162
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 18, y: 83}
+        - {x: 16, y: 81}
+        - {x: 18, y: 84}
+        - {x: 23, y: 93}
+        - {x: 26, y: 99}
+        - {x: 27, y: 102}
+        - {x: 27, y: 107}
+        - {x: 22, y: 107}
+        - {x: -30, y: 82}
+        - {x: -53, y: 41}
+        - {x: -53, y: 7}
+        - {x: -52, y: 2}
+        - {x: -43, y: 0}
+        - {x: 34, y: 0}
+        - {x: 34, y: 77}
+        - {x: 22, y: 89}
+      - - {x: 29, y: 83}
+        - {x: 26, y: 82}
+        - {x: 25, y: 79}
+        - {x: 25, y: 76}
+        - {x: 26, y: 75}
+        - {x: 38, y: 75}
+        - {x: 39, y: 76}
+        - {x: 39, y: 83}
+      - - {x: 27, y: 97}
+        - {x: 21, y: 93}
+        - {x: 20, y: 87}
+        - {x: 20, y: 85}
+        - {x: 22, y: 83}
+        - {x: 28, y: 84}
+        - {x: 31, y: 90}
+        - {x: 31, y: 97}
+      - - {x: 8, y: 103}
+        - {x: 5, y: 101}
+        - {x: 3, y: 91}
+        - {x: 3, y: 89}
+        - {x: 5, y: 88}
+        - {x: 10, y: 90}
+        - {x: 13, y: 99}
+        - {x: 13, y: 101}
+        - {x: 12, y: 103}
+    - name: boss_yellow_stagger_1
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 0
+        width: 162
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 18, y: 83}
+        - {x: 16, y: 81}
+        - {x: 18, y: 84}
+        - {x: 23, y: 93}
+        - {x: 26, y: 99}
+        - {x: 27, y: 102}
+        - {x: 27, y: 107}
+        - {x: 22, y: 107}
+        - {x: -30, y: 82}
+        - {x: -53, y: 41}
+        - {x: -53, y: 7}
+        - {x: -52, y: 2}
+        - {x: -43, y: 0}
+        - {x: 34, y: 0}
+        - {x: 34, y: 77}
+        - {x: 22, y: 89}
+      - - {x: 35, y: 83}
+        - {x: 32, y: 82}
+        - {x: 31, y: 79}
+        - {x: 31, y: 76}
+        - {x: 32, y: 75}
+        - {x: 44, y: 75}
+        - {x: 45, y: 76}
+        - {x: 45, y: 83}
+      - - {x: 23, y: 92}
+        - {x: 23, y: 88}
+        - {x: 24, y: 86}
+        - {x: 27, y: 86}
+        - {x: 34, y: 91}
+        - {x: 34, y: 99}
+        - {x: 29, y: 99}
+        - {x: 25, y: 95}
+      - - {x: 9, y: 106}
+        - {x: 6, y: 104}
+        - {x: 4, y: 94}
+        - {x: 4, y: 92}
+        - {x: 6, y: 91}
+        - {x: 11, y: 93}
+        - {x: 14, y: 102}
+        - {x: 14, y: 104}
+        - {x: 13, y: 106}
+    - name: boss_yellow_stagger_2
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 0
+        width: 162
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 18, y: 83}
+        - {x: 16, y: 81}
+        - {x: 18, y: 84}
+        - {x: 23, y: 93}
+        - {x: 26, y: 99}
+        - {x: 27, y: 102}
+        - {x: 27, y: 107}
+        - {x: 22, y: 107}
+        - {x: -30, y: 82}
+        - {x: -53, y: 41}
+        - {x: -53, y: 7}
+        - {x: -52, y: 2}
+        - {x: -43, y: 0}
+        - {x: 34, y: 0}
+        - {x: 34, y: 77}
+        - {x: 22, y: 89}
+      - - {x: 44, y: 83}
+        - {x: 36, y: 82}
+        - {x: 35, y: 79}
+        - {x: 36, y: 76}
+        - {x: 48, y: 76}
+        - {x: 49, y: 79}
+        - {x: 49, y: 82}
+        - {x: 48, y: 83}
+      - - {x: 29, y: 104}
+        - {x: 27, y: 99}
+        - {x: 27, y: 94}
+        - {x: 31, y: 94}
+        - {x: 37, y: 98}
+        - {x: 37, y: 103}
+        - {x: 35, y: 104}
+      - - {x: 10, y: 107}
+        - {x: 8, y: 106}
+        - {x: 5, y: 97}
+        - {x: 7, y: 95}
+        - {x: 9, y: 95}
+        - {x: 13, y: 100}
+        - {x: 15, y: 105}
+        - {x: 13, y: 107}
+    - name: boss_yellow_stagger_3
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 0
+        width: 162
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 18, y: 83}
+        - {x: 16, y: 81}
+        - {x: 18, y: 84}
+        - {x: 23, y: 93}
+        - {x: 26, y: 99}
+        - {x: 27, y: 102}
+        - {x: 27, y: 107}
+        - {x: 22, y: 107}
+        - {x: -30, y: 82}
+        - {x: -53, y: 41}
+        - {x: -53, y: 7}
+        - {x: -52, y: 2}
+        - {x: -43, y: 0}
+        - {x: 34, y: 0}
+        - {x: 34, y: 77}
+        - {x: 22, y: 89}
+      - - {x: 45, y: 81}
+        - {x: 46, y: 78}
+        - {x: 50, y: 78}
+        - {x: 52, y: 80}
+        - {x: 51, y: 83}
+        - {x: 47, y: 83}
+      - - {x: 28, y: 100}
+        - {x: 28, y: 99}
+        - {x: 30, y: 97}
+        - {x: 31, y: 97}
+        - {x: 38, y: 103}
+        - {x: 37, y: 106}
+        - {x: 34, y: 106}
+      - - {x: 10, y: 107}
+        - {x: 9, y: 106}
+        - {x: 10, y: 103}
+        - {x: 14, y: 103}
+        - {x: 16, y: 105}
+        - {x: 15, y: 107}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
