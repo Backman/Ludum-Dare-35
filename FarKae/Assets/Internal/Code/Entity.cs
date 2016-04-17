@@ -32,6 +32,9 @@ public abstract class Entity : MonoBehaviour
 	public float health
 	{ get; protected set; }
 
+	public bool isDead
+	{ get; protected set; }
+
 	public Shapeshift.ShapeshiftState ShapeshiftState
 	{
 		get { return _shapeshift.CurrentState; }
@@ -71,7 +74,11 @@ public abstract class Entity : MonoBehaviour
 		else
 		{
 			health = 0f;
-			OnDeath();
+			if (!isDead)
+			{
+				isDead = true;
+				OnDeath();
+			}
 		}
 	}
 

@@ -13,6 +13,7 @@ public abstract class EntityConfig : ScriptableObject
 		public AnimationState move;
 		public AnimationState hit;
 		public AnimationState block;
+		public AnimationState death;
 
 		public virtual void SetupFrameRates()
 		{
@@ -20,6 +21,7 @@ public abstract class EntityConfig : ScriptableObject
 			move.SetFramRate();
 			hit.SetFramRate();
 			block.SetFramRate();
+			death.SetFramRate();
 		}
 	}
 

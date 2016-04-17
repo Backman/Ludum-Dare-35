@@ -151,4 +151,9 @@ public class Shapeshift : MonoBehaviour
 			_animator.Play(currentPowerState.move.clip.name, _stateLayers.baseLayer, 0f);
 		}
 	}
+
+	public void PlayCurrentDeath()
+	{
+		_animator.Play(currentPowerState.death.clip.name, _stateLayers.deathLayer, 0f);
+	}
 }

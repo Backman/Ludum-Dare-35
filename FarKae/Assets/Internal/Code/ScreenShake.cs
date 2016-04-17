@@ -4,9 +4,9 @@ using DG.Tweening;
 
 public class ScreenShake : MonoBehaviour
 {
-
 	private Camera cam;
-	private bool _isShaking;
+
+	Tweener _shaking;
 
 	void Start()
 	{
@@ -15,16 +15,11 @@ public class ScreenShake : MonoBehaviour
 	
 	public void Shake(float duration = 0.05f, float strength = 0.05f)
 	{
-		if (_isShaking)
+		if (_shaking != null && _shaking.IsPlaying())
 		{
 			return;
 		}
 
-		_isShaking = true;
-		cam.DOShakePosition(duration, strength, 10, 10f)
-			.OnComplete(() =>
-			{
-				_isShaking = false;
-			});
+		_shaking = cam.DOShakePosition(duration, strength, 10, 10f);
 	}
 }

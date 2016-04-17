@@ -200,12 +200,13 @@ public class Player : Entity
         }
     }
 
-    private void Hit_Enter()
-    {
-        BlinkManager.instance.AddBlink(gameObject, Color.white, 0.1f);
-        _shapeshift.PlayCurrentHit();
-        _hitTime = Time.time;
-    }
+	private void Hit_Enter()
+	{
+		BlinkManager.instance.AddBlink(gameObject, Color.white, 0.1f);
+		_screenShake.Shake();
+		_shapeshift.PlayCurrentHit();
+		_hitTime = Time.time;
+	}
 
     private void Hit_Update()
     {

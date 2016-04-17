@@ -27,6 +27,9 @@ MonoBehaviour:
       block:
         clip: {fileID: 7400000, guid: 9874a34040af7fe40a6d68c0982c61cb, type: 2}
         frameRate: 10
+      death:
+        clip: {fileID: 7400000, guid: 7ad475b8c6abec64bb6d60f3196f8d59, type: 2}
+        frameRate: 10
     lightningState:
       color: {r: 1, g: 1, b: 1, a: 1}
       effect: {fileID: 0}
@@ -41,6 +44,9 @@ MonoBehaviour:
         frameRate: 10
       block:
         clip: {fileID: 7400000, guid: 8b1ca6cd8afc3c741b5417220646a38b, type: 2}
+        frameRate: 10
+      death:
+        clip: {fileID: 7400000, guid: 404387b04b389b34586f647b41b55039, type: 2}
         frameRate: 10
     magicState:
       color: {r: 1, g: 1, b: 1, a: 1}
@@ -57,6 +63,9 @@ MonoBehaviour:
       block:
         clip: {fileID: 7400000, guid: 7eccaec1cabfa24428d74bec1ac5926f, type: 2}
         frameRate: 10
+      death:
+        clip: {fileID: 7400000, guid: dd374b81aaa1c0145915ca696cea73f6, type: 2}
+        frameRate: 10
     avocadoState:
       color: {r: 1, g: 1, b: 1, a: 1}
       effect: {fileID: 0}
@@ -72,6 +81,9 @@ MonoBehaviour:
       block:
         clip: {fileID: 7400000, guid: 5228567837ad61349962e96a9d725e6a, type: 2}
         frameRate: 10
+      death:
+        clip: {fileID: 7400000, guid: 6c8a79cd4fb3b354298e4e22f9a6db36, type: 2}
+        frameRate: 10
   hitSound:
     audioClip: {fileID: 0}
     volume: 1
@@ -79,6 +91,19 @@ MonoBehaviour:
     maxPitch: 1
   hitStaggerDuration: 0.5
   blockStaggerDuration: 0.5
+  deathSounds:
+  - audioClip: {fileID: 8300000, guid: 76c7f5004648243a095aac1ccf03841a, type: 3}
+    volume: 0.7
+    minPitch: 1
+    maxPitch: 1
+  - audioClip: {fileID: 8300000, guid: da2a2c4dfa0d74960bf17e5f96301a80, type: 3}
+    volume: 0.7
+    minPitch: 1
+    maxPitch: 1
+  - audioClip: {fileID: 8300000, guid: d75b638ef214345a5849cd7fc69ee89c, type: 3}
+    volume: 0.7
+    minPitch: 1
+    maxPitch: 1
   basicAttack:
     damage: 10
     _candyAnimations:
@@ -95,9 +120,23 @@ MonoBehaviour:
       frameRate: 10
     attackSound:
       audioClip: {fileID: 8300000, guid: 8e295a099b0124898825b6d0502fed46, type: 3}
-      volume: 0.7
+      volume: 0.3
       minPitch: 0.9
       maxPitch: 1.1
+    voiceOverChance: 0.3
+    voiceOverSounds:
+    - audioClip: {fileID: 8300000, guid: 506138085ffc54367b885e320efb1286, type: 3}
+      volume: 0.7
+      minPitch: 1
+      maxPitch: 1
+    - audioClip: {fileID: 8300000, guid: 32a12ef915dfd416195fa7f7e001b37c, type: 3}
+      volume: 0.7
+      minPitch: 1
+      maxPitch: 1
+    - audioClip: {fileID: 8300000, guid: b79bb0306783641a49614a30f1b1b30a, type: 3}
+      volume: 0.7
+      minPitch: 1
+      maxPitch: 1
   xAttackRange: 0.6
   yAttackRange: 0.2
   separateThreshold: 2
@@ -107,3 +146,5 @@ MonoBehaviour:
   minAttackInterval: 1
   maxAttackInterval: 2
   attackInterval: 2
+  deathFlickerDuration: 0.5
+  deathFlickerInterval: 0.05
