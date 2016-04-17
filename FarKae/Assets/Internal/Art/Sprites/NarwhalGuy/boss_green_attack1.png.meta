@@ -1,0 +1,230 @@
+fileFormatVersion: 2
+guid: eae3ec30f9b2bd24e88d523d07b60208
+timeCreated: 1460893206
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: boss_green_attack1_0
+    21300002: boss_green_attack1_1
+    21300004: boss_green_attack1_2
+    21300006: boss_green_attack1_3
+    21300008: boss_green_attack1_4
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: boss_green_attack1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 162
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -80, y: 98}
+        - {x: -81, y: 97}
+        - {x: -81, y: 13}
+        - {x: -72, y: 0}
+        - {x: 13, y: 0}
+        - {x: 13, y: 63}
+        - {x: -35, y: 98}
+    - name: boss_green_attack1_1
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 0
+        width: 162
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -43, y: 14}
+        - {x: -47, y: 14}
+        - {x: -50, y: 10}
+        - {x: -50, y: 0}
+        - {x: -36, y: 0}
+        - {x: -36, y: 3}
+        - {x: -40, y: 13}
+      - - {x: -22, y: 107}
+        - {x: -70, y: 91}
+        - {x: -70, y: 57}
+        - {x: -69, y: 51}
+        - {x: -61, y: 0}
+        - {x: 81, y: 0}
+        - {x: 81, y: 86}
+        - {x: -2, y: 107}
+    - name: boss_green_attack1_2
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 0
+        width: 162
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -19, y: 96}
+        - {x: -68, y: 97}
+        - {x: -72, y: 89}
+        - {x: -72, y: 68}
+        - {x: -58, y: 0}
+        - {x: 81, y: 0}
+        - {x: 81, y: 99}
+        - {x: 42, y: 105}
+        - {x: -19, y: 105}
+      - - {x: -40, y: 17}
+        - {x: -43, y: 18}
+        - {x: -47, y: 18}
+        - {x: -50, y: 14}
+        - {x: -50, y: 8}
+        - {x: -45, y: 4}
+        - {x: -42, y: 6}
+        - {x: -40, y: 4}
+        - {x: -37, y: 5}
+        - {x: -37, y: 8}
+      - - {x: -64, y: 81}
+        - {x: -65, y: 78}
+        - {x: -65, y: 73}
+        - {x: -63, y: 72}
+        - {x: -60, y: 73}
+        - {x: -60, y: 78}
+        - {x: -61, y: 81}
+    - name: boss_green_attack1_3
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 0
+        width: 162
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -47, y: 105}
+        - {x: -70, y: 69}
+        - {x: -70, y: 13}
+        - {x: -47, y: 0}
+        - {x: 81, y: 0}
+        - {x: 81, y: 105}
+      - - {x: -75, y: 71}
+        - {x: -73, y: 66}
+        - {x: -69, y: 66}
+        - {x: -67, y: 67}
+        - {x: -57, y: 89}
+        - {x: -57, y: 96}
+        - {x: -68, y: 96}
+        - {x: -75, y: 94}
+      - - {x: -57, y: 81}
+        - {x: -56, y: 78}
+        - {x: -47, y: 78}
+        - {x: -46, y: 81}
+        - {x: -47, y: 84}
+        - {x: -56, y: 84}
+    - name: boss_green_attack1_4
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 0
+        width: 162
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -27, y: 105}
+        - {x: -69, y: 68}
+        - {x: -69, y: 29}
+        - {x: -62, y: 0}
+        - {x: 81, y: 0}
+        - {x: 81, y: 74}
+        - {x: 7, y: 105}
+      - - {x: 65, y: 22}
+        - {x: 65, y: 4}
+        - {x: 66, y: 3}
+        - {x: 77, y: 3}
+        - {x: 79, y: 5}
+        - {x: 81, y: 16}
+        - {x: 81, y: 22}
+      - - {x: -58, y: 96}
+        - {x: -71, y: 96}
+        - {x: -74, y: 93}
+        - {x: -74, y: 66}
+        - {x: -67, y: 66}
+        - {x: -66, y: 67}
+        - {x: -67, y: 70}
+        - {x: -50, y: 79}
+        - {x: -50, y: 94}
+      - - {x: 77, y: 77}
+        - {x: 79, y: 74}
+        - {x: 81, y: 75}
+        - {x: 81, y: 78}
+        - {x: 79, y: 79}
+      - - {x: 77, y: 107}
+        - {x: 69, y: 107}
+        - {x: 69, y: 96}
+        - {x: 73, y: 81}
+        - {x: 75, y: 78}
+        - {x: 80, y: 78}
+        - {x: 81, y: 82}
+        - {x: 81, y: 104}
+        - {x: 80, y: 106}
+      - - {x: 70, y: 99}
+        - {x: 68, y: 97}
+        - {x: 68, y: 83}
+        - {x: 70, y: 81}
+        - {x: 73, y: 82}
+        - {x: 74, y: 88}
+        - {x: 74, y: 98}
+        - {x: 73, y: 99}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
