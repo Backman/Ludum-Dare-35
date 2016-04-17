@@ -17,7 +17,7 @@ MonoBehaviour:
       effect: {fileID: 0}
       idle:
         clip: {fileID: 7400000, guid: b363233e5c020c348938cbd2d82bdc3b, type: 2}
-        frameRate: 10
+        frameRate: 5
       move:
         clip: {fileID: 7400000, guid: b363233e5c020c348938cbd2d82bdc3b, type: 2}
         frameRate: 10
@@ -32,7 +32,7 @@ MonoBehaviour:
       effect: {fileID: 0}
       idle:
         clip: {fileID: 7400000, guid: 635dbc4e155030b4bbc4dad72a10342c, type: 2}
-        frameRate: 10
+        frameRate: 5
       move:
         clip: {fileID: 7400000, guid: 635dbc4e155030b4bbc4dad72a10342c, type: 2}
         frameRate: 10
@@ -47,7 +47,7 @@ MonoBehaviour:
       effect: {fileID: 0}
       idle:
         clip: {fileID: 7400000, guid: 41361534cece5d642ad04428104698b6, type: 2}
-        frameRate: 10
+        frameRate: 5
       move:
         clip: {fileID: 7400000, guid: 41361534cece5d642ad04428104698b6, type: 2}
         frameRate: 10
@@ -62,7 +62,7 @@ MonoBehaviour:
       effect: {fileID: 0}
       idle:
         clip: {fileID: 7400000, guid: 9dc676e5a1daa994c853c09886aa848c, type: 2}
-        frameRate: 10
+        frameRate: 5
       move:
         clip: {fileID: 7400000, guid: 9dc676e5a1daa994c853c09886aa848c, type: 2}
         frameRate: 10

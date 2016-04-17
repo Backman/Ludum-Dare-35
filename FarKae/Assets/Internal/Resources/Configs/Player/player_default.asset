@@ -17,60 +17,60 @@ MonoBehaviour:
       effect: {fileID: 129394, guid: 76c5d1665741a1e4f8fcebb5cf66954e, type: 2}
       idle:
         clip: {fileID: 7400000, guid: dc4f669fcf014984883726e2b49abd45, type: 2}
-        frameRate: 10
+        frameRate: 5
       move:
         clip: {fileID: 7400000, guid: 770a216d1d964de44ad258504bec57ee, type: 2}
         frameRate: 10
       hit:
-        clip: {fileID: 0}
+        clip: {fileID: 7400000, guid: 20bab515a1f73d64b92aedd8b325c252, type: 2}
         frameRate: 10
       block:
-        clip: {fileID: 0}
+        clip: {fileID: 7400000, guid: 20bab515a1f73d64b92aedd8b325c252, type: 2}
         frameRate: 10
     lightningState:
       color: {r: 1, g: 1, b: 1, a: 1}
       effect: {fileID: 140576, guid: 645c84e3e5a694449a1fa1ec100263bf, type: 2}
       idle:
         clip: {fileID: 7400000, guid: a30316a2082126b43af23be530467aa1, type: 2}
-        frameRate: 10
+        frameRate: 5
       move:
         clip: {fileID: 7400000, guid: 5db9c0060a78ccb4cbd2cade0ae2a0a0, type: 2}
         frameRate: 10
       hit:
-        clip: {fileID: 0}
+        clip: {fileID: 7400000, guid: 431501afda94d9942813b2be86600f66, type: 2}
         frameRate: 10
       block:
-        clip: {fileID: 0}
+        clip: {fileID: 7400000, guid: 431501afda94d9942813b2be86600f66, type: 2}
         frameRate: 10
     magicState:
       color: {r: 1, g: 1, b: 1, a: 1}
       effect: {fileID: 111632, guid: 97c10388cce0112458074fedf08ac7c2, type: 2}
       idle:
         clip: {fileID: 7400000, guid: 3f985b143a3c5954ea59872f45bf2417, type: 2}
-        frameRate: 10
+        frameRate: 5
       move:
         clip: {fileID: 7400000, guid: a275a21f0c839a6468a73c89ed68ff48, type: 2}
         frameRate: 10
       hit:
-        clip: {fileID: 0}
+        clip: {fileID: 7400000, guid: 3f985b143a3c5954ea59872f45bf2417, type: 2}
         frameRate: 10
       block:
-        clip: {fileID: 0}
+        clip: {fileID: 7400000, guid: 830a7f0c658f8ed4e8a24611c48d0f93, type: 2}
         frameRate: 10
     avocadoState:
       color: {r: 1, g: 1, b: 1, a: 1}
       effect: {fileID: 179560, guid: 3fb9b008fbd150b4ba9f790b5c8bce21, type: 2}
       idle:
         clip: {fileID: 7400000, guid: 9e81e498b4baef64e8da0399f8c8835f, type: 2}
-        frameRate: 10
+        frameRate: 5
       move:
         clip: {fileID: 7400000, guid: bb42029a74ff801428e0eacd6a8cde03, type: 2}
         frameRate: 10
       hit:
-        clip: {fileID: 0}
+        clip: {fileID: 7400000, guid: cb7d0d064a7cbda4ca5d6b5891be67f2, type: 2}
         frameRate: 10
       block:
-        clip: {fileID: 0}
+        clip: {fileID: 7400000, guid: cb7d0d064a7cbda4ca5d6b5891be67f2, type: 2}
         frameRate: 10
   hitSound:
     audioClip: {fileID: 8300000, guid: 16c83246df29b4d45af801e48042e966, type: 3}

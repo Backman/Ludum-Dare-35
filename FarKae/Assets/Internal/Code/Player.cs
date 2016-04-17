@@ -45,6 +45,7 @@ public class Player : Entity
 	private float _swingTime;
 	private float _attackStaggerTime;
 	private float _attackCooldownTimer;
+	private float _hitTime;
 
 	protected override void Awake()
 	{
@@ -203,22 +204,34 @@ public class Player : Entity
 	private void Hit_Enter()
 	{
 		BlinkManager.instance.AddBlink(gameObject, Color.white, 0.1f);
-		_animator.SetTrigger("Hit");
+		_shapeshift.PlayCurrentHit();
+		_hitTime = Time.time;
 	}
 
 	private void Hit_Update()
 	{
+		if (_hitTime + _config.hitStaggerDuration <= Time.time)
+		{
+			State = PlayerState.Normal;
+		}
 	}
 
 	private void Normal_Update()
 	{
-		var move = _actions.Move.Value;
-
-		_movable.Move(move);
-
-		if (_movable.isMoving)
+		if (_stateLayers.CheckState("None", _stateLayers.attackLayer))
 		{
-			_shapeshift.PlayCurrentMove();
+			var move = _actions.Move.Value;
+
+			_movable.Move(move);
+
+			if (_movable.isMoving)
+			{
+				_shapeshift.PlayCurrentMove();
+			}
+			else
+			{
+				_shapeshift.PlayCurrentIdle();
+			}
 		}
 		else
 		{
