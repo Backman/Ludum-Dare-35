@@ -1,0 +1,260 @@
+fileFormatVersion: 2
+guid: b8f9a8ddc6f1a874fbc6d3a89d8993ae
+timeCreated: 1460902821
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: boss_blue_block_0
+    21300002: boss_blue_block_1
+    21300004: boss_blue_block_2
+    21300006: boss_blue_block_3
+    21300008: boss_blue_block_4
+    21300010: boss_blue_block_5
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: boss_blue_block_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 90
+        height: 90
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 28, y: 67}
+        - {x: 24, y: 68}
+        - {x: 21, y: 66}
+        - {x: 22, y: 67}
+        - {x: 34, y: 76}
+        - {x: 44, y: 86}
+        - {x: 44, y: 89}
+        - {x: 43, y: 90}
+        - {x: -7, y: 90}
+        - {x: -45, y: 72}
+        - {x: -45, y: 9}
+        - {x: -37, y: 0}
+        - {x: 23, y: 0}
+        - {x: 29, y: 2}
+        - {x: 44, y: 45}
+        - {x: 44, y: 56}
+    - name: boss_blue_block_1
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 0
+        width: 90
+        height: 90
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 33, y: 73}
+        - {x: 18, y: 68}
+        - {x: 15, y: 66}
+        - {x: 16, y: 67}
+        - {x: 28, y: 76}
+        - {x: 38, y: 86}
+        - {x: 38, y: 90}
+        - {x: -3, y: 90}
+        - {x: -29, y: 88}
+        - {x: -45, y: 64}
+        - {x: -45, y: 17}
+        - {x: -43, y: 0}
+        - {x: 15, y: 0}
+        - {x: 28, y: 6}
+        - {x: 38, y: 29}
+        - {x: 38, y: 46}
+    - name: boss_blue_block_2
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 0
+        width: 90
+        height: 90
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -45, y: 63}
+        - {x: -45, y: 0}
+        - {x: 23, y: 0}
+        - {x: 38, y: 15}
+        - {x: 38, y: 90}
+        - {x: 5, y: 90}
+        - {x: -15, y: 86}
+    - name: boss_blue_block_3
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 0
+        width: 90
+        height: 90
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 17, y: 5}
+        - {x: 27, y: 4}
+        - {x: 31, y: 10}
+        - {x: 32, y: 16}
+        - {x: 30, y: 18}
+        - {x: 29, y: 21}
+        - {x: 28, y: 20}
+        - {x: 31, y: 19}
+        - {x: 36, y: 19}
+        - {x: 36, y: 49}
+        - {x: 33, y: 50}
+        - {x: 30, y: 49}
+        - {x: 30, y: 34}
+        - {x: 29, y: 31}
+        - {x: 30, y: 34}
+        - {x: 30, y: 36}
+        - {x: 28, y: 38}
+        - {x: 25, y: 37}
+        - {x: 23, y: 32}
+        - {x: 23, y: 31}
+        - {x: 20, y: 20}
+        - {x: 24, y: 15}
+        - {x: 26, y: 15}
+        - {x: 20, y: 15}
+        - {x: 20, y: 20}
+        - {x: 23, y: 33}
+        - {x: 28, y: 43}
+        - {x: 29, y: 57}
+        - {x: 24, y: 63}
+        - {x: 26, y: 68}
+        - {x: 26, y: 73}
+        - {x: 28, y: 62}
+        - {x: 29, y: 53}
+        - {x: 31, y: 51}
+        - {x: 35, y: 52}
+        - {x: 38, y: 60}
+        - {x: 38, y: 90}
+        - {x: -35, y: 90}
+        - {x: -45, y: 72}
+        - {x: -45, y: 0}
+        - {x: 14, y: 0}
+        - {x: 13, y: 6}
+        - {x: 11, y: 17}
+        - {x: 13, y: 12}
+    - name: boss_blue_block_4
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 0
+        width: 90
+        height: 90
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -45, y: 90}
+        - {x: -45, y: 0}
+        - {x: 14, y: 0}
+        - {x: 33, y: 29}
+        - {x: 38, y: 50}
+        - {x: 38, y: 90}
+      - - {x: 28, y: 38}
+        - {x: 20, y: 26}
+        - {x: 20, y: 2}
+        - {x: 27, y: 2}
+        - {x: 33, y: 5}
+        - {x: 34, y: 29}
+        - {x: 34, y: 38}
+      - - {x: 17, y: 21}
+        - {x: 13, y: 19}
+        - {x: 13, y: 11}
+        - {x: 14, y: 9}
+        - {x: 16, y: 9}
+        - {x: 21, y: 11}
+        - {x: 24, y: 14}
+        - {x: 24, y: 19}
+        - {x: 22, y: 21}
+    - name: boss_blue_block_5
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 0
+        width: 90
+        height: 90
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 15, y: 66}
+        - {x: 16, y: 67}
+        - {x: 28, y: 76}
+        - {x: 38, y: 86}
+        - {x: 38, y: 90}
+        - {x: -25, y: 90}
+        - {x: -45, y: 74}
+        - {x: -45, y: 4}
+        - {x: -41, y: 0}
+        - {x: 17, y: 0}
+        - {x: 35, y: 36}
+        - {x: 28, y: 67}
+        - {x: 18, y: 68}
+      - - {x: -42, y: 16}
+        - {x: -45, y: 16}
+        - {x: -45, y: 5}
+        - {x: -42, y: 5}
+        - {x: -39, y: 6}
+        - {x: -39, y: 15}
+      - - {x: 29, y: 37}
+        - {x: 28, y: 28}
+        - {x: 28, y: 25}
+        - {x: 30, y: 24}
+        - {x: 34, y: 24}
+        - {x: 34, y: 37}
+        - {x: 32, y: 38}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
