@@ -84,14 +84,22 @@ MonoBehaviour:
     _candyAnimations:
     - clip: {fileID: 7400000, guid: 865143b060408ff45843fcffae39a974, type: 2}
       frameRate: 10
+    - clip: {fileID: 7400000, guid: 479bc442e7b4f1443a7923e3ce5f40f0, type: 2}
+      frameRate: 10
     _lightningAnimations:
     - clip: {fileID: 7400000, guid: 3f1abf84272b8814d81228827a489074, type: 2}
+      frameRate: 10
+    - clip: {fileID: 7400000, guid: 1d2540fc25fb81442ac8ad4abc80a919, type: 2}
       frameRate: 10
     _magicAnimations:
     - clip: {fileID: 7400000, guid: f8c333676dd5e2349a7b3df105ef1505, type: 2}
       frameRate: 10
+    - clip: {fileID: 7400000, guid: 2c1a1a331e29972428277b634d0362c6, type: 2}
+      frameRate: 10
     _avocadoAnimations:
     - clip: {fileID: 7400000, guid: 0238842b2688688499adbf7b828abc2a, type: 2}
+      frameRate: 10
+    - clip: {fileID: 7400000, guid: 5aaccd78509f12f459449fdc1fc02dbe, type: 2}
       frameRate: 10
     attackSound:
       audioClip: {fileID: 8300000, guid: dc4f973142f4d4873b05808c667452ee, type: 3}
