@@ -12,7 +12,6 @@ public abstract class Entity : MonoBehaviour
 	protected BoxCollider2D _hitCollider;
 
 	protected Shapeshift _shapeshift;
-	protected float _health;
 
 	protected LayerMask _hitboxColliderLayer;
 	protected LayerMask _attackColliderLayer;
@@ -23,6 +22,15 @@ public abstract class Entity : MonoBehaviour
 	protected Movable _movable;
 
 	protected AnimatorStateLayers _stateLayers;
+
+	public float normalizedHealth
+	{ get { return health / maxHealth; } }
+
+	public float maxHealth
+	{ get { return _healthConfig.maxHealth; } }
+
+	public float health
+	{ get; protected set; }
 
 	public Shapeshift.ShapeshiftState ShapeshiftState
 	{
@@ -43,7 +51,7 @@ public abstract class Entity : MonoBehaviour
 		_movable = GetComponent<Movable>();
 		_animator = GetComponent<Animator>();
 
-		_health = _healthConfig.maxHealth;
+		health = _healthConfig.maxHealth;
 		_shapeshift = GetComponent<Shapeshift>();
 
 		_stateLayers = new AnimatorStateLayers(_animator);
@@ -55,13 +63,14 @@ public abstract class Entity : MonoBehaviour
 
 	public void Damage(float amount)
 	{
-		_health -= amount;
-		if (_health > 0f)
+		health -= amount;
+		if (health > 0f)
 		{
 			OnDamage(amount);
 		}
 		else
 		{
+			health = 0f;
 			OnDeath();
 		}
 	}

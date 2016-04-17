@@ -41,6 +41,14 @@ public class Movable : MonoBehaviour
 		private set;
 	}
 
+	public void SetDirection(float dir)
+	{
+		direction = dir > 0f ?
+			MoveDirection.Right : MoveDirection.Left;
+
+		Flip();
+	}
+
 	void Awake()
 	{
 		_rb  = GetComponent<Rigidbody2D>();
@@ -71,20 +79,31 @@ public class Movable : MonoBehaviour
 			if (direction == MoveDirection.Left
 				&& transform.localScale.x > 0f)
 			{
-				var scale = transform.localScale;
-				scale.x = -1f;
-				transform.localScale = scale;
+				Flip();
 			}
 			else if (direction == MoveDirection.Right
 				&& transform.localScale.x < 0f)
 			{
-				var scale = transform.localScale;
-				scale.x = 1f;
-				transform.localScale = scale;
+				Flip();
 			}
-			//_renderer.flipX = _velocity.x < 0f;
 		}
 		_direction = Vector2.zero;
+	}
+
+	void Flip()
+	{
+		if (direction == MoveDirection.Right)
+		{
+			var scale = transform.localScale;
+			scale.x = 1f;
+			transform.localScale = scale;
+		}
+		else
+		{
+			var scale = transform.localScale;
+			scale.x = -1f;
+			transform.localScale = scale;
+		}
 	}
 
 	void FixedUpdate()

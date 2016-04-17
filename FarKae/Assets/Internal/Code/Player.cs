@@ -76,7 +76,6 @@ public class Player : Entity
 			}
 		};
 
-		_health = _healthConfig.maxHealth;
 		_screenShake = Camera.main.GetComponent<ScreenShake>();
 	}
 
@@ -214,6 +213,11 @@ public class Player : Entity
 		{
 			State = PlayerState.Normal;
 		}
+	}
+
+	private void Hit_Finally()
+	{
+		_animator.Play("None", _stateLayers.hitLayer, 0f);
 	}
 
 	private void Normal_Update()

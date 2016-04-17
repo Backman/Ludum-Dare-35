@@ -16,9 +16,12 @@ public class EnemySpawner
 	public List<Transform> spawnPoints = new List<Transform>();
 	float _spawnAccumulator;
 
-	void Update()
+	public void StartSpawn(EnemySpawnSettings spawnSettings)
 	{
+		for (int i = 0; i < spawnSettings.enemies.Length; i++)
+		{
 
+		}
 	}
 
 	public Enemy SpawnEnemy(GameObject enemyPrefab)

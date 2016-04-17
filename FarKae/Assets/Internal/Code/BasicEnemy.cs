@@ -59,6 +59,16 @@ public class BasicEnemy : Enemy
 		base.Attacking_Update();
 	}
 
+	protected override void Wait_Enter()
+	{
+		base.Wait_Enter();
+	}
+
+	protected override void Wait_Update()
+	{
+		base.Wait_Update();
+	}
+
 	protected override void Idle_Enter()
 	{
 		base.Idle_Enter();

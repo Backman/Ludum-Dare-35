@@ -25,7 +25,7 @@ MonoBehaviour:
         clip: {fileID: 7400000, guid: bd6e8178fef1d1442a3e973bc04ad808, type: 2}
         frameRate: 10
       block:
-        clip: {fileID: 7400000, guid: bd6e8178fef1d1442a3e973bc04ad808, type: 2}
+        clip: {fileID: 7400000, guid: 8f0e0256c5fe6454f889f9c0efe3ae96, type: 2}
         frameRate: 10
     lightningState:
       color: {r: 1, g: 1, b: 1, a: 1}
@@ -40,7 +40,7 @@ MonoBehaviour:
         clip: {fileID: 7400000, guid: e0e120e0ae579c640a164ad455f74784, type: 2}
         frameRate: 10
       block:
-        clip: {fileID: 7400000, guid: e0e120e0ae579c640a164ad455f74784, type: 2}
+        clip: {fileID: 7400000, guid: 4d312c292a52a864585a023dbb5713b1, type: 2}
         frameRate: 10
     magicState:
       color: {r: 1, g: 1, b: 1, a: 1}
@@ -55,7 +55,7 @@ MonoBehaviour:
         clip: {fileID: 7400000, guid: 7abcc145ba583be4f8e0a0ab7b55472e, type: 2}
         frameRate: 10
       block:
-        clip: {fileID: 7400000, guid: 7abcc145ba583be4f8e0a0ab7b55472e, type: 2}
+        clip: {fileID: 7400000, guid: a714135ccfb31b94385834d5673b776c, type: 2}
         frameRate: 10
     avocadoState:
       color: {r: 1, g: 1, b: 1, a: 1}
@@ -70,7 +70,7 @@ MonoBehaviour:
         clip: {fileID: 7400000, guid: 4cdfe868469afe54da70e68b9474a15d, type: 2}
         frameRate: 10
       block:
-        clip: {fileID: 7400000, guid: 4cdfe868469afe54da70e68b9474a15d, type: 2}
+        clip: {fileID: 7400000, guid: 70039f348e444a0488fba427aa8bb2b8, type: 2}
         frameRate: 10
   hitSound:
     audioClip: {fileID: 0}
@@ -80,7 +80,7 @@ MonoBehaviour:
   hitStaggerDuration: 0.5
   blockStaggerDuration: 0.5
   basicAttack:
-    damage: 1
+    damage: 10
     _candyAnimations:
     - clip: {fileID: 7400000, guid: 865143b060408ff45843fcffae39a974, type: 2}
       frameRate: 10
@@ -106,7 +106,12 @@ MonoBehaviour:
       volume: 0.7
       minPitch: 0.9
       maxPitch: 1.1
-  attackRange: 0.5
+  xAttackRange: 0.6
+  yAttackRange: 0.2
+  separateThreshold: 2
+  approachSeparateDistance: 1
+  attackSeparateDistance: 0.5
+  stillWorthIt: 0.8
   minAttackInterval: 1
   maxAttackInterval: 2
   attackInterval: 2
