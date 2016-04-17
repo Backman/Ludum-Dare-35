@@ -77,16 +77,16 @@ MonoBehaviour:
   basicAttack:
     damage: 1
     _candyAnimations:
-    - clip: {fileID: 7400000, guid: b7f443d1b28b2d842ba55f95dc157958, type: 2}
+    - clip: {fileID: 7400000, guid: 865143b060408ff45843fcffae39a974, type: 2}
       frameRate: 10
     _lightningAnimations:
-    - clip: {fileID: 7400000, guid: f065c14d205474b4eb0b243db9f26651, type: 2}
+    - clip: {fileID: 7400000, guid: 3f1abf84272b8814d81228827a489074, type: 2}
       frameRate: 10
     _magicAnimations:
-    - clip: {fileID: 7400000, guid: 6d8de0cdd3dfea9439acfe88b9c7524c, type: 2}
+    - clip: {fileID: 7400000, guid: f8c333676dd5e2349a7b3df105ef1505, type: 2}
       frameRate: 10
     _avocadoAnimations:
-    - clip: {fileID: 7400000, guid: c904e341d30b8ca4fb726ba86505c691, type: 2}
+    - clip: {fileID: 7400000, guid: 0238842b2688688499adbf7b828abc2a, type: 2}
       frameRate: 10
   attackRange: 0.5
   attackInterval: 2
