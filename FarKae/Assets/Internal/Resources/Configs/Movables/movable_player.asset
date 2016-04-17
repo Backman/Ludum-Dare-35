@@ -11,5 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7af6a88b0e57114c940d86734fff343, type: 3}
   m_Name: movable_player
   m_EditorClassIdentifier: 
-  baseSpeed: 1
-  verticalSpeed: 0.8
+  baseSpeed: 2
+  verticalSpeed: 1

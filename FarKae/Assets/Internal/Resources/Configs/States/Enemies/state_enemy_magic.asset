@@ -9,9 +9,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c69444c4ffb978e499ac3b0a73c47a38, type: 3}
-  m_Name: state_magic
+  m_Name: state_enemy_magic
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 0.21379304, b: 1, a: 1}
+  color:
+    r: 0
+    g: 0.21379304
+    b: 1
+    a: 1
   effect: {fileID: 111632, guid: 97c10388cce0112458074fedf08ac7c2, type: 2}
   idle:
     clip: {fileID: 7400000, guid: 3f985b143a3c5954ea59872f45bf2417, type: 2}
@@ -24,12 +28,6 @@ MonoBehaviour:
     frameRate: 0
   - clip: {fileID: 7400000, guid: bbd26e8aa7b99684b9e6130c0d608bb2, type: 2}
     frameRate: 0
-  attackOne:
-    clip: {fileID: 7400000, guid: 740138695f5067c4abe8598c57bd473e, type: 2}
-    frameRate: 10
-  attackTwo:
-    clip: {fileID: 7400000, guid: bbd26e8aa7b99684b9e6130c0d608bb2, type: 2}
-    frameRate: 10
   superAttack:
     clip: {fileID: 7400000, guid: 6b5aca8edf1f42e40ade768286c53221, type: 2}
     frameRate: 10

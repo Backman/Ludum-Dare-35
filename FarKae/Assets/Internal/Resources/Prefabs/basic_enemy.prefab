@@ -183,10 +183,20 @@ MonoBehaviour:
   playStateChangeEffects: 0
   applyColors: 1
   _stateEffectSocket: {fileID: 0}
-  _candyConfig: {fileID: 11400000, guid: 27e78883b4554c14b9fe3e998d6d6c40, type: 2}
-  _lightningConfig: {fileID: 11400000, guid: 1fd6424dc7c42c24d9b3d67bd52a3acf, type: 2}
-  _magicConfig: {fileID: 11400000, guid: c51cd286768256d45b284179c546b834, type: 2}
-  _avocadoConfig: {fileID: 11400000, guid: bd22d4c7b2983354497f648950324f7f, type: 2}
+  _states: {fileID: 0}
+  currentPowerState:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    effect: {fileID: 0}
+    idle:
+      clip: {fileID: 0}
+      frameRate: 10
+    move:
+      clip: {fileID: 0}
+      frameRate: 10
+    basicAttacks: []
+    superAttack:
+      clip: {fileID: 0}
+      frameRate: 10
 --- !u!114 &11447478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -213,10 +223,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c132b95654f2cc439cff7599314a15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyConfig: {fileID: 11400000, guid: 1135b333dba2b934581bcdffbef3ac97, type: 2}
   _healthConfig: {fileID: 11400000, guid: 42328c00071d5cb419bb2a704a1716ad, type: 2}
-  attackCollider: {fileID: 6185068}
-  hitCollider: {fileID: 6176274}
+  _attackCollider: {fileID: 6185068}
+  _hitCollider: {fileID: 6176274}
+  _config: {fileID: 11400000, guid: 1135b333dba2b934581bcdffbef3ac97, type: 2}
 --- !u!114 &11475502
 MonoBehaviour:
   m_ObjectHideFlags: 1

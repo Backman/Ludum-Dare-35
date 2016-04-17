@@ -26,12 +26,19 @@ public class Movable : MonoBehaviour
 	SpriteRenderer _renderer;
 	Rigidbody2D _rb;
 
-	Tween _dashTween;
+	Tweener _pushTween;
 
 	Transform _transform;
+
 	public new Transform transform
 	{
 		get { return _transform == null ? (_transform = GetComponent<Transform>()) : _transform; }
+	}
+
+	public bool isMoving
+	{
+		get;
+		private set;
 	}
 
 	void Awake()
@@ -49,7 +56,7 @@ public class Movable : MonoBehaviour
 		_velocity = canMove ? 
 			_direction * multiplier : Vector2.zero;
 
-		var isMoving = _velocity.sqrMagnitude > Mathf.Epsilon;
+		isMoving = _velocity.sqrMagnitude > Mathf.Epsilon;
 
 		if (isMoving)
 		{
@@ -75,17 +82,12 @@ public class Movable : MonoBehaviour
 			}
 			//_renderer.flipX = _velocity.x < 0f;
 		}
-
-		if (_animator)
-		{
-			_animator.SetBool("IsMoving", isMoving);
-		}
 		_direction = Vector2.zero;
 	}
 
 	void FixedUpdate()
 	{
-		if (_dashTween != null && _dashTween.IsPlaying())
+		if (_pushTween != null && _pushTween.IsPlaying())
 		{
 			return;
 		}
@@ -94,18 +96,25 @@ public class Movable : MonoBehaviour
 
 	public void Move(Vector2 direction)
 	{
-		_direction = direction;
+		_direction = direction.normalized;
 	}
 
-	public void Dash(float length, float duration, AnimationCurve curve)
+	public void Push(float length, float duration, AnimationCurve pushCurve = null)
 	{
-		if (_dashTween != null && _dashTween.IsPlaying())
+		AnimationCurve curve = pushCurve ?? AnimationCurve.Linear(0f, 0f, 1f, 1f);
+
+		if (_pushTween != null && _pushTween.IsPlaying())
 		{
-			_dashTween.Kill(false);
+			_pushTween.Kill(false);
 		}
 
-		_dashTween = _rb.DOMoveX(_rb.position.x + (GetDirection() * length), duration)
-			.SetEase(curve);
+		var end = _rb.position.x + (GetDirection() * length);
+		_pushTween = _rb.DOMoveX(end, duration)
+			.SetEase(curve)
+			.OnStart(() =>
+			{
+				_rb.velocity = Vector2.zero;
+			});
 	}
 
 	public float GetDirection()

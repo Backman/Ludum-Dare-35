@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c69444c4ffb978e499ac3b0a73c47a38, type: 3}
-  m_Name: state_candy
+  m_Name: state_player_candy
   m_EditorClassIdentifier: 
   color: {r: 1, g: 0, b: 0, a: 1}
   effect: {fileID: 129394, guid: 76c5d1665741a1e4f8fcebb5cf66954e, type: 2}

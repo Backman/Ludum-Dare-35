@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c69444c4ffb978e499ac3b0a73c47a38, type: 3}
+  m_Name: state_enemy_avocado
+  m_EditorClassIdentifier: 
+  color:
+    r: 0
+    g: 1
+    b: 0
+    a: 1
+  effect: {fileID: 179560, guid: 3fb9b008fbd150b4ba9f790b5c8bce21, type: 2}
+  idle:
+    clip: {fileID: 7400000, guid: 297f6ffa8eca95049b206eeef64e54be, type: 2}
+    frameRate: 20
+  move:
+    clip: {fileID: 7400000, guid: bb42029a74ff801428e0eacd6a8cde03, type: 2}
+    frameRate: 10
+  basicAttacks:
+  - clip: {fileID: 7400000, guid: 9c11e9668fb10024e8e91dd52a162429, type: 2}
+    frameRate: 0
+  - clip: {fileID: 7400000, guid: b98e29448491c554dad185bdf2082df3, type: 2}
+    frameRate: 0
+  superAttack:
+    clip: {fileID: 7400000, guid: fff525b3e4d2885499fdf6f2c5b17ca0, type: 2}
+    frameRate: 10

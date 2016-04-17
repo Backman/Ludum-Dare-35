@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3408e3cece0f1e142b2d0881f13a5228, type: 3}
+  m_Name: states_player
+  m_EditorClassIdentifier: 
+  candyState:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    effect: {fileID: 129394, guid: 76c5d1665741a1e4f8fcebb5cf66954e, type: 2}
+    idle:
+      clip: {fileID: 7400000, guid: dc4f669fcf014984883726e2b49abd45, type: 2}
+      frameRate: 10
+    move:
+      clip: {fileID: 7400000, guid: 770a216d1d964de44ad258504bec57ee, type: 2}
+      frameRate: 10
+    basicAttacks:
+    - clip: {fileID: 7400000, guid: fbe56af0dc6c8a540afce058c921c370, type: 2}
+      frameRate: 10
+    - clip: {fileID: 7400000, guid: 5ed82efdc1ddfb74cbfa4513f4752555, type: 2}
+      frameRate: 10
+    superAttack:
+      clip: {fileID: 7400000, guid: 3f305beb77cc9234fb91f963b53e2cd8, type: 2}
+      frameRate: 10
+  lightningState:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    effect: {fileID: 140576, guid: 645c84e3e5a694449a1fa1ec100263bf, type: 2}
+    idle:
+      clip: {fileID: 7400000, guid: a30316a2082126b43af23be530467aa1, type: 2}
+      frameRate: 10
+    move:
+      clip: {fileID: 7400000, guid: a30316a2082126b43af23be530467aa1, type: 2}
+      frameRate: 10
+    basicAttacks:
+    - clip: {fileID: 7400000, guid: d5a6d9e5755a15e41ba5d9487262ed54, type: 2}
+      frameRate: 0
+    - clip: {fileID: 7400000, guid: b6c093b2f93d81447b6c7a08be343970, type: 2}
+      frameRate: 0
+    superAttack:
+      clip: {fileID: 7400000, guid: df7201dab32d2024a8101bdf301b787e, type: 2}
+      frameRate: 10
+  magicState:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    effect: {fileID: 111632, guid: 97c10388cce0112458074fedf08ac7c2, type: 2}
+    idle:
+      clip: {fileID: 7400000, guid: 3f985b143a3c5954ea59872f45bf2417, type: 2}
+      frameRate: 10
+    move:
+      clip: {fileID: 7400000, guid: a275a21f0c839a6468a73c89ed68ff48, type: 2}
+      frameRate: 10
+    basicAttacks:
+    - clip: {fileID: 7400000, guid: 740138695f5067c4abe8598c57bd473e, type: 2}
+      frameRate: 10
+    - clip: {fileID: 7400000, guid: bbd26e8aa7b99684b9e6130c0d608bb2, type: 2}
+      frameRate: 10
+    superAttack:
+      clip: {fileID: 7400000, guid: 6b5aca8edf1f42e40ade768286c53221, type: 2}
+      frameRate: 10
+  avocadoState:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    effect: {fileID: 179560, guid: 3fb9b008fbd150b4ba9f790b5c8bce21, type: 2}
+    idle:
+      clip: {fileID: 7400000, guid: 9e81e498b4baef64e8da0399f8c8835f, type: 2}
+      frameRate: 10
+    move:
+      clip: {fileID: 7400000, guid: bb42029a74ff801428e0eacd6a8cde03, type: 2}
+      frameRate: 10
+    basicAttacks:
+    - clip: {fileID: 7400000, guid: 9c11e9668fb10024e8e91dd52a162429, type: 2}
+      frameRate: 10
+    - clip: {fileID: 7400000, guid: b98e29448491c554dad185bdf2082df3, type: 2}
+      frameRate: 10
+    superAttack:
+      clip: {fileID: 7400000, guid: fff525b3e4d2885499fdf6f2c5b17ca0, type: 2}
+      frameRate: 10

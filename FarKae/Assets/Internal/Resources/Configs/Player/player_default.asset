@@ -11,88 +11,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5ed24524506c1946b8d0521d61d9f96, type: 3}
   m_Name: player_default
   m_EditorClassIdentifier: 
+  hitStaggerDuration: 0.5
+  powerStates:
+    candyState:
+      color: {r: 1, g: 1, b: 1, a: 1}
+      effect: {fileID: 0}
+      idle:
+        clip: {fileID: 7400000, guid: dc4f669fcf014984883726e2b49abd45, type: 2}
+        frameRate: 10
+      move:
+        clip: {fileID: 7400000, guid: 770a216d1d964de44ad258504bec57ee, type: 2}
+        frameRate: 10
+    lightningState:
+      color: {r: 1, g: 1, b: 1, a: 1}
+      effect: {fileID: 0}
+      idle:
+        clip: {fileID: 7400000, guid: a30316a2082126b43af23be530467aa1, type: 2}
+        frameRate: 10
+      move:
+        clip: {fileID: 7400000, guid: 5db9c0060a78ccb4cbd2cade0ae2a0a0, type: 2}
+        frameRate: 10
+    magicState:
+      color: {r: 1, g: 1, b: 1, a: 1}
+      effect: {fileID: 0}
+      idle:
+        clip: {fileID: 7400000, guid: 3f985b143a3c5954ea59872f45bf2417, type: 2}
+        frameRate: 10
+      move:
+        clip: {fileID: 7400000, guid: a275a21f0c839a6468a73c89ed68ff48, type: 2}
+        frameRate: 10
+    avocadoState:
+      color: {r: 1, g: 1, b: 1, a: 1}
+      effect: {fileID: 0}
+      idle:
+        clip: {fileID: 7400000, guid: 9e81e498b4baef64e8da0399f8c8835f, type: 2}
+        frameRate: 10
+      move:
+        clip: {fileID: 7400000, guid: bb42029a74ff801428e0eacd6a8cde03, type: 2}
+        frameRate: 10
   basicAttackCount: 4
   basicAttack:
     damage: 30
-    doDash: 0
-    dashCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    dashLength: 0.3
-    dashDuration: 0.1
-    freezeDuration: 0.03
-    freezeValue: 0
-  attackOne:
-    damage: 30
-    doDash: 0
-    dashCurve:
-      serializedVersion: 2
-      m_Curve:
-      - time: 0
-        value: 0
-        inSlope: 2
-        outSlope: 2
-        tangentMode: 0
-      - time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 0
-    dashLength: 0.3
-    dashDuration: 0.1
-    freezeDuration: 0.03
-    freezeValue: 0
-  attackTwo:
-    damage: 40
-    doDash: 0
-    dashCurve:
-      serializedVersion: 2
-      m_Curve:
-      - time: 0
-        value: 0
-        inSlope: 2
-        outSlope: 2
-        tangentMode: 0
-      - time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 0
-    dashLength: 0.3
-    dashDuration: 0.1
+    _candyAnimations:
+    - clip: {fileID: 7400000, guid: fbe56af0dc6c8a540afce058c921c370, type: 2}
+      frameRate: 10
+    - clip: {fileID: 7400000, guid: 5ed82efdc1ddfb74cbfa4513f4752555, type: 2}
+      frameRate: 10
+    _lightningAnimations:
+    - clip: {fileID: 7400000, guid: d5a6d9e5755a15e41ba5d9487262ed54, type: 2}
+      frameRate: 10
+    - clip: {fileID: 7400000, guid: b6c093b2f93d81447b6c7a08be343970, type: 2}
+      frameRate: 10
+    _magicAnimations:
+    - clip: {fileID: 7400000, guid: 740138695f5067c4abe8598c57bd473e, type: 2}
+      frameRate: 10
+    - clip: {fileID: 7400000, guid: bbd26e8aa7b99684b9e6130c0d608bb2, type: 2}
+      frameRate: 10
+    _avocadoAnimations:
+    - clip: {fileID: 7400000, guid: 9c11e9668fb10024e8e91dd52a162429, type: 2}
+      frameRate: 10
+    - clip: {fileID: 7400000, guid: b98e29448491c554dad185bdf2082df3, type: 2}
+      frameRate: 10
     freezeDuration: 0.03
     freezeValue: 0
   superAttack:
     damage: 50
-    doDash: 0
-    dashCurve:
-      serializedVersion: 2
-      m_Curve:
-      - time: 0
-        value: 0
-        inSlope: 2
-        outSlope: 2
-        tangentMode: 0
-      - time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 0
-    dashLength: 0.3
-    dashDuration: 0.1
+    _candyAnimations:
+    - clip: {fileID: 7400000, guid: 3f305beb77cc9234fb91f963b53e2cd8, type: 2}
+      frameRate: 10
+    _lightningAnimations:
+    - clip: {fileID: 7400000, guid: df7201dab32d2024a8101bdf301b787e, type: 2}
+      frameRate: 10
+    _magicAnimations:
+    - clip: {fileID: 7400000, guid: 6b5aca8edf1f42e40ade768286c53221, type: 2}
+      frameRate: 10
+    _avocadoAnimations:
+    - clip: {fileID: 7400000, guid: fff525b3e4d2885499fdf6f2c5b17ca0, type: 2}
+      frameRate: 10
     freezeDuration: 0.2
     freezeValue: 0
   attackStaggerDuration: 0.3
   attackSwingDuration: 1
+  attackCooldown: 0.2

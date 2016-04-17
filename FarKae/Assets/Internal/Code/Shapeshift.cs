@@ -19,14 +19,8 @@ public class Shapeshift : MonoBehaviour
 
 	[SerializeField]
 	Transform _stateEffectSocket;
-	[SerializeField]
-	StateConfig _candyConfig;
-	[SerializeField]
-	StateConfig _lightningConfig;
-	[SerializeField]
-	StateConfig _magicConfig;
-	[SerializeField]
-	StateConfig _avocadoConfig;
+
+	public EntityConfig.PowerStates _powerStates;
 
 	public StateMachine<ShapeshiftState> FSM;
 
@@ -44,10 +38,11 @@ public class Shapeshift : MonoBehaviour
 	GameObject _magicEffect;
 	GameObject _avocadoEffect;
 
-	public StateConfig currentStateConfig;
-	public string currentBasicAttackName;
+	Movable _movable;
 
-	public AnimationClipPlayable[] playables;
+	public EntityConfig.PowerState currentPowerState;
+
+	private Animator _animator;
 
 	public ShapeshiftState CurrentState
 	{
@@ -59,16 +54,22 @@ public class Shapeshift : MonoBehaviour
 	{
 		FSM = StateMachine<ShapeshiftState>.Initialize(this);
 		FSM.Changed += StateChanged;
-		FSM.ChangeState(ShapeshiftState.Candy);
 
-		CreateStateEffect(_candyConfig.effect, out _candyEffect);
-		CreateStateEffect(_lightningConfig.effect, out _lightningEffect);
-		CreateStateEffect(_magicConfig.effect, out _magicEffect);
-		CreateStateEffect(_avocadoConfig.effect, out _avocadoEffect);
+		_movable = GetComponent<Movable>();
+		_animator = GetComponent<Animator>();
+	}
 
-		currentStateConfig = _candyConfig;
-		currentBasicAttackName = _candyConfig.basicAttacks[0].clip.name;
-		ApplyAnimations(currentStateConfig);
+	public void Init(EntityConfig.PowerStates states,
+		EntityConfig.PowerState state)
+	{
+		_powerStates = states;
+
+		CreateStateEffect(_powerStates.candyState.effect, out _candyEffect);
+		CreateStateEffect(_powerStates.lightningState.effect, out _lightningEffect);
+		CreateStateEffect(_powerStates.magicState.effect, out _magicEffect);
+		CreateStateEffect(_powerStates.avocadoState.effect, out _avocadoEffect);
+
+		currentPowerState = state;
 	}
 
 	void CreateStateEffect(GameObject prefab, out GameObject effect)
@@ -92,39 +93,21 @@ public class Shapeshift : MonoBehaviour
 		}
 	}
 
-	void ChangeState(StateConfig config, GameObject effect)
+	bool CheckState(string name, int layer)
+	{
+		var state = _animator.GetCurrentAnimatorStateInfo(layer);
+		return state.IsName(name);
+	}
+
+	void ChangeState(EntityConfig.PowerState powerState, GameObject effect)
 	{
 		PlayStateEffect(effect);
 		if (applyColors)
 		{
-			GetComponent<SpriteRenderer>().color = config.color;
-		}
-		else
-		{
-			if (currentStateConfig)
-			{
-				ApplyAnimations(config);
-			}
+			GetComponent<SpriteRenderer>().color = powerState.color;
 		}
 
-		currentStateConfig = config;
-	}
-
-	void ApplyAnimations(StateConfig stateConfig)
-	{
-		var animator = GetComponent<Animator>();
-		if (!animator)
-		{
-			return;
-		}
-		var controller = new AnimatorOverrideController();
-		controller.runtimeAnimatorController = animator.runtimeAnimatorController;
-
-		controller[currentStateConfig.idle.clip.name] = stateConfig.idle.clip;
-		controller[currentStateConfig.move.clip.name] = stateConfig.move.clip;
-		controller[currentStateConfig.superAttack.clip.name] = stateConfig.superAttack.clip;
-
-		animator.runtimeAnimatorController = controller;
+		currentPowerState = powerState;
 	}
 
 	void StateChanged(ShapeshiftState state)
@@ -132,37 +115,52 @@ public class Shapeshift : MonoBehaviour
 		switch (state)
 		{
 			case ShapeshiftState.Candy:
-				ChangeState(_candyConfig, _candyEffect);
+				ChangeState(_powerStates.candyState, _candyEffect);
 				break;
 			case ShapeshiftState.Lightning:
-				ChangeState(_lightningConfig, _lightningEffect);
+				ChangeState(_powerStates.lightningState, _lightningEffect);
 				break;
 			case ShapeshiftState.Magic:
-				ChangeState(_magicConfig, _magicEffect);
+				ChangeState(_powerStates.magicState, _magicEffect);
 				break;
 			case ShapeshiftState.Avocado:
-				ChangeState(_avocadoConfig, _avocadoEffect);
+				ChangeState(_powerStates.avocadoState, _avocadoEffect);
 				break;
 			default:
 				break;
 		}
 	}
 
-	public void SetRandomBasicAttackAnimation()
+	public void PlayCurrentHit()
 	{
-		var rand = Random.Range(0, currentStateConfig.basicAttacks.Length);
+		//if (!CheckState(currentPowerState.superAttack.clip.name, 1))
+		//{
+		//	_animator.Play(currentPowerState.superAttack.clip.name, 1, 0f);
+		//}
+	}
 
-		var animator = GetComponent<Animator>();
-		var controller = new AnimatorOverrideController();
-		controller.runtimeAnimatorController = animator.runtimeAnimatorController;
+	public void PlayCurrentBlock()
+	{
+		//if (!CheckState(currentPowerState.superAttack.clip.name, 1))
+		//{
+		//	_animator.Play(currentPowerState.superAttack.clip.name, 1, 0f);
+		//}
+	}
 
-		var newClip = currentStateConfig.basicAttacks[rand].clip;
+	public void PlayCurrentIdle()
+	{
+		if (!CheckState(currentPowerState.idle.clip.name, 0))
+		{
+			_animator.Play(currentPowerState.idle.clip.name, 0, 0f);
+		}
+	}
 
-		controller[currentBasicAttackName] = newClip;
-
-		currentBasicAttackName = newClip.name;
-
-		animator.runtimeAnimatorController = controller;
+	public void PlayCurrentMove()
+	{
+		if (!CheckState(currentPowerState.move.clip.name, 0))
+		{
+			_animator.Play(currentPowerState.move.clip.name, 0, 0f);
+		}
 	}
 
 	void Candy_Enter()

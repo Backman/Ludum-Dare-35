@@ -41,9 +41,8 @@ public class EnemySpawner
 			return null;
 		var point = spawnPoints[Random.Range(0, spawnPoints.Count)];
 		var go = (GameObject)Object.Instantiate(enemyPrefab, point.transform.position, Quaternion.identity);
-		var shapeshift = go.GetComponent<Shapeshift>();
-		shapeshift.FSM.ChangeState((Shapeshift.ShapeshiftState)Random.Range(0, (int)Shapeshift.ShapeshiftState.Count));
-		return shapeshift.gameObject;
+		go.GetComponent<BasicEnemy>().RandomizePowerState();
+		return go;
 	}
 
 	public static Vector2 GetFrustumSize(float layerDepth, out Vector2 centerPoint)

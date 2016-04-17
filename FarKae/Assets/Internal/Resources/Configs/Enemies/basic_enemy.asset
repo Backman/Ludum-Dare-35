@@ -11,5 +11,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18fd9a5e427c2c9488c7d71931c8cfaf, type: 3}
   m_Name: basic_enemy
   m_EditorClassIdentifier: 
+  hitStaggerDuration: 0.5
+  powerStates:
+    candyState:
+      color: {r: 1, g: 1, b: 1, a: 1}
+      effect: {fileID: 0}
+      idle:
+        clip: {fileID: 7400000, guid: c22e9b08a1a63714d85c3e0b0792761e, type: 2}
+        frameRate: 10
+      move:
+        clip: {fileID: 7400000, guid: 15bc068e01bbd5044b8d5a4e8000a7ee, type: 2}
+        frameRate: 10
+    lightningState:
+      color: {r: 1, g: 1, b: 1, a: 1}
+      effect: {fileID: 0}
+      idle:
+        clip: {fileID: 7400000, guid: 1eab87c74679c11499769a25e32f4118, type: 2}
+        frameRate: 10
+      move:
+        clip: {fileID: 7400000, guid: f7c972de881423d4cb0a169e33a4e39f, type: 2}
+        frameRate: 10
+    magicState:
+      color: {r: 1, g: 1, b: 1, a: 1}
+      effect: {fileID: 0}
+      idle:
+        clip: {fileID: 7400000, guid: e17e6abd11cdc4f4985708fa79315a52, type: 2}
+        frameRate: 10
+      move:
+        clip: {fileID: 7400000, guid: c307dbbd4eabd5c4e8c4a8ef20b7461f, type: 2}
+        frameRate: 10
+    avocadoState:
+      color: {r: 1, g: 1, b: 1, a: 1}
+      effect: {fileID: 0}
+      idle:
+        clip: {fileID: 7400000, guid: 297f6ffa8eca95049b206eeef64e54be, type: 2}
+        frameRate: 10
+      move:
+        clip: {fileID: 7400000, guid: cbf585c5ef48d1b478a04aa090d6173e, type: 2}
+        frameRate: 10
+  basicAttack:
+    damage: 1
+    _candyAnimations:
+    - clip: {fileID: 7400000, guid: b7f443d1b28b2d842ba55f95dc157958, type: 2}
+      frameRate: 10
+    _lightningAnimations:
+    - clip: {fileID: 7400000, guid: f065c14d205474b4eb0b243db9f26651, type: 2}
+      frameRate: 10
+    _magicAnimations:
+    - clip: {fileID: 7400000, guid: 6d8de0cdd3dfea9439acfe88b9c7524c, type: 2}
+      frameRate: 10
+    _avocadoAnimations:
+    - clip: {fileID: 7400000, guid: c904e341d30b8ca4fb726ba86505c691, type: 2}
+      frameRate: 10
   attackRange: 0.5
   attackInterval: 2
