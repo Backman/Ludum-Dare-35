@@ -21,7 +21,10 @@ public class Shapeshift : MonoBehaviour
 	Transform _stateEffectSocket;
 
 	EntityConfig.PowerStates _powerStates;
-	EntityConfig.PowerState _currentPowerState;
+	AnimatorStateLayers _stateLayers;
+
+	public EntityConfig.PowerState currentPowerState
+	{ get; private set; }
 
 	public StateMachine<ShapeshiftState> FSM;
 
@@ -47,6 +50,8 @@ public class Shapeshift : MonoBehaviour
 
 		_movable = GetComponent<Movable>();
 		_animator = GetComponent<Animator>();
+
+		_stateLayers = new AnimatorStateLayers(_animator);
 	}
 
 	public void Init(EntityConfig.PowerStates states,
@@ -59,7 +64,7 @@ public class Shapeshift : MonoBehaviour
 		CreateStateEffect(_powerStates.magicState.effect, out _magicEffect);
 		CreateStateEffect(_powerStates.avocadoState.effect, out _avocadoEffect);
 
-		_currentPowerState = state;
+		currentPowerState = state;
 	}
 
 	void CreateStateEffect(GameObject prefab, out GameObject effect)
@@ -83,12 +88,6 @@ public class Shapeshift : MonoBehaviour
 		}
 	}
 
-	bool CheckState(string name, int layer)
-	{
-		var state = _animator.GetCurrentAnimatorStateInfo(layer);
-		return state.IsName(name);
-	}
-
 	void ChangeState(EntityConfig.PowerState powerState, GameObject effect)
 	{
 		PlayStateEffect(effect);
@@ -97,7 +96,7 @@ public class Shapeshift : MonoBehaviour
 			GetComponent<SpriteRenderer>().color = powerState.color;
 		}
 
-		_currentPowerState = powerState;
+		currentPowerState = powerState;
 	}
 
 	void StateChanged(ShapeshiftState state)
@@ -123,33 +122,33 @@ public class Shapeshift : MonoBehaviour
 
 	public void PlayCurrentHit()
 	{
-		if (!CheckState(_currentPowerState.hit.clip.name, 2))
+		if(!_stateLayers.CheckState(currentPowerState.hit.clip.name, _stateLayers.hitLayer))
 		{
-			_animator.Play(_currentPowerState.hit.clip.name, 2, 0f);
+			_animator.Play(currentPowerState.hit.clip.name, _stateLayers.hitLayer, 0f);
 		}
 	}
 
 	public void PlayCurrentBlock()
 	{
-		//if (!CheckState(_currentPowerState.block.clip.name, 2))
-		//{
-		//	_animator.Play(_currentPowerState.block.clip.name, 2, 0f);
-		//}
+		if(!_stateLayers.CheckState(currentPowerState.block.clip.name, _stateLayers.blockLayer))
+		{
+			_animator.Play(currentPowerState.block.clip.name, _stateLayers.blockLayer, 0f);
+		}
 	}
 
 	public void PlayCurrentIdle()
 	{
-		if (!CheckState(_currentPowerState.idle.clip.name, 0))
+		if(!_stateLayers.CheckState(currentPowerState.idle.clip.name, _stateLayers.baseLayer))
 		{
-			_animator.Play(_currentPowerState.idle.clip.name, 0, 0f);
+			_animator.Play(currentPowerState.idle.clip.name, _stateLayers.baseLayer, 0f);
 		}
 	}
 
 	public void PlayCurrentMove()
 	{
-		if (!CheckState(_currentPowerState.move.clip.name, 0))
+		if(!_stateLayers.CheckState(currentPowerState.move.clip.name, _stateLayers.baseLayer))
 		{
-			_animator.Play(_currentPowerState.move.clip.name, 0, 0f);
+			_animator.Play(currentPowerState.move.clip.name, _stateLayers.baseLayer, 0f);
 		}
 	}
 }

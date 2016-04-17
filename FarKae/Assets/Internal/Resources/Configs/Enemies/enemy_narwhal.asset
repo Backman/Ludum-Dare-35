@@ -89,4 +89,6 @@ MonoBehaviour:
     - clip: {fileID: 7400000, guid: 0238842b2688688499adbf7b828abc2a, type: 2}
       frameRate: 10
   attackRange: 0.5
+  minAttackInterval: 1
+  maxAttackInterval: 2
   attackInterval: 2

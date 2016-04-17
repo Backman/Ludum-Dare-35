@@ -75,7 +75,7 @@ MonoBehaviour:
   hitStaggerDuration: 0.5
   basicAttackCount: 4
   basicAttack:
-    damage: 30
+    damage: 10
     _candyAnimations:
     - clip: {fileID: 7400000, guid: fbe56af0dc6c8a540afce058c921c370, type: 2}
       frameRate: 10
@@ -99,7 +99,7 @@ MonoBehaviour:
     freezeDuration: 0.03
     freezeValue: 0
   superAttack:
-    damage: 50
+    damage: 30
     _candyAnimations:
     - clip: {fileID: 7400000, guid: 3f305beb77cc9234fb91f963b53e2cd8, type: 2}
       frameRate: 10

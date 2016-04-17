@@ -11,7 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18fd9a5e427c2c9488c7d71931c8cfaf, type: 3}
   m_Name: enemy_basic
   m_EditorClassIdentifier: 
-  hitStaggerDuration: 0.5
   powerStates:
     candyState:
       color: {r: 1, g: 1, b: 1, a: 1}
@@ -26,7 +25,7 @@ MonoBehaviour:
         clip: {fileID: 7400000, guid: 20bab515a1f73d64b92aedd8b325c252, type: 2}
         frameRate: 10
       block:
-        clip: {fileID: 7400000, guid: 20bab515a1f73d64b92aedd8b325c252, type: 2}
+        clip: {fileID: 7400000, guid: 9874a34040af7fe40a6d68c0982c61cb, type: 2}
         frameRate: 10
     lightningState:
       color: {r: 1, g: 1, b: 1, a: 1}
@@ -41,7 +40,7 @@ MonoBehaviour:
         clip: {fileID: 7400000, guid: ce869f2290411e943bcd4a2c3e5aad6b, type: 2}
         frameRate: 10
       block:
-        clip: {fileID: 7400000, guid: ce869f2290411e943bcd4a2c3e5aad6b, type: 2}
+        clip: {fileID: 7400000, guid: 8b1ca6cd8afc3c741b5417220646a38b, type: 2}
         frameRate: 10
     magicState:
       color: {r: 1, g: 1, b: 1, a: 1}
@@ -56,7 +55,7 @@ MonoBehaviour:
         clip: {fileID: 7400000, guid: b0158442fa2a18d4eba6027021af9f98, type: 2}
         frameRate: 10
       block:
-        clip: {fileID: 7400000, guid: b0158442fa2a18d4eba6027021af9f98, type: 2}
+        clip: {fileID: 7400000, guid: 7eccaec1cabfa24428d74bec1ac5926f, type: 2}
         frameRate: 10
     avocadoState:
       color: {r: 1, g: 1, b: 1, a: 1}
@@ -71,8 +70,10 @@ MonoBehaviour:
         clip: {fileID: 7400000, guid: dcf87e2cdaa87ba43a23ed82c6fec4be, type: 2}
         frameRate: 10
       block:
-        clip: {fileID: 7400000, guid: dcf87e2cdaa87ba43a23ed82c6fec4be, type: 2}
+        clip: {fileID: 7400000, guid: 5228567837ad61349962e96a9d725e6a, type: 2}
         frameRate: 10
+  hitStaggerDuration: 0.5
+  blockStaggerDuration: 0.5
   basicAttack:
     damage: 1
     _candyAnimations:
@@ -88,4 +89,6 @@ MonoBehaviour:
     - clip: {fileID: 7400000, guid: c904e341d30b8ca4fb726ba86505c691, type: 2}
       frameRate: 10
   attackRange: 0.5
+  minAttackInterval: 1
+  maxAttackInterval: 2
   attackInterval: 2

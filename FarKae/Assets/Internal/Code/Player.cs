@@ -104,7 +104,7 @@ public class Player : Entity
 	protected override void OnDeath()
 	{
 		State = PlayerState.Hit;
-		Debug.LogErrorFormat("You fucking died");
+		Debug.Log("You fucking died");
 	}
 
 	private void ShapeshiftStateChanged(Shapeshift.ShapeshiftState state)
@@ -305,6 +305,10 @@ public class Player : Entity
 				if (_shapeshift.CurrentState == enemy.ShapeshiftState)
 				{
 					enemy.Damage(attack.damage);
+					if (attack == _config.superAttack)
+					{
+						enemy.GetComponent<Movable>().Push(_movable.GetDirection(), 1, 0.2f);
+					}
 				}
 				else
 				{

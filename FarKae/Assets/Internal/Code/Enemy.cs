@@ -8,8 +8,9 @@ public class Enemy : Entity
 	{
 		Approach,
 		Idle,
+		Attacking,
 		Attack,
-		Block,
+		//Block,
 		Hit
 	}
 
@@ -22,10 +23,9 @@ public class Enemy : Entity
 
 	protected StateMachine<EnemyState> _fsm;
 
-	protected float _attackTime;
+	protected float _attackCooldown;
 	protected float _blockTime;
 	protected float _hitTime;
-
 	public EnemyState State
 	{
 		get { return _fsm.State; }
@@ -60,7 +60,7 @@ public class Enemy : Entity
 	{
 		var state = _shapeshift.CurrentState;
 		var rand = Random.Range(0, _config.basicAttack.animations[state].Length);
-		_animator.Play(_config.basicAttack.animations[state][rand].clip.name, 1, 0);
+		_animator.Play(_config.basicAttack.animations[state][rand].clip.name, _stateLayers.attackLayer, 0);
 	}
 
 	protected override void OnDamage(float amount)
@@ -76,7 +76,16 @@ public class Enemy : Entity
 
 	public void Block(float strength = 1f)
 	{
-		_fsm.ChangeState(EnemyState.Block);
+		if (_fsm.State != EnemyState.Attacking)
+		{
+			_shapeshift.PlayCurrentBlock();
+		}
+		//_fsm.ChangeState(EnemyState.Block);
+	}
+
+	public bool Blocking()
+	{
+		return _stateLayers.CheckState(_shapeshift.currentPowerState.block.clip.name, _stateLayers.blockLayer);
 	}
 
 	protected virtual void Hit_Enter()
@@ -96,8 +105,7 @@ public class Enemy : Entity
 
 	protected virtual void Block_Enter()
 	{
-		//_shapeshift.PlayCurrentBlock();
-		_shapeshift.PlayCurrentHit();
+		_shapeshift.PlayCurrentBlock();
 		_blockTime = Time.time;
 	}
 
@@ -144,8 +152,12 @@ public class Enemy : Entity
 			return;
 		}
 
-		_movable.Move(move);
+		if (Blocking())
+		{
+			return;
+		}
 
+		_movable.Move(move);
 		if (_movable.isMoving)
 		{
 			_shapeshift.PlayCurrentMove();
@@ -164,7 +176,7 @@ public class Enemy : Entity
 
 	protected virtual void Attack_Enter()
 	{
-		_attackTime = Time.time;
+		_attackCooldown = Time.time + Random.Range(_config.minAttackInterval, _config.maxAttackInterval);
 		_attackedPlayer = false;
 		_shapeshift.PlayCurrentIdle();
 	}
@@ -174,15 +186,18 @@ public class Enemy : Entity
 		var playerPos = _player.transform.position;
 		var length = (playerPos - transform.position).sqrMagnitude;
 
-		if (_attackTime + _config.attackInterval <= Time.time)
+		if (_attackCooldown <= Time.time)
 		{
-			_attackTime = Time.time;
+			_attackCooldown = Time.time + Random.Range(_config.minAttackInterval, _config.maxAttackInterval);
 			_attackedPlayer = false;
-			PlayRandomBasicAttackAnimation();
+			_fsm.ChangeState(EnemyState.Attacking);
 		}
 		else
 		{
-			_shapeshift.PlayCurrentIdle();
+			if (!Blocking())
+			{
+				_shapeshift.PlayCurrentIdle();
+			}
 		}
 
 		if (length > _config.attackRange)
@@ -190,8 +205,23 @@ public class Enemy : Entity
 			_fsm.ChangeState(EnemyState.Approach);
 			return;
 		}
+	}
 
-		CheckPlayerHit();
+	protected virtual void Attacking_Enter()
+	{
+		PlayRandomBasicAttackAnimation();
+	}
+
+	protected virtual void Attacking_Update()
+	{
+		if (!_stateLayers.CheckState("None", _stateLayers.attackLayer))
+		{
+			CheckPlayerHit();
+		}
+		else
+		{
+			_fsm.ChangeState(EnemyState.Attack);
+		}
 	}
 
 	protected virtual void Attack_Finally()

@@ -22,6 +22,8 @@ public abstract class Entity : MonoBehaviour
 	protected Animator _animator;
 	protected Movable _movable;
 
+	protected AnimatorStateLayers _stateLayers;
+
 	public Shapeshift.ShapeshiftState ShapeshiftState
 	{
 		get { return _shapeshift.CurrentState; }
@@ -43,6 +45,8 @@ public abstract class Entity : MonoBehaviour
 
 		_health = _healthConfig.maxHealth;
 		_shapeshift = GetComponent<Shapeshift>();
+
+		_stateLayers = new AnimatorStateLayers(_animator);
 	}
 
 	protected virtual void Start()
@@ -64,11 +68,6 @@ public abstract class Entity : MonoBehaviour
 
 	public virtual void PlayRandomBasicAttackAnimation()
 	{
-	}
-
-	protected bool CheckAnimatorState(string name, int layer)
-	{
-		return _animator.GetCurrentAnimatorStateInfo(layer).IsName(name);
 	}
 
 	protected abstract void OnDamage(float amount);

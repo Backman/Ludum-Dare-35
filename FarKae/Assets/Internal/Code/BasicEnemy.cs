@@ -49,6 +49,16 @@ public class BasicEnemy : Enemy
 		base.Attack_Update();
 	}
 
+	protected override void Attacking_Enter()
+	{
+		base.Attacking_Enter();
+	}
+
+	protected override void Attacking_Update()
+	{
+		base.Attacking_Update();
+	}
+
 	protected override void Idle_Enter()
 	{
 		base.Idle_Enter();

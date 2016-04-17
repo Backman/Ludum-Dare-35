@@ -14,5 +14,7 @@ public class EnemyConfig : EntityConfig
 	public EnemyAttack basicAttack;
 
 	public float attackRange = 0.5f;
+	public float minAttackInterval = 1f;
+	public float maxAttackInterval = 2f;
 	public float attackInterval = 2f;
 }

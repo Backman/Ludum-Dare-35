@@ -101,7 +101,7 @@ public class Movable : MonoBehaviour
 		_direction = direction.normalized;
 	}
 
-	public void Push(float length, float duration, AnimationCurve pushCurve = null)
+	public void Push(int direction, float length, float duration, AnimationCurve pushCurve = null)
 	{
 		AnimationCurve curve = pushCurve ?? AnimationCurve.Linear(0f, 0f, 1f, 1f);
 
@@ -110,7 +110,7 @@ public class Movable : MonoBehaviour
 			_pushTween.Kill(false);
 		}
 
-		var end = _rb.position.x + (GetDirection() * length);
+		var end = _rb.position.x + (direction * length);
 		_pushTween = _rb.DOMoveX(end, duration)
 			.SetEase(curve)
 			.OnStart(() =>
@@ -119,8 +119,8 @@ public class Movable : MonoBehaviour
 			});
 	}
 
-	public float GetDirection()
+	public int GetDirection()
 	{
-		return direction == MoveDirection.Right ? 1f : -1f;
+		return direction == MoveDirection.Right ? 1 : -1;
 	}
 }
