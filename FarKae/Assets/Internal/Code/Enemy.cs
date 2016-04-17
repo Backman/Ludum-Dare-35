@@ -11,7 +11,8 @@ public class Enemy : Entity
 		Attacking,
 		Attack,
 		//Block,
-		Hit
+		Hit,
+		Wait
 	}
 
 	[SerializeField]
@@ -26,6 +27,10 @@ public class Enemy : Entity
 	protected float _attackCooldown;
 	protected float _blockTime;
 	protected float _hitTime;
+
+	Enemy[] _otherEnemies;
+	private float _waitTime;
+
 	public EnemyState State
 	{
 		get { return _fsm.State; }
@@ -119,6 +124,10 @@ public class Enemy : Entity
 
 	protected virtual void Approach_Enter()
 	{
+		if (_otherEnemies == null || _otherEnemies.Length == 0)
+		{
+			_otherEnemies = FindObjectsOfType<Enemy>();
+		}
 	}
 
 	protected virtual void Approach_Update()
@@ -145,11 +154,14 @@ public class Enemy : Entity
 			move.y = -1f;
 		}
 
-		if (dir.sqrMagnitude <= _config.attackRange)
+		if (Mathf.Abs(dir.y) < _config.yAttackRange)
 		{
-			_fsm.ChangeState(EnemyState.Attack);
-			_movable.Move(Vector2.zero);
-			return;
+			if (Mathf.Abs(dir.x) < _config.xAttackRange)
+			{
+				_fsm.ChangeState(EnemyState.Attack);
+				_movable.Move(Vector2.zero);
+				return;
+			}
 		}
 
 		if (Blocking())
@@ -157,21 +169,93 @@ public class Enemy : Entity
 			return;
 		}
 
-		_movable.Move(move);
+		Vector2 separation = Vector2.zero;
+		int count = 0;
+		for (int i = 0; i < _otherEnemies.Length; i++)
+		{
+			var enemy = _otherEnemies[i];
+			if (!enemy || enemy == this)
+			{
+				continue;
+			}
+
+			var offset = (Vector2)enemy.transform.position - (Vector2)transform.position;
+			var dist = Vector2.Distance(enemy.transform.position, transform.position);
+			if (dist > _config.approachSeparateDistance)
+			{
+				continue;
+			}
+
+			separation += offset / -dist;
+			count++;
+		}
+
+		if (count > 0 && dir.sqrMagnitude > _config.separateThreshold)
+		{
+			separation = separation / count;
+			_movable.Move(separation + (Vector2)dir);
+		}
+		else
+		{
+			_movable.Move(dir);
+		}
+
 		if (_movable.isMoving)
 		{
 			_shapeshift.PlayCurrentMove();
 		}
 	}
 
+	protected virtual void Wait_Enter()
+	{
+		_waitTime = Time.time;
+		_shapeshift.PlayCurrentIdle();
+	}
+
+	protected virtual void Wait_Update()
+	{
+		if (_waitTime + 0.5f < Time.time)
+		{
+			_fsm.ChangeState(EnemyState.Approach);
+		}
+	}
+
 	protected virtual void Idle_Enter()
 	{
-		_fsm.ChangeState(EnemyState.Approach);
+		if (_otherEnemies == null || _otherEnemies.Length == 0)
+		{
+			_otherEnemies = FindObjectsOfType<Enemy>();
+		}
+		//_fsm.ChangeState(EnemyState.Approach);
 	}
 
 	protected virtual void Idle_Update()
 	{
 		_shapeshift.PlayCurrentIdle();
+
+		int count = 0;
+		for (int i = 0; i < _otherEnemies.Length; i++)
+		{
+			var enemy = _otherEnemies[i];
+			if (!enemy || enemy == this)
+			{
+				continue;
+			}
+
+			var offset = (Vector2)enemy.transform.position - (Vector2)transform.position;
+			var dist = Vector2.Distance(enemy.transform.position, transform.position);
+			if (dist > 0.5f)
+			{
+				continue;
+			}
+
+			count++;
+		}
+
+		if (count == 0)
+		{
+			_fsm.ChangeState(EnemyState.Approach);
+		}
 	}
 
 	protected virtual void Attack_Enter()
@@ -184,7 +268,55 @@ public class Enemy : Entity
 	protected virtual void Attack_Update()
 	{
 		var playerPos = _player.transform.position;
-		var length = (playerPos - transform.position).sqrMagnitude;
+		var dir = playerPos - transform.position;
+		var lengthSqr = dir.sqrMagnitude;
+
+		_movable.SetDirection(dir.x);
+
+		if (Mathf.Abs(dir.x) > _config.xAttackRange || Mathf.Abs(dir.y) > _config.yAttackRange)
+		{
+			if (_config.stillWorthIt < (Time.time - _attackCooldown))
+			{
+				if (_attackCooldown <= Time.time)
+				{
+					_attackCooldown = Time.time + Random.Range(_config.minAttackInterval, _config.maxAttackInterval);
+					_attackedPlayer = false;
+					_fsm.ChangeState(EnemyState.Attacking);
+				}
+			}
+			else
+			{
+				_fsm.ChangeState(EnemyState.Approach);
+				return;
+			}
+		}
+
+		Vector2 separation = Vector2.zero;
+		int count = 0;
+		for (int i = 0; i < _otherEnemies.Length; i++)
+		{
+			var enemy = _otherEnemies[i];
+			if (!enemy || enemy == this)
+			{
+				continue;
+			}
+
+			var offset = (Vector2)enemy.transform.position - (Vector2)transform.position;
+			var dist = Vector2.Distance(enemy.transform.position, transform.position);
+			if (dist > _config.attackSeparateDistance)
+			{
+				continue;
+			}
+
+			separation += offset / -dist;
+			count++;
+		}
+		if (count > 0)
+		{
+			separation = separation / count;
+			_movable.Move(separation);
+			return;
+		}
 
 		if (_attackCooldown <= Time.time)
 		{
@@ -199,12 +331,6 @@ public class Enemy : Entity
 				_shapeshift.PlayCurrentIdle();
 			}
 		}
-
-		if (length > _config.attackRange)
-		{
-			_fsm.ChangeState(EnemyState.Approach);
-			return;
-		}
 	}
 
 	protected virtual void Attacking_Enter()
@@ -218,7 +344,7 @@ public class Enemy : Entity
 	{
 		if (!_stateLayers.CheckState("None", _stateLayers.attackLayer))
 		{
-			CheckPlayerHit();
+			CheckPlayerHit(_config.basicAttack);
 		}
 		else
 		{
@@ -231,7 +357,7 @@ public class Enemy : Entity
 		_attackedPlayer = false;
 	}
 
-	protected void CheckPlayerHit()
+	protected void CheckPlayerHit(AttackState attack)
 	{
 		if (!_attackCollider || !_attackCollider.enabled)
 		{
@@ -263,7 +389,7 @@ public class Enemy : Entity
 				if (player && !_attackedPlayer)
 				{
 					_attackedPlayer = true;
-					player.Damage(50f);
+					player.Damage(attack.damage);
 				}
 			}
 		}
