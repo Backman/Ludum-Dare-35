@@ -8,9 +8,10 @@ public class WaveController : MonoBehaviour
 
 	public EnemySpawner spawner = new EnemySpawner();
 
-	public GameObject enemyPrefab;
+	public BasicEnemy basicEnemy;
+	public NarwhalGuy narwhalGuy;
 
-	public Dictionary<int, GameObject> aliveEnemies = new Dictionary<int, GameObject>();
+	public Dictionary<int, Enemy> aliveEnemies = new Dictionary<int, Enemy>();
 
 	void Awake()
 	{
@@ -19,10 +20,11 @@ public class WaveController : MonoBehaviour
 
 	void Start()
 	{
-		SpawnEnemies(4);
+		SpawnEnemies(1, narwhalGuy);
+		SpawnEnemies(4, basicEnemy);
 	}
 
-	public void RemoveEnemy(GameObject enemy)
+	public void RemoveEnemy(Enemy enemy)
 	{
 		if (aliveEnemies.ContainsKey(enemy.GetInstanceID()))
 		{
@@ -31,15 +33,16 @@ public class WaveController : MonoBehaviour
 
 		if (aliveEnemies.Count == 0)
 		{
-			SpawnEnemies(4);
+			SpawnEnemies(1, narwhalGuy);
+			SpawnEnemies(4, basicEnemy);
 		}
 	}
 
-	void SpawnEnemies(int count)
+	void SpawnEnemies(int count, Enemy enemyPrefab)
 	{
 		for (int i = 0; i < count; i++)
 		{
-			var newEnemy = spawner.SpawnEnemy(enemyPrefab);
+			var newEnemy = spawner.SpawnEnemy(enemyPrefab.gameObject);
 			if (newEnemy)
 			{
 				aliveEnemies.Add(newEnemy.GetInstanceID(), newEnemy);

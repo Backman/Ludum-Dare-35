@@ -26,7 +26,7 @@ public class Player : Entity
 
 	int _attackIndex;
 
-	List<BoxCollider2D> _attackedEnemies = new List<BoxCollider2D>();
+	List<Collider2D> _attackedEnemies = new List<Collider2D>();
 
 	PlayerActions _actions;
 
@@ -269,23 +269,27 @@ public class Player : Entity
 			return false;
 		}
 
-		var min = _attackCollider.offset;
-		min.x *= _movable.GetDirection();
-		min += (Vector2)transform.position;
-		var max = min + (Vector2)_attackCollider.bounds.max;
+		var pointA = _attackCollider.offset;
+		pointA.x *= _movable.GetDirection();
+		pointA = (pointA + (Vector2)transform.position) - _attackCollider.size / 2f;
+		var pointB = _attackCollider.offset;
+		pointB.x *= _movable.GetDirection();
+		pointB = (pointB + (Vector2)transform.position) + _attackCollider.size / 2f;
 
-		if (Physics2D.OverlapAreaNonAlloc(min, max, _overlappedHitColliders, (1 << _hitboxColliderLayer.value) | (1 << _attackColliderLayer.value)) <= 0)
+		Collider2D[] colliders = new Collider2D[8];
+
+		if (Physics2D.OverlapAreaNonAlloc(pointA, pointB, colliders, (1 << _hitboxColliderLayer.value) | (1 << _attackColliderLayer.value)) <= 0)
 		{
 			return false;
 		}
 
 		bool hit = false;
-		for (int i = 0; i < _overlappedHitColliders.Length; i++)
+		for (int i = 0; i < colliders.Length; i++)
 		{
-			var otherCollider = _overlappedHitColliders[i];
+			var otherCollider = colliders[i];
 			if (otherCollider && otherCollider.gameObject != gameObject)
 			{
-				var enemy = otherCollider.GetComponentInParent<BasicEnemy>();
+				var enemy = otherCollider.GetComponentInParent<Enemy>();
 				if (!enemy || _attackedEnemies.Contains(otherCollider))
 				{
 					continue;

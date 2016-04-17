@@ -46,6 +46,8 @@ public class Movable : MonoBehaviour
 		_rb  = GetComponent<Rigidbody2D>();
 		_animator  = GetComponent<Animator>();
 		_renderer  = GetComponent<SpriteRenderer>();
+
+		direction = MoveDirection.Right;
 	}
 
 	void Update()

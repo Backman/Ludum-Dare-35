@@ -9,6 +9,8 @@ public class EnemyConfig : EntityConfig
 	{
 	}
 
+	public float blockStaggerDuration = 0.5f;
+
 	public EnemyAttack basicAttack;
 
 	public float attackRange = 0.5f;

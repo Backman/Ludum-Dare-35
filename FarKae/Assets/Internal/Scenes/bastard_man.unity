@@ -198,7 +198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &214947664
 Transform:
   m_ObjectHideFlags: 0
@@ -232,7 +232,8 @@ MonoBehaviour:
     - {fileID: 965101131}
     - {fileID: 1266781652}
     - {fileID: 581830537}
-  enemyPrefab: {fileID: 159656, guid: 2ee10b4073fb8e44c97cf7d5643a2514, type: 2}
+  basicEnemy: {fileID: 11471596, guid: 2ee10b4073fb8e44c97cf7d5643a2514, type: 2}
+  narwhalGuy: {fileID: 11433988, guid: 41fd35e5a6fcd0c4e8fe7bf10f656381, type: 2}
 --- !u!1 &317255317
 GameObject:
   m_ObjectHideFlags: 0

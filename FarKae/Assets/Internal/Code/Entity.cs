@@ -22,8 +22,6 @@ public abstract class Entity : MonoBehaviour
 	protected Animator _animator;
 	protected Movable _movable;
 
-	protected BoxCollider2D[] _overlappedHitColliders = new BoxCollider2D[8];
-
 	public Shapeshift.ShapeshiftState ShapeshiftState
 	{
 		get { return _shapeshift.CurrentState; }
@@ -95,6 +93,22 @@ public abstract class Entity : MonoBehaviour
 			var origin = _attackCollider.offset;
 			origin.x *= _movable ? _movable.GetDirection() : 1f;
 			origin += (Vector2)transform.position;
+
+			var dir = _movable ? _movable.GetDirection() : 1f;
+
+			var pointA = _attackCollider.offset;
+			pointA.x *= dir;
+			pointA = (pointA + (Vector2)transform.position) - _attackCollider.size / 2f;
+			var pointB = _attackCollider.offset;
+			pointB.x *= dir;
+			pointB = (pointB + (Vector2)transform.position) + _attackCollider.size / 2f;
+
+			Gizmos.color = new Color(1f, 0f, 0f, 0.8f);
+			Gizmos.DrawLine(pointA, pointB);
+			Gizmos.color = new Color(0f, 1f, 0f, 0.8f);
+			Gizmos.DrawCube(pointA, Vector3.one * 0.01f);
+			Gizmos.color = new Color(0f, 0f, 1f, 0.8f);
+			Gizmos.DrawCube(pointB, Vector3.one * 0.01f);
 
 			Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
 			Gizmos.DrawCube(origin, _attackCollider.size);

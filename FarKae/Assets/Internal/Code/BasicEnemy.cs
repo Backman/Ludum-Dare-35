@@ -4,108 +4,58 @@ using MonsterLove.StateMachine;
 
 public class BasicEnemy : Enemy
 {
-	void Hit_Enter()
+	protected override void Hit_Enter()
 	{
-		BlinkManager.instance.AddBlink(gameObject, Color.white, 0.1f);
-		_shapeshift.PlayCurrentHit();
+		base.Hit_Enter();
 	}
 
-	void Hit_Update()
+	protected override void Hit_Update()
 	{
+		base.Hit_Update();
 	}
 
-	void Block_Enter()
+	protected override void Block_Enter()
 	{
-		_shapeshift.PlayCurrentBlock();
+		base.Block_Enter();
 	}
 
-	void Block_Update()
+	protected override void Block_Update()
 	{
+		base.Block_Update();
 	}
 
-	void Approach_Enter()
+	protected override void Approach_Enter()
 	{
+		base.Approach_Enter();
 	}
 
-	void Approach_Update()
+	protected override void Approach_Update()
 	{
-		var playerPos = _player.transform.position;
-		var dir = playerPos - transform.position;
-
-		var move = Vector2.zero;
-
-		if (dir.x > 0f)
-		{
-			move.x = 1f;
-		}
-		else if (dir.x < 0f)
-		{
-			move.x = -1f;
-		}
-		if (dir.y > 0f)
-		{
-			move.y = 1f;
-		}
-		else if (dir.y < 0f)
-		{
-			move.y = -1f;
-		}
-
-		if (dir.sqrMagnitude <= _config.attackRange)
-		{
-			_fsm.ChangeState(EnemyState.Attack);
-			_movable.Move(Vector2.zero);
-			return;
-		}
-
-		_movable.Move(move);
-
-		if (_movable.isMoving)
-		{
-			_shapeshift.PlayCurrentMove();
-		}
+		base.Approach_Update();
 	}
 
-	void Idle_Enter()
+	protected override void Attack_Enter()
 	{
-		_fsm.ChangeState(EnemyState.Approach);
+		base.Attack_Enter();
 	}
 
-	void Idle_Update()
+	protected override void Attack_Finally()
 	{
-		_shapeshift.PlayCurrentIdle();
+		base.Attack_Finally();
 	}
 
-	void Attack_Enter()
+	protected override void Attack_Update()
 	{
-		_attackTime = Time.time;
-		_attackedPlayer = false;
-		_shapeshift.PlayCurrentIdle();
+		base.Attack_Update();
 	}
 
-	void Attack_Update()
+	protected override void Idle_Enter()
 	{
-		var playerPos = _player.transform.position;
-		var length = (playerPos - transform.position).sqrMagnitude;
-
-		if (_attackTime + _config.attackInterval <= Time.time)
-		{
-			_attackTime = Time.time;
-			_attackedPlayer = false;
-			PlayRandomBasicAttackAnimation();
-		}
-
-		if (length > _config.attackRange)
-		{
-			_fsm.ChangeState(EnemyState.Approach);
-			return;
-		}
-
-		CheckPlayerHit();
+		base.Idle_Enter();
 	}
 
-	void Attack_Finally()
+	protected override void Idle_Update()
 	{
-		_attackedPlayer = false;
+		base.Idle_Update();
 	}
 }

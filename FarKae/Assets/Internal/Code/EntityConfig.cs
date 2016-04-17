@@ -11,11 +11,15 @@ public abstract class EntityConfig : ScriptableObject
 
 		public AnimationState idle;
 		public AnimationState move;
+		public AnimationState hit;
+		public AnimationState block;
 
 		public virtual void SetupFrameRates()
 		{
 			idle.SetFramRate();
 			move.SetFramRate();
+			hit.SetFramRate();
+			block.SetFramRate();
 		}
 	}
 
@@ -36,7 +40,7 @@ public abstract class EntityConfig : ScriptableObject
 		}
 	}
 
-	public float hitStaggerDuration = 0.5f;
-
 	public PowerStates powerStates;
+
+	public float hitStaggerDuration = 0.5f;
 }

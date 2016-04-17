@@ -1,112 +1,137 @@
 ﻿using UnityEngine;
 using System.Collections;
 using MonsterLove.StateMachine;
+using System.Collections.Generic;
 
 public class NarwhalGuy : Enemy
 {
-	void Hit_Enter()
+	public enum NarwhalState
 	{
-		BlinkManager.instance.AddBlink(gameObject, Color.white, 0.1f);
-		_shapeshift.PlayCurrentHit();
+		Recharge,
+		ChangePowerState
 	}
 
-	void Hit_Update()
+	[SerializeField]
+	float _rechargeDuration;
+	float _rechargeTime;
+
+	Queue<Shapeshift.ShapeshiftState> _availableStates = new Queue<Shapeshift.ShapeshiftState>();
+
+	StateMachine<NarwhalState> _narwhalFSM;
+
+	protected override void Awake()
 	{
+		base.Awake();
 	}
 
-	void Block_Enter()
+	protected override void Start()
 	{
-		_shapeshift.PlayCurrentBlock();
-		_animator.Play("Block", 0, 0f);
+		base.Start();
+		_narwhalFSM = StateMachine<NarwhalState>.Initialize(this);
+		_narwhalFSM.ChangeState(NarwhalState.ChangePowerState);
 	}
 
-	void Block_Update()
+	void ChangeState()
 	{
+		if (_availableStates.Count <= 0)
+		{
+			FillStateQueue();
+		}
+
+		var newState = _availableStates.Dequeue();
+		_shapeshift.FSM.ChangeState(newState);
 	}
 
-	void Approach_Enter()
+	void FillStateQueue()
 	{
-	}
-
-	void Approach_Update()
-	{
-		var playerPos = _player.transform.position;
-		var dir = playerPos - transform.position;
-
-		var move = Vector2.zero;
-
-		if (dir.x > 0f)
+		var states = new List<Shapeshift.ShapeshiftState>()
 		{
-			move.x = 1f;
-		}
-		else if (dir.x < 0f)
-		{
-			move.x = -1f;
-		}
-		if (dir.y > 0f)
-		{
-			move.y = 1f;
-		}
-		else if (dir.y < 0f)
-		{
-			move.y = -1f;
-		}
+			Shapeshift.ShapeshiftState.Candy,
+			Shapeshift.ShapeshiftState.Lightning,
+			Shapeshift.ShapeshiftState.Avocado,
+			Shapeshift.ShapeshiftState.Magic
+		};
 
-		if (dir.sqrMagnitude <= _config.attackRange)
+		while (states.Count > 0)
 		{
-			_fsm.ChangeState(EnemyState.Attack);
-			_movable.Move(Vector2.zero);
-			return;
-		}
-
-		_movable.Move(move);
-
-		if (_movable.isMoving)
-		{
-			_shapeshift.PlayCurrentMove();
+			var index = Random.Range(0, states.Count);
+			_availableStates.Enqueue(states[index]);
+			states.RemoveAt(index);
 		}
 	}
 
-	void Idle_Enter()
+	void Recharge_Enter()
 	{
-		_fsm.ChangeState(EnemyState.Approach);
+		_rechargeTime = Time.time;
 	}
 
-	void Idle_Update()
+	void Recharge_Update()
 	{
-		_shapeshift.PlayCurrentIdle();
-	}
-
-	void Attack_Enter()
-	{
-		_attackTime = Time.time;
-		_attackedPlayer = false;
-		_shapeshift.PlayCurrentIdle();
-	}
-
-	void Attack_Update()
-	{
-		var playerPos = _player.transform.position;
-		var length = (playerPos - transform.position).sqrMagnitude;
-
-		if (_attackTime + _config.attackInterval <= Time.time)
+		if (_rechargeTime + _rechargeDuration < Time.time)
 		{
-			_attackTime = Time.time;
-			_attackedPlayer = false;
-			PlayRandomBasicAttackAnimation();
+			_narwhalFSM.ChangeState(NarwhalState.ChangePowerState);
 		}
-
-		if (length > _config.attackRange)
-		{
-			_fsm.ChangeState(EnemyState.Approach);
-			return;
-		}
-
-		CheckPlayerHit();
 	}
 
-	void Attack_Finally()
+	void ChangePowerState_Enter()
 	{
-		_attackedPlayer = false;
+		ChangeState();
+		_narwhalFSM.ChangeState(NarwhalState.Recharge);
+	}
+
+	protected override void Hit_Enter()
+	{
+		_narwhalFSM.ChangeState(NarwhalState.ChangePowerState);
+		base.Hit_Enter();
+	}
+
+	protected override void Hit_Update()
+	{
+		base.Hit_Update();
+	}
+
+	protected override void Block_Enter()
+	{
+		base.Block_Enter();
+	}
+
+	protected override void Block_Update()
+	{
+		base.Block_Update();
+	}
+
+	protected override void Approach_Enter()
+	{
+		base.Approach_Enter();
+	}
+
+	protected override void Approach_Update()
+	{
+		base.Approach_Update();
+	}
+
+	protected override void Attack_Enter()
+	{
+		base.Attack_Enter();
+	}
+
+	protected override void Attack_Finally()
+	{
+		base.Attack_Finally();
+	}
+
+	protected override void Attack_Update()
+	{
+		base.Attack_Update();
+	}
+
+	protected override void Idle_Enter()
+	{
+		base.Idle_Enter();
+	}
+
+	protected override void Idle_Update()
+	{
+		base.Idle_Update();
 	}
 }

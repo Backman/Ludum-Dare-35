@@ -56,10 +56,7 @@ public class BlinkManager : MonoBehaviour
 
 			float t = (state.EndTime - Time.unscaledTime) / duration;
 			var color = state.Color;
-			if (state.Curve != null)
-				color.a *= state.Curve.Evaluate(t);
-			else
-				color.a *= t;
+			color.a *= state.Curve.Evaluate(t);
 			for (int i = 0; i < state.Renderers.Length; i++)
 			{
 				var renderer = state.Renderers[i];
@@ -96,7 +93,7 @@ public class BlinkManager : MonoBehaviour
 		state.Color = color;
 		state.StartTime = Time.unscaledTime;
 		state.EndTime = Time.unscaledTime + duration;
-		state.Curve = curve;
+		state.Curve = curve ?? AnimationCurve.Linear(0f, 0f, 1f, 1f);
 		state.Renderers = source.GetComponentsInChildren<Renderer>();
 
 		for (int j = 0; j < state.Renderers.Length; j++)

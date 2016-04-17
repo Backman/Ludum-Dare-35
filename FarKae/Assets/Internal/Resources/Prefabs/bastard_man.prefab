@@ -150,9 +150,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0.25}
+  m_Offset: {x: 0.011589617, y: 0.27781498}
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.5}
+  m_Size: {x: 0.3540849, y: 0.3114758}
 --- !u!61 &6152488
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -312,20 +312,6 @@ MonoBehaviour:
   playStateChangeEffects: 1
   applyColors: 0
   _stateEffectSocket: {fileID: 448160}
-  _states: {fileID: 0}
-  currentPowerState:
-    color: {r: 1, g: 1, b: 1, a: 1}
-    effect: {fileID: 0}
-    idle:
-      clip: {fileID: 0}
-      frameRate: 10
-    move:
-      clip: {fileID: 0}
-      frameRate: 10
-    basicAttacks: []
-    superAttack:
-      clip: {fileID: 0}
-      frameRate: 10
 --- !u!114 &11494326
 MonoBehaviour:
   m_ObjectHideFlags: 1

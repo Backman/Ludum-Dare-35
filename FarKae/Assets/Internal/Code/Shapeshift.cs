@@ -20,18 +20,10 @@ public class Shapeshift : MonoBehaviour
 	[SerializeField]
 	Transform _stateEffectSocket;
 
-	public EntityConfig.PowerStates _powerStates;
+	EntityConfig.PowerStates _powerStates;
+	EntityConfig.PowerState _currentPowerState;
 
 	public StateMachine<ShapeshiftState> FSM;
-
-	public System.Action onCandyEnter;
-	public System.Action onCandyUpdate;
-	public System.Action onLightningEnter;
-	public System.Action onLightningUpdate;
-	public System.Action onMagicEnter;
-	public System.Action onMagicUpdate;
-	public System.Action onAvocadoEnter;
-	public System.Action onAvocadoUpdate;
 
 	GameObject _candyEffect;
 	GameObject _lightningEffect;
@@ -39,8 +31,6 @@ public class Shapeshift : MonoBehaviour
 	GameObject _avocadoEffect;
 
 	Movable _movable;
-
-	public EntityConfig.PowerState currentPowerState;
 
 	private Animator _animator;
 
@@ -69,7 +59,7 @@ public class Shapeshift : MonoBehaviour
 		CreateStateEffect(_powerStates.magicState.effect, out _magicEffect);
 		CreateStateEffect(_powerStates.avocadoState.effect, out _avocadoEffect);
 
-		currentPowerState = state;
+		_currentPowerState = state;
 	}
 
 	void CreateStateEffect(GameObject prefab, out GameObject effect)
@@ -107,7 +97,7 @@ public class Shapeshift : MonoBehaviour
 			GetComponent<SpriteRenderer>().color = powerState.color;
 		}
 
-		currentPowerState = powerState;
+		_currentPowerState = powerState;
 	}
 
 	void StateChanged(ShapeshiftState state)
@@ -133,98 +123,33 @@ public class Shapeshift : MonoBehaviour
 
 	public void PlayCurrentHit()
 	{
-		//if (!CheckState(currentPowerState.superAttack.clip.name, 1))
-		//{
-		//	_animator.Play(currentPowerState.superAttack.clip.name, 1, 0f);
-		//}
+		if (!CheckState(_currentPowerState.hit.clip.name, 2))
+		{
+			_animator.Play(_currentPowerState.hit.clip.name, 2, 0f);
+		}
 	}
 
 	public void PlayCurrentBlock()
 	{
-		//if (!CheckState(currentPowerState.superAttack.clip.name, 1))
+		//if (!CheckState(_currentPowerState.block.clip.name, 2))
 		//{
-		//	_animator.Play(currentPowerState.superAttack.clip.name, 1, 0f);
+		//	_animator.Play(_currentPowerState.block.clip.name, 2, 0f);
 		//}
 	}
 
 	public void PlayCurrentIdle()
 	{
-		if (!CheckState(currentPowerState.idle.clip.name, 0))
+		if (!CheckState(_currentPowerState.idle.clip.name, 0))
 		{
-			_animator.Play(currentPowerState.idle.clip.name, 0, 0f);
+			_animator.Play(_currentPowerState.idle.clip.name, 0, 0f);
 		}
 	}
 
 	public void PlayCurrentMove()
 	{
-		if (!CheckState(currentPowerState.move.clip.name, 0))
+		if (!CheckState(_currentPowerState.move.clip.name, 0))
 		{
-			_animator.Play(currentPowerState.move.clip.name, 0, 0f);
-		}
-	}
-
-	void Candy_Enter()
-	{
-		if (onCandyEnter != null)
-		{
-			onCandyEnter();
-		}
-	}
-
-	void Candy_Update()
-	{
-		if (onCandyUpdate != null)
-		{
-			onCandyUpdate();
-		}
-	}
-
-	void Lightning_Enter()
-	{
-		if (onLightningEnter != null)
-		{
-			onLightningEnter();
-		}
-	}
-
-	void Lightning_Update()
-	{
-		if (onLightningUpdate != null)
-		{
-			onLightningUpdate();
-		}
-
-	}
-
-	void Magic_Enter()
-	{
-		if (onMagicEnter != null)
-		{
-			onMagicEnter();
-		}
-	}
-
-	void Magic_Update()
-	{
-		if (onMagicUpdate != null)
-		{
-			onMagicUpdate();
-		}
-	}
-
-	void Avocado_Enter()
-	{
-		if (onAvocadoEnter != null)
-		{
-			onAvocadoEnter();
-		}
-	}
-
-	void Avocado_Update()
-	{
-		if (onAvocadoUpdate != null)
-		{
-			onAvocadoUpdate();
+			_animator.Play(_currentPowerState.move.clip.name, 0, 0f);
 		}
 	}
 }
