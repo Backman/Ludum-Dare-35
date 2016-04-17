@@ -22,7 +22,7 @@ MonoBehaviour:
         clip: {fileID: 7400000, guid: b363233e5c020c348938cbd2d82bdc3b, type: 2}
         frameRate: 10
       hit:
-        clip: {fileID: 7400000, guid: bd6e8178fef1d1442a3e973bc04ad808, type: 2}
+        clip: {fileID: 7400000, guid: 84f1c67950779f44d90bc1b1d3b79b69, type: 2}
         frameRate: 10
       block:
         clip: {fileID: 7400000, guid: 8f0e0256c5fe6454f889f9c0efe3ae96, type: 2}
@@ -40,7 +40,7 @@ MonoBehaviour:
         clip: {fileID: 7400000, guid: 635dbc4e155030b4bbc4dad72a10342c, type: 2}
         frameRate: 10
       hit:
-        clip: {fileID: 7400000, guid: e0e120e0ae579c640a164ad455f74784, type: 2}
+        clip: {fileID: 7400000, guid: 79c92a8dbe0506f47ab108c144897395, type: 2}
         frameRate: 10
       block:
         clip: {fileID: 7400000, guid: 4d312c292a52a864585a023dbb5713b1, type: 2}
@@ -58,7 +58,7 @@ MonoBehaviour:
         clip: {fileID: 7400000, guid: 41361534cece5d642ad04428104698b6, type: 2}
         frameRate: 10
       hit:
-        clip: {fileID: 7400000, guid: 7abcc145ba583be4f8e0a0ab7b55472e, type: 2}
+        clip: {fileID: 7400000, guid: 30fa10b9d3ba80c4cb95f7d52de4d80e, type: 2}
         frameRate: 10
       block:
         clip: {fileID: 7400000, guid: a714135ccfb31b94385834d5673b776c, type: 2}
@@ -76,7 +76,7 @@ MonoBehaviour:
         clip: {fileID: 7400000, guid: 9dc676e5a1daa994c853c09886aa848c, type: 2}
         frameRate: 10
       hit:
-        clip: {fileID: 7400000, guid: 4cdfe868469afe54da70e68b9474a15d, type: 2}
+        clip: {fileID: 7400000, guid: 68afc185ab8bcc64fa96713e2a198869, type: 2}
         frameRate: 10
       block:
         clip: {fileID: 7400000, guid: 70039f348e444a0488fba427aa8bb2b8, type: 2}
