@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum SoundSourceType
 {
@@ -8,6 +9,16 @@ public enum SoundSourceType
 
 public class Music : MonoBehaviour
 {
+	struct AudioState
+	{
+		public AudioClip clip;
+		public Vector3 position;
+		public float volume;
+		public float pitch;
+		public float delay;
+		public float start;
+	}
+
 	public float MinLowPassValue = 3000f;
 	public float MaxLowPassValue = 22000f;
 	public AudioLowPassFilter LowPassFilter;
@@ -20,6 +31,8 @@ public class Music : MonoBehaviour
 	[Range (0.0f, 1.0f)]
 	public float sfxv = 1f;
 	public static Music instance;
+
+	static List<AudioState> _toPlay = new List<AudioState>();
 
 	// Use this for initialization
 	void Start ()
@@ -35,17 +48,19 @@ public class Music : MonoBehaviour
 	}
 
 	public static AudioSource PlayClipAtPoint(AudioSettings soundSettings, Vector3 pos,
+		float delay = 0f,
 		SoundSourceType source = SoundSourceType.Unknown)
 	{
 		if (soundSettings != null)
 		{
 			return PlayClipAtPoint(soundSettings.audioClip, pos,
-				soundSettings.volume, soundSettings.RandomPitch());
+				soundSettings.volume, soundSettings.RandomPitch(), delay, source);
 		}
 		return null;
 	}
 
 	public static AudioSource PlayClipAtPoint (AudioClip clip, Vector3 pos, float volume, float pitch,
+		float delay = 0f,
 		SoundSourceType source = SoundSourceType.Unknown)
 	{
 		if (!clip)
@@ -53,6 +68,24 @@ public class Music : MonoBehaviour
 			return null;
 		}
 
+		if (delay > float.Epsilon)
+		{
+			_toPlay.Add(new AudioState()
+			{
+				clip = clip,
+				position = pos,
+				pitch = pitch,
+				volume = volume,
+				start = Time.time,
+				delay = delay
+			});
+		}
+
+		return CreateAudioSourceObject(clip, pos, volume, pitch); // return the AudioSource reference
+	}
+
+	static AudioSource CreateAudioSourceObject(AudioClip clip, Vector3 pos, float volume, float pitch)
+	{
 		var tempGO = new GameObject ("TempAudio"); // create the temp object
 		tempGO.transform.position = pos; // set its position
 		var aSource = tempGO.AddComponent<AudioSource> (); // add an audio source
@@ -65,7 +98,7 @@ public class Music : MonoBehaviour
 		// set other aSource properties here, if desired
 		aSource.Play (); // start the sound
 		Destroy (tempGO, clip.length); // destroy object after clip duration
-		return aSource; // return the AudioSource reference
+		return aSource;
 	}
 
 	public void PlayRegularMusic ()
@@ -78,6 +111,14 @@ public class Music : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		for (int i = 0; i < _toPlay.Count; i++)
+		{
+			var toPlay = _toPlay[i];
+			if (toPlay.start + toPlay.delay <= Time.time)
+			{
+				CreateAudioSourceObject(toPlay.clip, toPlay.position, toPlay.volume, toPlay.pitch);
+			}
+		}
 		//Songs [0].volume = (1 - transition) * Musicvolume;
 		//Songs [1].volume = transition * Musicvolume;
 		//Songs [2].volume = transition * Musicvolume;
@@ -94,13 +135,13 @@ public class Music : MonoBehaviour
 		//	//Songs[0].volume = (1 - Player.Hype.NormalizedHype) * Musicvolume;
 		//	//Songs[1].volume = Player.Hype.NormalizedHype * Musicvolume;
 		//	transition += fadespeed * Time.deltaTime;
-	
+
 		//}
 		//if (Player.transform.position.y > threshold - 0.75f) {
 		//	if (Songs [2].isPlaying && Songs [2].volume == 0f) {
 		//		Songs [2].Stop ();
 		//	}
-		
+
 		//	transition -= 10 * fadespeed * Time.deltaTime;
 		//	//Songs[0].volume = Musicvolume;
 		//	//Songs[1].volume = 0;

@@ -8,9 +8,14 @@ public class EnemyConfig : EntityConfig
 	public class EnemyAttack : AttackState
 	{
 		public AudioSettings attackSound;
+		[Range(0f, 1f)]
+		public float voiceOverChance = 0.3f;
+		public AudioSettings[] voiceOverSounds;
 	}
 
 	public float blockStaggerDuration = 0.5f;
+
+	public AudioSettings[] deathSounds;
 
 	public EnemyAttack basicAttack;
 
@@ -23,4 +28,7 @@ public class EnemyConfig : EntityConfig
 	public float minAttackInterval = 1f;
 	public float maxAttackInterval = 2f;
 	public float attackInterval = 2f;
+
+	public float deathFlickerDuration = 0.5f;
+	public float deathFlickerInterval = 0.05f;
 }

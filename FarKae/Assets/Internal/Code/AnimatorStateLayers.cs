@@ -7,6 +7,7 @@ public class AnimatorStateLayers
 	public int attackLayer;
 	public int hitLayer;
 	public int blockLayer;
+	public int deathLayer;
 
 	Animator _animator;
 
@@ -17,6 +18,7 @@ public class AnimatorStateLayers
 		attackLayer = animator.GetLayerIndex("Attack");
 		hitLayer = animator.GetLayerIndex("Hit");
 		blockLayer = animator.GetLayerIndex("Block");
+		deathLayer = animator.GetLayerIndex("Death");
 	}
 
 	public bool CheckState(string name, int layer)

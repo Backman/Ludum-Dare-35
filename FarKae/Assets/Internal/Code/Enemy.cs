@@ -12,7 +12,8 @@ public class Enemy : Entity
 		Attack,
 		//Block,
 		Hit,
-		Wait
+		Wait,
+		Death
 	}
 
 	[SerializeField]
@@ -48,6 +49,20 @@ public class Enemy : Entity
 		_config.powerStates.SetupFrameRates();
 
 		_fsm = StateMachine<EnemyState>.Initialize(this);
+		_fsm.Changed += (state) => 
+		{
+			if (state == EnemyState.Death)
+			{
+				if (_config.deathSounds.Length > 0)
+				{
+					var index = Random.Range(0, _config.deathSounds.Length);
+					Music.PlayClipAtPoint(_config.deathSounds[index], transform.position);
+				}
+
+				StartCoroutine(DeathFlicker());
+				Debug.Log(state.ToString());
+			}
+		};
 		_fsm.ChangeState(EnemyState.Approach);
 
 		_config.basicAttack.Init();
@@ -75,8 +90,7 @@ public class Enemy : Entity
 
 	protected override void OnDeath()
 	{
-		WaveController.instance.RemoveEnemy(this);
-		Destroy(gameObject);
+		_fsm.ChangeState(EnemyState.Death, StateTransition.Overwrite);
 	}
 
 	public void Block(float strength = 1f)
@@ -174,7 +188,7 @@ public class Enemy : Entity
 		for (int i = 0; i < _otherEnemies.Length; i++)
 		{
 			var enemy = _otherEnemies[i];
-			if (!enemy || enemy == this)
+			if (!enemy || enemy == this || enemy.isDead)
 			{
 				continue;
 			}
@@ -237,7 +251,7 @@ public class Enemy : Entity
 		for (int i = 0; i < _otherEnemies.Length; i++)
 		{
 			var enemy = _otherEnemies[i];
-			if (!enemy || enemy == this)
+			if (!enemy || enemy == this || enemy.isDead)
 			{
 				continue;
 			}
@@ -336,7 +350,17 @@ public class Enemy : Entity
 	protected virtual void Attacking_Enter()
 	{
 		PlayRandomBasicAttackAnimation();
-		
+
+		if (_config.basicAttack.voiceOverSounds.Length > 0)
+		{
+			var random = Random.Range(0, 1f);
+			if (random <= _config.basicAttack.voiceOverChance)
+			{
+				var audioSetting = _config.basicAttack.voiceOverSounds[Random.Range(0, _config.basicAttack.voiceOverSounds.Length)];
+				Music.PlayClipAtPoint(audioSetting, transform.position, Random.Range(0.05f, 0.15f));
+			}
+		}
+
 		Music.PlayClipAtPoint(_config.basicAttack.attackSound, transform.position);
 	}
 
@@ -355,6 +379,39 @@ public class Enemy : Entity
 	protected virtual void Attack_Finally()
 	{
 		_attackedPlayer = false;
+	}
+
+	protected virtual void Death_Enter()
+	{
+		
+	}
+
+	IEnumerator DeathFlicker()
+	{
+		_shapeshift.PlayCurrentDeath();
+		Debug.Log("DeathFlicker Start");
+		var start = Time.time;
+		var renderer = GetComponent<SpriteRenderer>();
+		while (start + _config.deathFlickerDuration >= Time.time)
+		{
+			renderer.enabled = false;
+			yield return new WaitForSeconds(_config.deathFlickerInterval);
+			renderer.enabled = true;
+			yield return new WaitForSeconds(_config.deathFlickerInterval);
+		}
+
+		Debug.Log("DeathFlicker End");
+		WaveController.instance.RemoveEnemy(this);
+		Destroy(gameObject);
+	}
+
+	protected virtual void Dead_Update()
+	{
+		if (_stateLayers.CheckState("None", _stateLayers.deathLayer))
+		{
+			//WaveController.instance.RemoveEnemy(this);
+			//Destroy(gameObject);
+		}
 	}
 
 	protected void CheckPlayerHit(AttackState attack)
