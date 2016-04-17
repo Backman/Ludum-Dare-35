@@ -1,0 +1,196 @@
+fileFormatVersion: 2
+guid: 282448401c63fb14fa035c7d8b8838a0
+timeCreated: 1460887125
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: boss_yellow_idle_0
+    21300002: boss_yellow_idle_1
+    21300004: boss_yellow_idle_2
+    21300006: boss_yellow_idle_3
+    21300008: boss_yellow_idle_4
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: boss_yellow_idle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 90
+        height: 90
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 28, y: 67}
+        - {x: 24, y: 68}
+        - {x: 21, y: 66}
+        - {x: 22, y: 67}
+        - {x: 34, y: 76}
+        - {x: 44, y: 86}
+        - {x: 44, y: 89}
+        - {x: 43, y: 90}
+        - {x: -7, y: 90}
+        - {x: -45, y: 72}
+        - {x: -45, y: 9}
+        - {x: -37, y: 0}
+        - {x: 23, y: 0}
+        - {x: 29, y: 2}
+        - {x: 44, y: 45}
+        - {x: 44, y: 56}
+    - name: boss_yellow_idle_1
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 0
+        width: 90
+        height: 90
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 24, y: 70}
+        - {x: 21, y: 68}
+        - {x: 22, y: 69}
+        - {x: 34, y: 78}
+        - {x: 44, y: 88}
+        - {x: 44, y: 90}
+        - {x: -25, y: 90}
+        - {x: -45, y: 57}
+        - {x: -45, y: 7}
+        - {x: -38, y: 0}
+        - {x: 23, y: 0}
+        - {x: 44, y: 12}
+        - {x: 44, y: 63}
+        - {x: 34, y: 77}
+    - name: boss_yellow_idle_2
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 0
+        width: 90
+        height: 90
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 24, y: 70}
+        - {x: 21, y: 68}
+        - {x: 22, y: 69}
+        - {x: 34, y: 78}
+        - {x: 44, y: 88}
+        - {x: 44, y: 90}
+        - {x: -6, y: 90}
+        - {x: -45, y: 74}
+        - {x: -45, y: 5}
+        - {x: -42, y: 0}
+        - {x: 16, y: 0}
+        - {x: 42, y: 44}
+        - {x: 40, y: 54}
+        - {x: 30, y: 71}
+    - name: boss_yellow_idle_3
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 0
+        width: 90
+        height: 90
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 13, y: 3}
+        - {x: 38, y: 37}
+        - {x: 40, y: 52}
+        - {x: 30, y: 69}
+        - {x: 24, y: 68}
+        - {x: 21, y: 66}
+        - {x: 22, y: 67}
+        - {x: 34, y: 76}
+        - {x: 44, y: 86}
+        - {x: 44, y: 89}
+        - {x: 43, y: 90}
+        - {x: 38, y: 90}
+        - {x: 29, y: 85}
+        - {x: -19, y: 82}
+        - {x: -42, y: 65}
+        - {x: -45, y: 53}
+        - {x: -45, y: 16}
+        - {x: -37, y: 0}
+        - {x: 11, y: 0}
+    - name: boss_yellow_idle_4
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 0
+        width: 90
+        height: 90
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 28, y: 67}
+        - {x: 24, y: 68}
+        - {x: 21, y: 66}
+        - {x: 22, y: 67}
+        - {x: 34, y: 76}
+        - {x: 44, y: 86}
+        - {x: 44, y: 89}
+        - {x: 43, y: 90}
+        - {x: -7, y: 90}
+        - {x: -45, y: 72}
+        - {x: -45, y: 9}
+        - {x: -37, y: 0}
+        - {x: 23, y: 0}
+        - {x: 29, y: 2}
+        - {x: 44, y: 45}
+        - {x: 44, y: 56}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
