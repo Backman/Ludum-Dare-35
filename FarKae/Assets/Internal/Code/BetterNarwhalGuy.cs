@@ -85,6 +85,41 @@ public class BetterNarwhalGuy : BetterEnemy
 		base.Hit_Enter();
 	}
 
+	protected override void Danger_Enter()
+	{
+		base.Danger_Enter();
+	}
+
+	protected override void Avoid_Enter()
+	{
+		base.Avoid_Enter();
+	}
+
+	protected override void Attack_Exit()
+	{
+		base.Attack_Exit();
+	}
+
+	protected override void Attacking_Finally()
+	{
+		base.Attacking_Finally();
+	}
+
+	protected override void Avoid_Update()
+	{
+		base.Avoid_Update();
+	}
+
+	protected override void Danger_Update()
+	{
+		base.Danger_Update();
+	}
+
+	protected override void Death_Enter()
+	{
+		base.Death_Enter();
+	}
+
 	protected override void Hit_Update()
 	{
 		base.Hit_Update();
