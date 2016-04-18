@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: d90aa4ec23b44df4f9784bbdac53a70a
-timeCreated: 1461004472
+timeCreated: 1461009120
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -11,7 +11,7 @@ TextureImporter:
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -30,7 +30,7 @@ TextureImporter:
   cubemapConvolutionSteps: 7
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: -3
   maxTextureSize: 2048
   textureSettings:
     filterMode: 0
@@ -57,79 +57,47 @@ TextureImporter:
     - name: rainbow_coin_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 24
         y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -4, y: 18}
-        - {x: -10, y: 12}
-        - {x: -10, y: 4}
-        - {x: -6, y: 0}
-        - {x: 6, y: 0}
-        - {x: 10, y: 4}
-        - {x: 10, y: 12}
-        - {x: 4, y: 18}
+      outline: []
     - name: rainbow_coin_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 88
+        y: 1
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -4, y: 19}
-        - {x: -10, y: 13}
-        - {x: -10, y: 5}
-        - {x: -5, y: 0}
-        - {x: 5, y: 0}
-        - {x: 10, y: 5}
-        - {x: 10, y: 13}
-        - {x: 4, y: 19}
+      outline: []
     - name: rainbow_coin_2
       rect:
         serializedVersion: 2
-        x: 128
+        x: 152
         y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -4, y: 18}
-        - {x: -10, y: 12}
-        - {x: -10, y: 4}
-        - {x: -6, y: 0}
-        - {x: 6, y: 0}
-        - {x: 10, y: 4}
-        - {x: 10, y: 12}
-        - {x: 4, y: 18}
+      outline: []
     - name: rainbow_coin_3
       rect:
         serializedVersion: 2
-        x: 192
-        y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 216
+        y: 1
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -4, y: 19}
-        - {x: -10, y: 13}
-        - {x: -10, y: 5}
-        - {x: -5, y: 0}
-        - {x: 5, y: 0}
-        - {x: 10, y: 5}
-        - {x: 10, y: 13}
-        - {x: 4, y: 19}
+      outline: []
     outline: []
   spritePackingTag: 
   userData: 

@@ -36,8 +36,6 @@ public class BetterEnemy : Entity
 	protected float avoidDistanceSqr { get { return _config.avoidDistance * _config.avoidDistance; } }
 	protected float avoidEnemiesDistanceSqr { get { return _config.avoidEnemiesDistance * _config.avoidEnemiesDistance; } }
 
-
-
 	protected override void Awake()
 	{
 		base.Awake();
@@ -84,6 +82,10 @@ public class BetterEnemy : Entity
 
 	protected override void OnDeath()
 	{
+		if (_config.rainbowCoin)
+		{
+			((GameObject)Instantiate(_config.rainbowCoin, transform.position, Quaternion.identity)).GetComponentInChildren<RainbowCoin>().rainbowAmount = _config.rainbowValue;
+		}
 		_fsm.ChangeState(State.Death, StateTransition.Overwrite);
 	}
 

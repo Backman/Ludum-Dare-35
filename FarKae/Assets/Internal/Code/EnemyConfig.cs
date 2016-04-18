@@ -19,6 +19,9 @@ public class EnemyConfig : EntityConfig
 
 	public EnemyAttack basicAttack;
 
+	public GameObject rainbowCoin;
+	public float rainbowValue = 10f;
+
 	public float attackDistance = 1f;
 	public float dangerDistance = 1.5f;
 	public float avoidDistance = 1.5f;

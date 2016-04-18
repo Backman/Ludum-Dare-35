@@ -133,6 +133,8 @@ MonoBehaviour:
       volume: 0.7
       minPitch: 1
       maxPitch: 1
+  rainbowCoin: {fileID: 109306, guid: f3b21517dbad9e84ca4c41208ed88c8f, type: 2}
+  rainbowValue: 10
   attackDistance: 1
   dangerDistance: 0.8
   avoidDistance: 0.65

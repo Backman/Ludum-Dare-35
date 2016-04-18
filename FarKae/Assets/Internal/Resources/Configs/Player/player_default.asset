@@ -161,6 +161,9 @@ MonoBehaviour:
       volume: 1
       minPitch: 0.9
       maxPitch: 1.1
+  rainbowRaveMaterial: {fileID: 2100000, guid: 7c2bf3e031131da4697135ded5b230b5, type: 2}
+  maxRainbow: 100
+  rainbowRaveDuration: 5
   attackStaggerDuration: 0.3
   attackSwingDuration: 1
   attackCooldown: 0.2

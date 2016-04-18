@@ -19,6 +19,10 @@ public class PlayerConfig : EntityConfig
 	public PlayerAttack basicAttack;
 	public PlayerAttack superAttack;
 
+	public Material rainbowRaveMaterial;
+	public float maxRainbow;
+
+	public float rainbowRaveDuration = 5f;
 	public float attackStaggerDuration = 0.2f;
 	public float attackSwingDuration = 0.2f;
 	public float attackCooldown = 0.2f;

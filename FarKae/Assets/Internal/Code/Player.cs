@@ -12,6 +12,12 @@ public class Player : Entity
 		Attacking
 	}
 
+	public enum RainbowState
+	{
+		RainbowEnabled,
+		RainbowDisabled
+	}
+
 	public enum AttackState
 	{
 		NoneAttack,
@@ -32,6 +38,7 @@ public class Player : Entity
 
 	StateMachine<PlayerState> _fsm;
 	StateMachine<AttackState> _attackFSM;
+	StateMachine<RainbowState> _rainbowFSM;
 	Shapeshift.ShapeshiftState _shapeshiftWhenAttack;
 
 	ScreenShake _screenShake;
@@ -54,6 +61,9 @@ public class Player : Entity
 	BoxCollider2D _leftAttackZone;
 	[SerializeField]
 	BoxCollider2D _rightAttackZone;
+	private Material _originMat;
+	private float _rainbowTime;
+	private float _currentRainbow;
 
 	public BoxCollider2D ClosestAttackZone(Vector3 position)
 	{
@@ -74,6 +84,7 @@ public class Player : Entity
 	protected override void Awake()
 	{
 		base.Awake();
+		_originMat = GetComponent<SpriteRenderer>().material;
 		_audioSource = GetComponent<AudioSource>();
 
 		_shapeshift.Init(_config.powerStates, _config.powerStates.candyState);
@@ -85,6 +96,7 @@ public class Player : Entity
 		_fsm = StateMachine<PlayerState>.Initialize(this, PlayerState.Normal);
 
 		_attackFSM = StateMachine<AttackState>.Initialize(this, AttackState.NoneAttack);
+		_rainbowFSM = StateMachine<RainbowState>.Initialize(this, RainbowState.RainbowDisabled);
 		_attackFSM.Changed += (state) =>
 		{
 			_attackCollider.enabled = false;
@@ -103,11 +115,39 @@ public class Player : Entity
 		_screenShake = Camera.main.GetComponent<ScreenShake>();
 	}
 
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (_rainbowFSM.State == RainbowState.RainbowEnabled)
+		{
+			return;
+		}
+
+		var rainbowCoin = other.GetComponent<RainbowCoin>();
+		if (rainbowCoin)
+		{
+			_currentRainbow += rainbowCoin.rainbowAmount;
+			if (_currentRainbow >= _config.maxRainbow)
+			{
+				_rainbowFSM.ChangeState(RainbowState.RainbowEnabled);
+			}
+			if (RainbowMeter.instance != null)
+			{
+				RainbowMeter.instance.AddRainbow(rainbowCoin.rainbowAmount);
+			}
+			Destroy(rainbowCoin.gameObject);
+		}
+	}
+
 	protected override void Start()
 	{
 		base.Start();
 		_shapeshift.FSM.Changed += ShapeshiftStateChanged;
 		_shapeshift.FSM.ChangeState(Shapeshift.ShapeshiftState.Candy);
+
+		if (RainbowMeter.instance)
+		{
+			RainbowMeter.instance.maxRainbow = _config.maxRainbow;
+		}
 	}
 
 	private void OnEnable()
@@ -122,8 +162,15 @@ public class Player : Entity
 
 	protected override void OnDamage(float amount)
 	{
-		Music.PlayClipAtPoint(_config.hitSound, transform.position);
-		State = PlayerState.Hit;
+		if (_rainbowFSM.State == RainbowState.RainbowEnabled)
+		{
+			health += amount;
+		}
+		else
+		{
+			Music.PlayClipAtPoint(_config.hitSound, transform.position);
+			State = PlayerState.Hit;
+		}
 	}
 
 	protected override void OnDeath()
@@ -207,6 +254,33 @@ public class Player : Entity
 	}
 
 	#region State Functions
+
+	void RainbowEnabled_Enter()
+	{
+		GetComponent<SpriteRenderer>().material = _config.rainbowRaveMaterial;
+		_rainbowTime = Time.time;
+	}
+
+	void RainbowEnabled_Update()
+	{
+		if (_rainbowTime + _config.rainbowRaveDuration < Time.time)
+		{
+			_rainbowFSM.ChangeState(RainbowState.RainbowDisabled);
+		}
+	}
+
+	void RainbowDisabled_Enter()
+	{
+		GetComponent<SpriteRenderer>().material = _originMat;
+		_currentRainbow = 0f;
+	}
+
+	void RainbowDisabled_Update()
+	{
+		if (_rainbowTime + _config.rainbowRaveDuration < Time.time)
+		{
+		}
+	}
 
 	void BasicAttack_Enter()
 	{
@@ -393,33 +467,41 @@ public class Player : Entity
 				}
 
 				Camera.main.GetComponent<ScreenShake>().Shake();
-				hit = true;
 
-				if (_shapeshift.CurrentState == enemy.ShapeshiftState)
+				hit = true;
+				if (_rainbowFSM.State == RainbowState.RainbowEnabled)
 				{
 					if (Combo.Instance != null)
 					{
 						Combo.Instance.AddCombo(attack.damage);
 					}
-					enemy.Damage(attack.damage);
-					if (attack == _config.superAttack)
-					{
-						Music.PlayClipAtPoint(attack.hitSound, transform.position);
-						enemy.GetComponent<Movable>().Push(_movable.GetDirection(), 1, 0.2f);
-					}
-					else
-					{
-						Music.PlayClipAtPoint(attack.hitSound, transform.position);
-						enemy.GetComponent<Movable>().Push(_movable.GetDirection(), 0.1f, 0.05f);
-					}
+					enemy.GetComponent<Movable>().Push(_movable.GetDirection(), 1, 0.2f);
+					enemy.Damage(enemy.maxHealth);
 				}
 				else
 				{
-					if (_attackedEnemies.Count == 0)
+					if (_shapeshift.CurrentState == enemy.ShapeshiftState)
 					{
-						Music.PlayClipAtPoint(attack.blockSound, transform.position);
+						enemy.Damage(attack.damage);
+						if (attack == _config.superAttack)
+						{
+							Music.PlayClipAtPoint(attack.hitSound, transform.position);
+							enemy.GetComponent<Movable>().Push(_movable.GetDirection(), 1, 0.2f);
+						}
+						else
+						{
+							Music.PlayClipAtPoint(attack.hitSound, transform.position);
+							enemy.GetComponent<Movable>().Push(_movable.GetDirection(), 0.1f, 0.05f);
+						}
 					}
-					enemy.Block();
+					else
+					{
+						if (_attackedEnemies.Count == 0)
+						{
+							Music.PlayClipAtPoint(attack.blockSound, transform.position);
+						}
+						enemy.Block();
+					}
 				}
 				_attackedEnemies.Add(otherCollider);
 			}
