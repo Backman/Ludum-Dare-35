@@ -90,6 +90,8 @@ MonoBehaviour:
     minPitch: 1
     maxPitch: 1
   hitStaggerDuration: 0.5
+  deathFlickerDuration: 0.7
+  deathFlickerInterval: 0.01
   blockStaggerDuration: 0.5
   deathSounds:
   - audioClip: {fileID: 8300000, guid: 76c7f5004648243a095aac1ccf03841a, type: 3}
@@ -152,5 +154,3 @@ MonoBehaviour:
   minAttackInterval: 0.8
   maxAttackInterval: 1.4
   attackInterval: 2
-  deathFlickerDuration: 0.7
-  deathFlickerInterval: 0.01

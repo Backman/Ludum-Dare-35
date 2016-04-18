@@ -10,7 +10,6 @@ public class RainbowMeter : MonoBehaviour
 	public Slider slider;
 
 	public float maxRainbow { get; set; }
-	public float decayDuration { get; set; }
 	public float currentRainbow { get; private set; }
 
 	void Awake()
@@ -25,13 +24,17 @@ public class RainbowMeter : MonoBehaviour
 		{
 			slider.value = currentRainbow / maxRainbow;
 			currentRainbow = maxRainbow;
-			slider.DOValue(0f, decayDuration);
 		}
 		else
 		{
 			slider.DOValue(currentRainbow / maxRainbow, 0.1f)
 				.SetEase(Ease.OutExpo);
 		}
+	}
+
+	public void StartDecay(float duration)
+	{
+		slider.DOValue(0f, duration);
 	}
 
 	public void ResetRainbow()

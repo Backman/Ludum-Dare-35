@@ -28,7 +28,7 @@ MonoBehaviour:
         clip: {fileID: 7400000, guid: 20bab515a1f73d64b92aedd8b325c252, type: 2}
         frameRate: 10
       death:
-        clip: {fileID: 0}
+        clip: {fileID: 7400000, guid: 9d871bba6f2440249838d17f32df474e, type: 2}
         frameRate: 10
     lightningState:
       color: {r: 1, g: 1, b: 1, a: 1}
@@ -46,7 +46,7 @@ MonoBehaviour:
         clip: {fileID: 7400000, guid: 431501afda94d9942813b2be86600f66, type: 2}
         frameRate: 10
       death:
-        clip: {fileID: 0}
+        clip: {fileID: 7400000, guid: 7b138e7c64b0e914599322825b7b505a, type: 2}
         frameRate: 10
     magicState:
       color: {r: 1, g: 1, b: 1, a: 1}
@@ -64,7 +64,7 @@ MonoBehaviour:
         clip: {fileID: 7400000, guid: 830a7f0c658f8ed4e8a24611c48d0f93, type: 2}
         frameRate: 10
       death:
-        clip: {fileID: 0}
+        clip: {fileID: 7400000, guid: a5c090c68d7213d48be39c58a8ebc830, type: 2}
         frameRate: 10
     avocadoState:
       color: {r: 1, g: 1, b: 1, a: 1}
@@ -82,7 +82,7 @@ MonoBehaviour:
         clip: {fileID: 7400000, guid: cb7d0d064a7cbda4ca5d6b5891be67f2, type: 2}
         frameRate: 10
       death:
-        clip: {fileID: 0}
+        clip: {fileID: 7400000, guid: 11286097ed38bdf47abdc46dfab3589e, type: 2}
         frameRate: 10
   hitSound:
     audioClip: {fileID: 8300000, guid: d2841876ce6f14544b03e21c0a74f713, type: 3}
@@ -90,6 +90,8 @@ MonoBehaviour:
     minPitch: 1
     maxPitch: 1
   hitStaggerDuration: 0.5
+  deathFlickerDuration: 0.5
+  deathFlickerInterval: 0.05
   basicAttackCount: 4
   basicAttack:
     damage: 10
@@ -161,6 +163,21 @@ MonoBehaviour:
       volume: 1
       minPitch: 0.9
       maxPitch: 1.1
+  deathSound:
+    audioClip: {fileID: 8300000, guid: 5d6a91120ccf94d628d87535f0a00e24, type: 3}
+    volume: 1
+    minPitch: 1
+    maxPitch: 1
+  coinPickupSound:
+    audioClip: {fileID: 8300000, guid: 6c58f629b4ed761419fcc8a057a57090, type: 3}
+    volume: 1
+    minPitch: 1
+    maxPitch: 1
+  rainbowSound:
+    audioClip: {fileID: 8300000, guid: 3d190fd47de262144a740df1909e136f, type: 3}
+    volume: 1
+    minPitch: 1
+    maxPitch: 1
   rainbowRaveMaterial: {fileID: 2100000, guid: 7c2bf3e031131da4697135ded5b230b5, type: 2}
   maxRainbow: 100
   rainbowRaveDuration: 5

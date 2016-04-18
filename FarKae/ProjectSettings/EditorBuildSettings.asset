@@ -6,4 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Internal/Scenes/splash_screen.unity
+  - enabled: 1
     path: Assets/Internal/Scenes/bastard_man.unity
+  - enabled: 1
+    path: Assets/Internal/Scenes/game_over.unity

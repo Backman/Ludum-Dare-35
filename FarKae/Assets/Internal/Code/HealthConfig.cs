@@ -4,5 +4,5 @@ using System.Collections;
 [CreateAssetMenu]
 public class HealthConfig : ScriptableObject
 {
-	public int maxHealth = 100;
+	public float maxHealth = 100f;
 }

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class WaveController : MonoBehaviour
 {
@@ -15,13 +17,25 @@ public class WaveController : MonoBehaviour
 
 	public Dictionary<int, GameObject> aliveEnemies = new Dictionary<int, GameObject>();
 
+	public Image fadeOutImage;
+	public float fadeOutDuration = 1f;
+	public float startWaitTime = 1.5f;
+	bool _started;
+
 	void Awake()
 	{
 		instance = this;
+		fadeOutImage.gameObject.SetActive(true);
 	}
 
-	void Start()
+	IEnumerator Start()
 	{
+		var fade = fadeOutImage.DOFade(0f, fadeOutDuration);
+		while (fade.IsPlaying())
+		{
+			yield return null;
+		}
+		yield return new WaitForSeconds(startWaitTime);
 		SpawnEnemies(5, betterEnemy.gameObject);
 		SpawnEnemies(1, betterNarwhalGuy.gameObject);
 		//SpawnEnemies(1, narwhalGuy);
@@ -30,6 +44,11 @@ public class WaveController : MonoBehaviour
 
 	void Update()
 	{
+		if (!_started)
+		{
+			return;
+		}
+
 		if (aliveEnemies.Count == 0)
 		{
 			SpawnEnemies(3, betterEnemy.gameObject);
@@ -45,6 +64,8 @@ public class WaveController : MonoBehaviour
 
 		if (aliveEnemies.Count == 0)
 		{
+			Stats.wavesCleared++;
+			Stats.enemiesSpawned += 6;
 			SpawnEnemies(5, betterEnemy.gameObject);
 			SpawnEnemies(1, betterNarwhalGuy.gameObject);
 		}

@@ -46,4 +46,6 @@ public abstract class EntityConfig : ScriptableObject
 	public AudioSettings hitSound;
 
 	public float hitStaggerDuration = 0.5f;
+	public float deathFlickerDuration = 0.5f;
+	public float deathFlickerInterval = 0.05f;
 }

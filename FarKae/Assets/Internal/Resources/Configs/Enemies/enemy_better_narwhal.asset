@@ -90,14 +90,16 @@ MonoBehaviour:
     minPitch: 1
     maxPitch: 1
   hitStaggerDuration: 0.5
+  deathFlickerDuration: 0.5
+  deathFlickerInterval: 0.05
   blockStaggerDuration: 0.5
   deathSounds:
   - audioClip: {fileID: 8300000, guid: b7b54eaf7d7e841d09199cebc185ab03, type: 3}
-    volume: 0.7
+    volume: 0.8
     minPitch: 1
     maxPitch: 1
   - audioClip: {fileID: 8300000, guid: c802c467fd98c4d7098776aa6b38cf2e, type: 3}
-    volume: 0.7
+    volume: 0.8
     minPitch: 1
     maxPitch: 1
   basicAttack:
@@ -124,7 +126,7 @@ MonoBehaviour:
       frameRate: 10
     attackSound:
       audioClip: {fileID: 8300000, guid: ea18b32e6197a42179399f737d9d7c8e, type: 3}
-      volume: 0.3
+      volume: 0.5
       minPitch: 0.9
       maxPitch: 1.1
     voiceOverChance: 0.5
@@ -148,5 +150,3 @@ MonoBehaviour:
   minAttackInterval: 1
   maxAttackInterval: 2
   attackInterval: 2
-  deathFlickerDuration: 0.5
-  deathFlickerInterval: 0.05

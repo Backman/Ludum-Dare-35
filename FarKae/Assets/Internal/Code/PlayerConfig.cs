@@ -19,6 +19,9 @@ public class PlayerConfig : EntityConfig
 	public PlayerAttack basicAttack;
 	public PlayerAttack superAttack;
 
+	public AudioSettings deathSound;
+	public AudioSettings coinPickupSound;
+	public AudioSettings rainbowSound;
 	public Material rainbowRaveMaterial;
 	public float maxRainbow;
 

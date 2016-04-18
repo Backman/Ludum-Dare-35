@@ -119,6 +119,11 @@ public class Movable : MonoBehaviour
 			return;
 		}
 		_rb.velocity = _velocity;
+
+		if (GetComponent<Player>())
+		{
+			Stats.unitsMoved += _rb.velocity.magnitude;
+		}
 	}
 
 	public void Move(Vector2 direction, bool flipSprite = true)

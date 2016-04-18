@@ -9,11 +9,13 @@ public class Player : Entity
 	{
 		Normal,
 		Hit,
-		Attacking
+		Attacking,
+		Death
 	}
 
 	public enum RainbowState
 	{
+		RainbowReady,
 		RainbowEnabled,
 		RainbowDisabled
 	}
@@ -73,14 +75,6 @@ public class Player : Entity
 		return a.sqrMagnitude < b.sqrMagnitude ? _leftAttackZone : _rightAttackZone;
 	}
 
-	//public Vector3 ClosestAttackZone(Vector3 position)
-	//{
-	//	var a = (Vector2)transform.position + _leftAttackZone.offset;
-	//	var b = (Vector2)transform.position + _rightAttackZone.offset;
-
-	//	return a.sqrMagnitude < b.sqrMagnitude ? a : b;
-	//}
-
 	protected override void Awake()
 	{
 		base.Awake();
@@ -111,7 +105,7 @@ public class Player : Entity
 				_fsm.ChangeState(PlayerState.Normal);
 			}
 		};
-
+		Stats.Reset();
 		_screenShake = Camera.main.GetComponent<ScreenShake>();
 	}
 
@@ -125,10 +119,12 @@ public class Player : Entity
 		var rainbowCoin = other.GetComponent<RainbowCoin>();
 		if (rainbowCoin)
 		{
+			Stats.rainbowCoinsPickedUp++;
+			Music.PlayClipAtPoint(_config.coinPickupSound, transform.position);
 			_currentRainbow += rainbowCoin.rainbowAmount;
 			if (_currentRainbow >= _config.maxRainbow)
 			{
-				_rainbowFSM.ChangeState(RainbowState.RainbowEnabled);
+				_rainbowFSM.ChangeState(RainbowState.RainbowReady);
 			}
 			if (RainbowMeter.instance != null)
 			{
@@ -160,6 +156,29 @@ public class Player : Entity
 		_actions.Destroy();
 	}
 
+	public override void Damage(float amount)
+	{
+		if (_rainbowFSM.State == RainbowState.RainbowEnabled)
+		{
+			return;
+		}
+
+		health -= amount;
+		if (health > 0f)
+		{
+			OnDamage(amount);
+		}
+		else
+		{
+			health = 0f;
+			if (!isDead)
+			{
+				isDead = true;
+				OnDeath();
+			}
+		}
+	}
+
 	protected override void OnDamage(float amount)
 	{
 		if (_rainbowFSM.State == RainbowState.RainbowEnabled)
@@ -175,8 +194,30 @@ public class Player : Entity
 
 	protected override void OnDeath()
 	{
-		State = PlayerState.Hit;
-		Debug.Log("You fucking died");
+		State = PlayerState.Death;
+		Music.PlayClipAtPoint(_config.deathSound, transform.position);
+		StartCoroutine(DeathFlicker());
+	}
+
+	void Death_Enter()
+	{
+		
+	}
+
+	IEnumerator DeathFlicker()
+	{
+		_shapeshift.PlayCurrentDeath();
+		var start = Time.time;
+		var renderer = GetComponent<SpriteRenderer>();
+		renderer.material = _config.rainbowRaveMaterial;
+		GameManager.instance.GameOver(_config.deathSound.audioClip.length);
+		while (true)
+		{
+			renderer.enabled = false;
+			yield return new WaitForSeconds(_config.deathFlickerInterval);
+			renderer.enabled = true;
+			yield return new WaitForSeconds(_config.deathFlickerInterval);
+		}
 	}
 
 	private void ShapeshiftStateChanged(Shapeshift.ShapeshiftState state)
@@ -255,9 +296,26 @@ public class Player : Entity
 
 	#region State Functions
 
+	void RainbowReady_Enter()
+	{
+	}
+
+	void RainbowReady_Update()
+	{
+		if (_actions.RainbowPower())
+		{
+			_rainbowFSM.ChangeState(RainbowState.RainbowEnabled);
+		}
+	}
+
 	void RainbowEnabled_Enter()
 	{
 		GetComponent<SpriteRenderer>().material = _config.rainbowRaveMaterial;
+		Music.PlayClipAtPoint(_config.rainbowSound, transform.position);
+		if (RainbowMeter.instance)
+		{
+			RainbowMeter.instance.StartDecay(_config.rainbowRaveDuration);
+		}
 		_rainbowTime = Time.time;
 	}
 
@@ -266,7 +324,10 @@ public class Player : Entity
 		if (_rainbowTime + _config.rainbowRaveDuration < Time.time)
 		{
 			_rainbowFSM.ChangeState(RainbowState.RainbowDisabled);
+			return;
 		}
+
+		Stats.secondsRainbow += Time.deltaTime;
 	}
 
 	void RainbowDisabled_Enter()
@@ -475,13 +536,16 @@ public class Player : Entity
 					{
 						Combo.Instance.AddCombo(attack.damage);
 					}
+					Music.PlayClipAtPoint(attack.hitSound, transform.position);
 					enemy.GetComponent<Movable>().Push(_movable.GetDirection(), 1, 0.2f);
-					enemy.Damage(enemy.maxHealth);
+					Stats.damageDone += enemy.health;
+					enemy.Damage(enemy.health);
 				}
 				else
 				{
 					if (_shapeshift.CurrentState == enemy.ShapeshiftState)
 					{
+						Stats.damageDone += attack.damage;
 						enemy.Damage(attack.damage);
 						if (attack == _config.superAttack)
 						{

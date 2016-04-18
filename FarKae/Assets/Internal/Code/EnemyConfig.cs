@@ -36,7 +36,4 @@ public class EnemyConfig : EntityConfig
 	public float minAttackInterval = 1f;
 	public float maxAttackInterval = 2f;
 	public float attackInterval = 2f;
-
-	public float deathFlickerDuration = 0.5f;
-	public float deathFlickerInterval = 0.05f;
 }

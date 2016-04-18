@@ -13,7 +13,8 @@ public class BetterEnemy : Entity
 		//Wait,
 		Avoid,
 		Hit,
-		Death
+		Death,
+		GameOver
 	}
 
 	[SerializeField]
@@ -45,6 +46,14 @@ public class BetterEnemy : Entity
 		{
 			if (state == State.Death)
 			{
+				if (this is BetterNarwhalGuy)
+				{
+					Stats.narwhalKills++;
+				}
+				else
+				{
+					Stats.henchmanKills++;
+				}
 				if (_config.deathSounds.Length > 0)
 				{
 					var index = Random.Range(0, _config.deathSounds.Length);
@@ -102,6 +111,12 @@ public class BetterEnemy : Entity
 	{
 		if (isDead)
 		{
+			return;
+		}
+		if (GameManager.instance.gameOver)
+		{
+			_fsm.ChangeState(State.GameOver);
+			_shapeshift.PlayCurrentIdle();
 			return;
 		}
 		
@@ -353,6 +368,11 @@ public class BetterEnemy : Entity
 
 	protected virtual void Attacking_Enter()
 	{
+		if (_player.State == Player.PlayerState.Death)
+		{
+			return;
+		}
+
 		PlayRandomBasicAttackAnimation();
 
 		if (_config.basicAttack.voiceOverSounds.Length > 0)

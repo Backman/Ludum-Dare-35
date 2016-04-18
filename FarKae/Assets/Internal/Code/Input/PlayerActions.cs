@@ -45,6 +45,11 @@ public class PlayerActions : PlayerActionSet
 		StateActions[Shapeshift.ShapeshiftState.Avocado] = Avocado;
 	}
 
+	public bool RainbowPower()
+	{
+		return Candy.IsPressed && Lightning.IsPressed && Magic.IsPressed && Avocado.IsPressed;
+	}
+
 	public IEnumerator Vibrate(float intensity, float duration)
 	{
 		var device = Device ?? InputManager.ActiveDevice;
