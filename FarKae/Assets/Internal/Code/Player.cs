@@ -337,6 +337,7 @@ public class Player : Entity
                     else
                     {
                         Music.PlayClipAtPoint(attack.hitSound, transform.position);
+                        enemy.GetComponent<Movable>().Push(_movable.GetDirection(), 0.1f, 0.05f);
                     }
                 }
                 else
