@@ -34,7 +34,11 @@ public class RainbowMeter : MonoBehaviour
 
 	public void StartDecay(float duration)
 	{
-		slider.DOValue(0f, duration);
+		slider.DOValue(0f, duration)
+			.OnComplete(() =>
+			{
+				ResetRainbow();
+			});
 	}
 
 	public void ResetRainbow()

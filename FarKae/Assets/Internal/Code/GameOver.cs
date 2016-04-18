@@ -26,7 +26,6 @@ public class GameOver : MonoBehaviour
 	public Text secondsRaving;
 
 	StateMachine<State> _fsm;
-	bool _canClick;
 
 	void Awake()
 	{
@@ -52,14 +51,14 @@ public class GameOver : MonoBehaviour
 		fadeImage.DOFade(0f, fadeInDuration)
 			.OnComplete(() =>
 			{
-				_canClick = true;
+				_fsm.ChangeState(State.Score);
 			});
 
 	}
 
-	void Score_Enter()
+	void Score_Update()
 	{
-		if (_canClick && Input.anyKey)
+		if (Input.anyKey)
 		{
 			_fsm.ChangeState(State.Exit);
 		}
