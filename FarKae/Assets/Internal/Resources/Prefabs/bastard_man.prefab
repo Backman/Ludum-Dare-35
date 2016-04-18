@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &101568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 432800}
+  m_Layer: 10
+  m_Name: attack_zones
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &119788
 GameObject:
   m_ObjectHideFlags: 0
@@ -31,6 +46,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &158142
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 456880}
+  - 61: {fileID: 6152020}
+  m_Layer: 13
+  m_Name: attack_zone_left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &172770
 GameObject:
   m_ObjectHideFlags: 0
@@ -50,6 +81,22 @@ GameObject:
   - 82: {fileID: 8212650}
   m_Layer: 10
   m_Name: bastard_man
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &173806
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 412966}
+  - 61: {fileID: 6150140}
+  m_Layer: 13
+  m_Name: attack_zone_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,8 +131,35 @@ Transform:
   - {fileID: 444900}
   - {fileID: 470882}
   - {fileID: 448160}
+  - {fileID: 432800}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!4 &412966
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 173806}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 432800}
+  m_RootOrder: 1
+--- !u!4 &432800
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101568}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 456880}
+  - {fileID: 412966}
+  m_Father: {fileID: 405802}
+  m_RootOrder: 3
 --- !u!4 &444900
 Transform:
   m_ObjectHideFlags: 1
@@ -110,6 +184,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 405802}
   m_RootOrder: 2
+--- !u!4 &456880
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 158142}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 432800}
+  m_RootOrder: 0
 --- !u!4 &470882
 Transform:
   m_ObjectHideFlags: 1
@@ -153,6 +239,34 @@ BoxCollider2D:
   m_Offset: {x: 0.011589617, y: 0.27781498}
   serializedVersion: 2
   m_Size: {x: 0.3540849, y: 0.3114758}
+--- !u!61 &6150140
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 173806}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0.33165208, y: 0.23035377}
+  serializedVersion: 2
+  m_Size: {x: 0.16616255, y: 0.22}
+--- !u!61 &6152020
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 158142}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: -0.3339646, y: 0.23035377}
+  serializedVersion: 2
+  m_Size: {x: 0.17078769, y: 0.19}
 --- !u!61 &6152488
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -327,6 +441,8 @@ MonoBehaviour:
   _attackCollider: {fileID: 6163686}
   _hitCollider: {fileID: 6142816}
   _config: {fileID: 11400000, guid: 7319ec53c78fc10458c17638cfb75c4d, type: 2}
+  _leftAttackZone: {fileID: 6152020}
+  _rightAttackZone: {fileID: 6150140}
 --- !u!212 &21282274
 SpriteRenderer:
   m_ObjectHideFlags: 1

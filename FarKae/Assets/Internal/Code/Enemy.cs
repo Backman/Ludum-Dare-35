@@ -76,7 +76,7 @@ public class Enemy : Entity
 		_player = FindObjectOfType<Player>();
 	}
 
-	public override void PlayRandomBasicAttackAnimation()
+	public void PlayRandomBasicAttackAnimation()
 	{
 		var state = _shapeshift.CurrentState;
 		var rand = Random.Range(0, _config.basicAttack.animations[state].Length);
@@ -389,7 +389,6 @@ public class Enemy : Entity
 	IEnumerator DeathFlicker()
 	{
 		_shapeshift.PlayCurrentDeath();
-		Debug.Log("DeathFlicker Start");
 		var start = Time.time;
 		var renderer = GetComponent<SpriteRenderer>();
 		while (start + _config.deathFlickerDuration >= Time.time)
@@ -400,8 +399,7 @@ public class Enemy : Entity
 			yield return new WaitForSeconds(_config.deathFlickerInterval);
 		}
 
-		Debug.Log("DeathFlicker End");
-		WaveController.instance.RemoveEnemy(this);
+		WaveController.instance.RemoveEnemy(gameObject);
 		Destroy(gameObject);
 	}
 

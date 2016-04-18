@@ -78,12 +78,4 @@ public class BasicEnemy : Enemy
 	{
 		base.Idle_Update();
 	}
-
-	protected override void Death_Enter()
-	{
-	}
-
-	protected override void Dead_Update()
-	{
-	}
 }

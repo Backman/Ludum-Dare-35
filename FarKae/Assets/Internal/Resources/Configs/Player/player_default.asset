@@ -164,3 +164,4 @@ MonoBehaviour:
   attackStaggerDuration: 0.3
   attackSwingDuration: 1
   attackCooldown: 0.2
+  simultaneousAttackers: 5

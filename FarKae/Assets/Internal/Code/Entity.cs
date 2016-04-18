@@ -82,10 +82,6 @@ public abstract class Entity : MonoBehaviour
 		}
 	}
 
-	public virtual void PlayRandomBasicAttackAnimation()
-	{
-	}
-
 	protected abstract void OnDamage(float amount);
 	protected abstract void OnDeath();
 

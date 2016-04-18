@@ -5,200 +5,281 @@ using System.Collections.Generic;
 
 public class Player : Entity
 {
-    public enum PlayerState
-    {
-        Normal,
-        Hit,
-        Attacking
-    }
+	public enum PlayerState
+	{
+		Normal,
+		Hit,
+		Attacking
+	}
 
-    public enum AttackState
-    {
-        NoneAttack,
-        BasicAttack,
-        SuperAttack,
-    }
+	public enum AttackState
+	{
+		NoneAttack,
+		BasicAttack,
+		SuperAttack,
+	}
 
-    [SerializeField]
-    PlayerConfig _config;
+	[SerializeField]
+	PlayerConfig _config;
 
-    AudioSource _audioSource;
+	AudioSource _audioSource;
 
-    int _attackIndex;
+	int _attackIndex;
 
-    List<Collider2D> _attackedEnemies = new List<Collider2D>();
+	List<Collider2D> _attackedEnemies = new List<Collider2D>();
 
-    PlayerActions _actions;
+	PlayerActions _actions;
 
-    StateMachine<PlayerState> _fsm;
-    StateMachine<AttackState> _attackFSM;
-    Shapeshift.ShapeshiftState _shapeshiftWhenAttack;
+	StateMachine<PlayerState> _fsm;
+	StateMachine<AttackState> _attackFSM;
+	Shapeshift.ShapeshiftState _shapeshiftWhenAttack;
 
-    ScreenShake _screenShake;
+	ScreenShake _screenShake;
 
-    public PlayerState State
-    {
-        get { return _fsm.State; }
-        set { _fsm.ChangeState(value); }
-    }
+	List<BetterEnemy> _rightSideAttackers = new List<BetterEnemy>();
+	List<BetterEnemy> _leftSideAttackers = new List<BetterEnemy>();
 
-    private float _swingTime;
-    private float _attackStaggerTime;
-    private float _attackCooldownTimer;
-    private float _hitTime;
+	public PlayerState State
+	{
+		get { return _fsm.State; }
+		set { _fsm.ChangeState(value); }
+	}
 
-    protected override void Awake()
-    {
-        base.Awake();
-        _audioSource = GetComponent<AudioSource>();
+	private float _swingTime;
+	private float _attackStaggerTime;
+	private float _attackCooldownTimer;
+	private float _hitTime;
 
-        _shapeshift.Init(_config.powerStates, _config.powerStates.candyState);
+	[SerializeField]
+	BoxCollider2D _leftAttackZone;
+	[SerializeField]
+	BoxCollider2D _rightAttackZone;
 
-        _config.powerStates.SetupFrameRates();
-        _config.basicAttack.Init();
-        _config.superAttack.Init();
+	public BoxCollider2D ClosestAttackZone(Vector3 position)
+	{
+		var a = (Vector2)position - ((Vector2)transform.position + _leftAttackZone.offset);
+		var b = (Vector2)position - ((Vector2)transform.position + _rightAttackZone.offset);
 
-        _fsm = StateMachine<PlayerState>.Initialize(this, PlayerState.Normal);
+		return a.sqrMagnitude < b.sqrMagnitude ? _leftAttackZone : _rightAttackZone;
+	}
 
-        _attackFSM = StateMachine<AttackState>.Initialize(this, AttackState.NoneAttack);
-        _attackFSM.Changed += (state) =>
-        {
-            _attackCollider.enabled = false;
-            _attackedEnemies.Clear();
-            if (state != AttackState.NoneAttack)
-            {
-                _fsm.ChangeState(PlayerState.Attacking);
-            }
-            else
-            {
-                _attackIndex = 0;
-                _fsm.ChangeState(PlayerState.Normal);
-            }
-        };
+	//public Vector3 ClosestAttackZone(Vector3 position)
+	//{
+	//	var a = (Vector2)transform.position + _leftAttackZone.offset;
+	//	var b = (Vector2)transform.position + _rightAttackZone.offset;
 
-        _screenShake = Camera.main.GetComponent<ScreenShake>();
-    }
+	//	return a.sqrMagnitude < b.sqrMagnitude ? a : b;
+	//}
 
-    protected override void Start()
-    {
-        base.Start();
-        _shapeshift.FSM.Changed += ShapeshiftStateChanged;
-        _shapeshift.FSM.ChangeState(Shapeshift.ShapeshiftState.Candy);
-    }
+	protected override void Awake()
+	{
+		base.Awake();
+		_audioSource = GetComponent<AudioSource>();
 
-    private void OnEnable()
-    {
-        _actions = PlayerActions.CreateWithDefaultBindings();
-    }
+		_shapeshift.Init(_config.powerStates, _config.powerStates.candyState);
 
-    private void OnDisable()
-    {
-        _actions.Destroy();
-    }
+		_config.powerStates.SetupFrameRates();
+		_config.basicAttack.Init();
+		_config.superAttack.Init();
 
-    protected override void OnDamage(float amount)
-    {
-        Music.PlayClipAtPoint(_config.hitSound, transform.position);
-        State = PlayerState.Hit;
-    }
+		_fsm = StateMachine<PlayerState>.Initialize(this, PlayerState.Normal);
 
-    protected override void OnDeath()
-    {
-        State = PlayerState.Hit;
-        Debug.Log("You fucking died");
-    }
+		_attackFSM = StateMachine<AttackState>.Initialize(this, AttackState.NoneAttack);
+		_attackFSM.Changed += (state) =>
+		{
+			_attackCollider.enabled = false;
+			_attackedEnemies.Clear();
+			if (state != AttackState.NoneAttack)
+			{
+				_fsm.ChangeState(PlayerState.Attacking);
+			}
+			else
+			{
+				_attackIndex = 0;
+				_fsm.ChangeState(PlayerState.Normal);
+			}
+		};
 
-    private void ShapeshiftStateChanged(Shapeshift.ShapeshiftState state)
-    {
-        _screenShake.Shake();
-    }
+		_screenShake = Camera.main.GetComponent<ScreenShake>();
+	}
 
-    public override void PlayRandomBasicAttackAnimation()
-    {
-        var state = _shapeshift.CurrentState;
-        var rand = Random.Range(0, _config.basicAttack.animations[state].Length);
-        _animator.Play(_config.basicAttack.animations[state][rand].clip.name, 1, 0);
-    }
+	protected override void Start()
+	{
+		base.Start();
+		_shapeshift.FSM.Changed += ShapeshiftStateChanged;
+		_shapeshift.FSM.ChangeState(Shapeshift.ShapeshiftState.Candy);
+	}
 
-    public void PlayRandomSuperAttackAnimation()
-    {
-        var state = _shapeshift.CurrentState;
-        var rand = Random.Range(0, _config.superAttack.animations[state].Length);
-        _animator.Play(_config.superAttack.animations[state][rand].clip.name, 1, 0);
-    }
+	private void OnEnable()
+	{
+		_actions = PlayerActions.CreateWithDefaultBindings();
+	}
 
-    void BasicAttack_Enter()
-    {
-        _swingTime = Time.time;
+	private void OnDisable()
+	{
+		_actions.Destroy();
+	}
 
-        _attackIndex++;
-        _swingTime = Time.time + _config.attackCooldown;
-        _attackCooldownTimer = Time.time;
-        PlayRandomBasicAttackAnimation();
+	protected override void OnDamage(float amount)
+	{
+		Music.PlayClipAtPoint(_config.hitSound, transform.position);
+		State = PlayerState.Hit;
+	}
 
-        Music.PlayClipAtPoint(_config.basicAttack.punchSound, transform.position);
+	protected override void OnDeath()
+	{
+		State = PlayerState.Hit;
+		Debug.Log("You fucking died");
+	}
 
-        _attackedEnemies.Clear();
-    }
+	private void ShapeshiftStateChanged(Shapeshift.ShapeshiftState state)
+	{
+		_screenShake.Shake();
+	}
 
-    void BasicAttack_Update()
-    {
-        if (_swingTime + _config.attackSwingDuration < Time.time)
-        {
-            _attackFSM.ChangeState(AttackState.NoneAttack);
-            return;
-        }
+	public void PlayRandomBasicAttackAnimation()
+	{
+		var state = _shapeshift.CurrentState;
+		var rand = Random.Range(0, _config.basicAttack.animations[state].Length);
+		_animator.Play(_config.basicAttack.animations[state][rand].clip.name, 1, 0);
+	}
 
-        if (_shapeshiftWhenAttack != _shapeshift.CurrentState)
-        {
-            _attackIndex = 0;
-        }
+	public void PlayRandomSuperAttackAnimation()
+	{
+		var state = _shapeshift.CurrentState;
+		var rand = Random.Range(0, _config.superAttack.animations[state].Length);
+		_animator.Play(_config.superAttack.animations[state][rand].clip.name, 1, 0);
+	}
 
-        if (_attackCooldownTimer + _config.attackCooldown < Time.time
-            && _actions.StateActions[_shapeshift.CurrentState].WasPressed)
-        {
-            if (++_attackIndex >= _config.basicAttackCount)
-            {
-                _attackFSM.ChangeState(AttackState.SuperAttack);
-            }
-            else
-            {
-                PlayRandomBasicAttackAnimation();
-                Music.PlayClipAtPoint(_config.basicAttack.punchSound, transform.position);
-                _swingTime = Time.time + _config.attackCooldown;
-                _attackCooldownTimer = Time.time;
-                _attackedEnemies.Clear();
-            }
-            return;
-        }
+	public bool RequestRightSideAttack(BetterEnemy enemy)
+	{
+		_rightSideAttackers.RemoveAll(e => e == null);
+		if (_rightSideAttackers.Count < _config.simultaneousAttackers)
+		{
+			if (!_rightSideAttackers.Contains(enemy))
+			{
+				_rightSideAttackers.Add(enemy);
+			}
+			return true;
+		}
+		return false;
+	}
 
-        CheckEnemyHit(_config.basicAttack);
-    }
+	public bool RequestLeftSideAttack(BetterEnemy enemy)
+	{
+		_rightSideAttackers.RemoveAll(e => e == null);
+		if (_rightSideAttackers.Count < _config.simultaneousAttackers)
+		{
+			if (!_rightSideAttackers.Contains(enemy))
+			{
+				_rightSideAttackers.Add(enemy);
+			}
+			return true;
+		}
+		return false;
+	}
 
-    private void SuperAttack_Enter()
-    {
-        PlayRandomSuperAttackAnimation();
+	public bool RequestAttack(BetterEnemy enemy)
+	{
+		return RequestRightSideAttack(enemy);
+	}
 
-        Music.PlayClipAtPoint(_config.superAttack.punchSound, transform.position);
+	public void RemoveAttacker(BetterEnemy enemy)
+	{
+		if (_rightSideAttackers.Contains(enemy))
+		{
+			_rightSideAttackers.Remove(enemy);
+		}
+		else if (_leftSideAttackers.Contains(enemy))
+		{
+			_leftSideAttackers.Remove(enemy);
+		}
+	}
 
-        _attackStaggerTime = Time.time;
-        _attackedEnemies.Clear();
-    }
+	void NewShapeShiftState(Shapeshift.ShapeshiftState state)
+	{
+		if (_shapeshiftWhenAttack != state)
+		{
+			_shapeshiftWhenAttack = state;
+			_attackIndex = 0;
+			_shapeshift.FSM.ChangeState(state, StateTransition.Overwrite);
+		}
+	}
 
-    private void SuperAttack_Update()
-    {
-        if (_attackStaggerTime + _config.attackStaggerDuration < Time.time)
-        {
-            _attackFSM.ChangeState(AttackState.NoneAttack);
-            _fsm.ChangeState(PlayerState.Normal);
-            return;
-        }
+	#region State Functions
 
-        if (CheckEnemyHit(_config.superAttack))
-        {
-            StartCoroutine(_actions.Vibrate(1f, 0.3f));
-        }
-    }
+	void BasicAttack_Enter()
+	{
+		_swingTime = Time.time;
+
+		_attackIndex++;
+		_swingTime = Time.time + _config.attackCooldown;
+		_attackCooldownTimer = Time.time;
+		PlayRandomBasicAttackAnimation();
+
+		Music.PlayClipAtPoint(_config.basicAttack.punchSound, transform.position);
+
+		_attackedEnemies.Clear();
+	}
+
+	void BasicAttack_Update()
+	{
+		if (_swingTime + _config.attackSwingDuration < Time.time)
+		{
+			_attackFSM.ChangeState(AttackState.NoneAttack);
+			return;
+		}
+
+		if (_shapeshiftWhenAttack != _shapeshift.CurrentState)
+		{
+			_attackIndex = 0;
+		}
+
+		if (_attackCooldownTimer + _config.attackCooldown < Time.time
+			&& _actions.StateActions[_shapeshift.CurrentState].WasPressed)
+		{
+			if (++_attackIndex >= _config.basicAttackCount)
+			{
+				_attackFSM.ChangeState(AttackState.SuperAttack);
+			}
+			else
+			{
+				PlayRandomBasicAttackAnimation();
+				Music.PlayClipAtPoint(_config.basicAttack.punchSound, transform.position);
+				_swingTime = Time.time + _config.attackCooldown;
+				_attackCooldownTimer = Time.time;
+				_attackedEnemies.Clear();
+			}
+			return;
+		}
+
+		CheckEnemyHit(_config.basicAttack);
+	}
+
+	private void SuperAttack_Enter()
+	{
+		PlayRandomSuperAttackAnimation();
+
+		Music.PlayClipAtPoint(_config.superAttack.punchSound, transform.position);
+
+		_attackStaggerTime = Time.time;
+		_attackedEnemies.Clear();
+	}
+
+	private void SuperAttack_Update()
+	{
+		if (_attackStaggerTime + _config.attackStaggerDuration < Time.time)
+		{
+			_attackFSM.ChangeState(AttackState.NoneAttack);
+			_fsm.ChangeState(PlayerState.Normal);
+			return;
+		}
+
+		if (CheckEnemyHit(_config.superAttack))
+		{
+			StartCoroutine(_actions.Vibrate(1f, 0.3f));
+		}
+	}
 
 	private void Hit_Enter()
 	{
@@ -208,153 +289,145 @@ public class Player : Entity
 		_hitTime = Time.time;
 	}
 
-    private void Hit_Update()
-    {
-        if (_hitTime + _config.hitStaggerDuration <= Time.time)
-        {
-            State = PlayerState.Normal;
-        }
-    }
+	private void Hit_Update()
+	{
+		if (_hitTime + _config.hitStaggerDuration <= Time.time)
+		{
+			State = PlayerState.Normal;
+		}
+	}
 
-    private void Hit_Finally()
-    {
-        _animator.Play("None", _stateLayers.hitLayer, 0f);
-    }
+	private void Hit_Finally()
+	{
+		_animator.Play("None", _stateLayers.hitLayer, 0f);
+	}
 
-    private void Normal_Update()
-    {
-        if (_stateLayers.CheckState("None", _stateLayers.attackLayer))
-        {
-            var move = _actions.Move.Value;
+	private void Normal_Update()
+	{
+		if (_stateLayers.CheckState("None", _stateLayers.attackLayer))
+		{
+			var move = _actions.Move.Value;
 
-            _movable.Move(move);
+			_movable.Move(move);
 
-            if (_movable.isMoving)
-            {
-                _shapeshift.PlayCurrentMove();
-            }
-            else
-            {
-                _shapeshift.PlayCurrentIdle();
-            }
-        }
-        else
-        {
-            _shapeshift.PlayCurrentIdle();
-        }
+			if (_movable.isMoving)
+			{
+				_shapeshift.PlayCurrentMove();
+			}
+			else
+			{
+				_shapeshift.PlayCurrentIdle();
+			}
+		}
+		else
+		{
+			_shapeshift.PlayCurrentIdle();
+		}
 
-        var candy = _actions.Candy.WasPressed;
-        var lightning = _actions.Lightning.WasPressed;
-        var magic = _actions.Magic.WasPressed;
-        var avocado = _actions.Avocado.WasPressed;
+		var candy = _actions.Candy.WasPressed;
+		var lightning = _actions.Lightning.WasPressed;
+		var magic = _actions.Magic.WasPressed;
+		var avocado = _actions.Avocado.WasPressed;
 
-        if (candy)
-        {
-            NewShapeShiftState(Shapeshift.ShapeshiftState.Candy);
-        }
-        else if (lightning)
-        {
-            NewShapeShiftState(Shapeshift.ShapeshiftState.Lightning);
-        }
-        else if (magic)
-        {
-            NewShapeShiftState(Shapeshift.ShapeshiftState.Magic);
-        }
-        else if (avocado)
-        {
-            NewShapeShiftState(Shapeshift.ShapeshiftState.Avocado);
-        }
-    }
+		if (candy)
+		{
+			NewShapeShiftState(Shapeshift.ShapeshiftState.Candy);
+		}
+		else if (lightning)
+		{
+			NewShapeShiftState(Shapeshift.ShapeshiftState.Lightning);
+		}
+		else if (magic)
+		{
+			NewShapeShiftState(Shapeshift.ShapeshiftState.Magic);
+		}
+		else if (avocado)
+		{
+			NewShapeShiftState(Shapeshift.ShapeshiftState.Avocado);
+		}
+	}
 
-    void NewShapeShiftState(Shapeshift.ShapeshiftState state)
-    {
-        if (_shapeshiftWhenAttack != state)
-        {
-            _shapeshiftWhenAttack = state;
-            _attackIndex = 0;
-            _shapeshift.FSM.ChangeState(state, StateTransition.Overwrite);
-        }
-    }
+	void NoneAttack_Update()
+	{
+		bool attack = _actions.StateActions[_shapeshift.CurrentState].WasPressed;
 
-    void NoneAttack_Update()
-    {
-        bool attack = _actions.StateActions[_shapeshift.CurrentState].WasPressed;
+		if (attack)
+		{
+			_attackFSM.ChangeState(AttackState.BasicAttack);
+		}
+	}
 
-        if (attack)
-        {
-            _attackFSM.ChangeState(AttackState.BasicAttack);
-        }
-    }
+	#endregion
 
-    private bool CheckEnemyHit(PlayerConfig.PlayerAttack attack)
-    {
-        if (!_attackCollider || !_attackCollider.enabled)
-        {
-            return false;
-        }
+	private bool CheckEnemyHit(PlayerConfig.PlayerAttack attack)
+	{
+		if (!_attackCollider || !_attackCollider.enabled)
+		{
+			return false;
+		}
 
-        var pointA = _attackCollider.offset;
-        pointA.x *= _movable.GetDirection();
-        pointA = (pointA + (Vector2)transform.position) - _attackCollider.size / 2f;
-        var pointB = _attackCollider.offset;
-        pointB.x *= _movable.GetDirection();
-        pointB = (pointB + (Vector2)transform.position) + _attackCollider.size / 2f;
+		var pointA = _attackCollider.offset;
+		pointA.x *= _movable.GetDirection();
+		pointA = (pointA + (Vector2)transform.position) - _attackCollider.size / 2f;
+		var pointB = _attackCollider.offset;
+		pointB.x *= _movable.GetDirection();
+		pointB = (pointB + (Vector2)transform.position) + _attackCollider.size / 2f;
 
-        Collider2D[] colliders = new Collider2D[8];
+		Collider2D[] colliders = new Collider2D[8];
 
-        if (Physics2D.OverlapAreaNonAlloc(pointA, pointB, colliders, (1 << _hitboxColliderLayer.value) | (1 << _attackColliderLayer.value)) <= 0)
-        {
-            return false;
-        }
+		if (Physics2D.OverlapAreaNonAlloc(pointA, pointB, colliders, (1 << _hitboxColliderLayer.value) | (1 << _attackColliderLayer.value)) <= 0)
+		{
+			return false;
+		}
 
-        bool hit = false;
-        for (int i = 0; i < colliders.Length; i++)
-        {
-            var otherCollider = colliders[i];
-            if (otherCollider && otherCollider.gameObject != gameObject)
-            {
-                var enemy = otherCollider.GetComponentInParent<Enemy>();
-                if (!enemy || _attackedEnemies.Contains(otherCollider))
-                {
-                    continue;
-                }
+		bool hit = false;
+		for (int i = 0; i < colliders.Length; i++)
+		{
+			var otherCollider = colliders[i];
+			if (otherCollider && otherCollider.gameObject != gameObject)
+			{
+				var enemy = otherCollider.GetComponentInParent<BetterEnemy>();
+				if (!enemy || _attackedEnemies.Contains(otherCollider))
+				{
+					continue;
+				}
 
-                Camera.main.GetComponent<ScreenShake>().Shake();
-                hit = true;
+				Camera.main.GetComponent<ScreenShake>().Shake();
+				hit = true;
 
-                if (_shapeshift.CurrentState == enemy.ShapeshiftState)
-                {
-                    if (Combo.Instance != null)
-                    {
-                        Combo.Instance.AddCombo(attack.damage);
-                    }
-                    enemy.Damage(attack.damage);
-                    if (attack == _config.superAttack)
-                    {
-                        Music.PlayClipAtPoint(attack.hitSound, transform.position);
-                        enemy.GetComponent<Movable>().Push(_movable.GetDirection(), 1, 0.2f);
-                    }
-                    else
-                    {
-                        Music.PlayClipAtPoint(attack.hitSound, transform.position);
-                    }
-                }
-                else
-                {
-                    if (_attackedEnemies.Count == 0)
-                    {
-                        Music.PlayClipAtPoint(attack.blockSound, transform.position);
-                    }
-                    enemy.Block();
-                }
-                _attackedEnemies.Add(otherCollider);
-            }
-        }
+				if (_shapeshift.CurrentState == enemy.ShapeshiftState)
+				{
+					if (Combo.Instance != null)
+					{
+						Combo.Instance.AddCombo(attack.damage);
+					}
+					enemy.Damage(attack.damage);
+					if (attack == _config.superAttack)
+					{
+						Music.PlayClipAtPoint(attack.hitSound, transform.position);
+						enemy.GetComponent<Movable>().Push(_movable.GetDirection(), 1, 0.2f);
+					}
+					else
+					{
+						Music.PlayClipAtPoint(attack.hitSound, transform.position);
+					}
+				}
+				else
+				{
+					if (_attackedEnemies.Count == 0)
+					{
+						Music.PlayClipAtPoint(attack.blockSound, transform.position);
+					}
+					enemy.Block();
+				}
+				_attackedEnemies.Add(otherCollider);
+			}
+		}
 
-        if (hit)
-        {
-            FreezeFrameController.instance.DoFreeze(attack.freezeDuration, attack.freezeValue);
-        }
-        return hit;
-    }
+		if (hit)
+		{
+			FreezeFrameController.instance.DoFreeze(attack.freezeDuration, attack.freezeValue);
+		}
+		return hit;
+	}
 }

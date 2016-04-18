@@ -29,6 +29,7 @@ public class Movable : MonoBehaviour
 	Tweener _pushTween;
 
 	Transform _transform;
+	private bool _flipSprite;
 
 	public new Transform transform
 	{
@@ -92,6 +93,11 @@ public class Movable : MonoBehaviour
 
 	void Flip()
 	{
+		if (!_flipSprite)
+		{
+			return;
+		}
+
 		if (direction == MoveDirection.Right)
 		{
 			var scale = transform.localScale;
@@ -115,8 +121,9 @@ public class Movable : MonoBehaviour
 		_rb.velocity = _velocity;
 	}
 
-	public void Move(Vector2 direction)
+	public void Move(Vector2 direction, bool flipSprite = true)
 	{
+		_flipSprite = flipSprite;
 		_direction = direction.normalized;
 	}
 

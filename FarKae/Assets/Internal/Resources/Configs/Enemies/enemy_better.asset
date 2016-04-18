@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18fd9a5e427c2c9488c7d71931c8cfaf, type: 3}
-  m_Name: enemy_basic
+  m_Name: enemy_better
   m_EditorClassIdentifier: 
   powerStates:
     candyState:
@@ -137,18 +137,18 @@ MonoBehaviour:
       volume: 0.7
       minPitch: 1
       maxPitch: 1
-  attackDistance: 1
-  dangerDistance: 1.5
-  avoidDistance: 1.5
-  avoidEnemiesDistance: 0.11
+  attackDistance: 1.29
+  dangerDistance: 0.8
+  avoidDistance: 0.65
+  avoidEnemiesDistance: 0.1
   xAttackRange: 0.6
   yAttackRange: 0.2
   separateThreshold: 2
   approachSeparateDistance: 1
   attackSeparateDistance: 0.5
   stillWorthIt: 0.8
-  minAttackInterval: 1
-  maxAttackInterval: 2
+  minAttackInterval: 0.8
+  maxAttackInterval: 1.4
   attackInterval: 2
-  deathFlickerDuration: 0.5
-  deathFlickerInterval: 0.05
+  deathFlickerDuration: 0.7
+  deathFlickerInterval: 0.01

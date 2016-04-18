@@ -10,8 +10,10 @@ public class WaveController : MonoBehaviour
 
 	public BasicEnemy basicEnemy;
 	public NarwhalGuy narwhalGuy;
+	public BetterEnemy betterEnemy;
+	public BetterNarwhalGuy betterNarwhalGuy;
 
-	public Dictionary<int, Enemy> aliveEnemies = new Dictionary<int, Enemy>();
+	public Dictionary<int, GameObject> aliveEnemies = new Dictionary<int, GameObject>();
 
 	void Awake()
 	{
@@ -20,11 +22,21 @@ public class WaveController : MonoBehaviour
 
 	void Start()
 	{
-		SpawnEnemies(1, narwhalGuy);
-		SpawnEnemies(4, basicEnemy);
+		SpawnEnemies(5, betterEnemy.gameObject);
+		SpawnEnemies(1, betterNarwhalGuy.gameObject);
+		//SpawnEnemies(1, narwhalGuy);
+		//SpawnEnemies(4, basicEnemy);
 	}
 
-	public void RemoveEnemy(Enemy enemy)
+	void Update()
+	{
+		if (aliveEnemies.Count == 0)
+		{
+			SpawnEnemies(3, betterEnemy.gameObject);
+		}
+	}
+
+	public void RemoveEnemy(GameObject enemy)
 	{
 		if (aliveEnemies.ContainsKey(enemy.GetInstanceID()))
 		{
@@ -33,16 +45,16 @@ public class WaveController : MonoBehaviour
 
 		if (aliveEnemies.Count == 0)
 		{
-			SpawnEnemies(1, narwhalGuy);
-			SpawnEnemies(4, basicEnemy);
+			SpawnEnemies(5, betterEnemy.gameObject);
+			SpawnEnemies(1, betterNarwhalGuy.gameObject);
 		}
 	}
 
-	void SpawnEnemies(int count, Enemy enemyPrefab)
+	void SpawnEnemies(int count, GameObject enemy)
 	{
 		for (int i = 0; i < count; i++)
 		{
-			var newEnemy = spawner.SpawnEnemy(enemyPrefab.gameObject);
+			var newEnemy = spawner.SpawnEnemy(enemy);
 			if (newEnemy)
 			{
 				aliveEnemies.Add(newEnemy.GetInstanceID(), newEnemy);

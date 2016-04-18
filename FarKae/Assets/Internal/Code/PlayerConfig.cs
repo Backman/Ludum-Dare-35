@@ -22,4 +22,6 @@ public class PlayerConfig : EntityConfig
 	public float attackStaggerDuration = 0.2f;
 	public float attackSwingDuration = 0.2f;
 	public float attackCooldown = 0.2f;
+
+	public int simultaneousAttackers = 3;
 }

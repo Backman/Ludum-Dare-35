@@ -19,6 +19,11 @@ public class EnemyConfig : EntityConfig
 
 	public EnemyAttack basicAttack;
 
+	public float attackDistance = 1f;
+	public float dangerDistance = 1.5f;
+	public float avoidDistance = 1.5f;
+	public float avoidEnemiesDistance = 0.3f;
+
 	public float xAttackRange = 0.5f;
 	public float yAttackRange = 0.1f;
 	public float separateThreshold = 2f;

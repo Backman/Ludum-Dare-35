@@ -24,7 +24,7 @@ public class EnemySpawner
 		}
 	}
 
-	public Enemy SpawnEnemy(GameObject enemyPrefab)
+	public GameObject SpawnEnemy(GameObject enemyPrefab)
 	{
 		//List<Transform> points = new List<Transform>();
 		//for (int i = 0; i < spawnPoints.Count; i++)
@@ -44,9 +44,9 @@ public class EnemySpawner
 			return null;
 		var point = spawnPoints[Random.Range(0, spawnPoints.Count)];
 		var go = (GameObject)Object.Instantiate(enemyPrefab, point.transform.position, Quaternion.identity);
-		var enemy = go.GetComponent<Enemy>();
+		var enemy = go.GetComponent<BetterEnemy>();
 		enemy.RandomizePowerState();
-		return enemy;
+		return go;
 	}
 
 	public static Vector2 GetFrustumSize(float layerDepth, out Vector2 centerPoint)
