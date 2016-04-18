@@ -12,7 +12,7 @@ GameObject:
   - 95: {fileID: 9504680}
   - 114: {fileID: 11488942}
   - 61: {fileID: 6138154}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: rainbow_coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}

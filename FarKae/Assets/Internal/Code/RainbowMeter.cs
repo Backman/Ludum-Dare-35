@@ -29,7 +29,7 @@ public class RainbowMeter : MonoBehaviour
 		}
 		else
 		{
-			slider.DOValue(slider.value, 0.1f)
+			slider.DOValue(currentRainbow / maxRainbow, 0.1f)
 				.SetEase(Ease.OutExpo);
 		}
 	}
