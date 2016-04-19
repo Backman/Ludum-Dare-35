@@ -21,6 +21,7 @@ public class GameOver : MonoBehaviour
 	public Text narwhals;
 	public Text henchmens;
 	public Text damageDealt;
+	public Text highestCombo;
 	public Text collectedCoins;
 	public Text wavesPwned;
 	public Text secondsRaving;
@@ -37,6 +38,7 @@ public class GameOver : MonoBehaviour
 		collectedCoins.text = Stats.rainbowCoinsPickedUp.ToString();
 		wavesPwned.text = Stats.wavesCleared.ToString();
 		secondsRaving.text = Mathf.FloorToInt(Stats.secondsRainbow).ToString();
+		highestCombo.text = Stats.highestCombo.ToString();
 	}
 
 	IEnumerator Start()

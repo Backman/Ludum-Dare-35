@@ -789,7 +789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7abd09aab4b41ae4c8dc766a940d4925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Timer: 1
+  Timer: 2
   Text: {fileID: 11465844}
   Animator: {fileID: 9525898}
 --- !u!222 &22203584

@@ -545,6 +545,10 @@ public class Player : Entity
 				{
 					if (_shapeshift.CurrentState == enemy.ShapeshiftState)
 					{
+						if (Combo.Instance != null)
+						{
+							Combo.Instance.AddCombo(attack.damage);
+						}
 						Stats.damageDone += attack.damage;
 						enemy.Damage(attack.damage);
 						if (attack == _config.superAttack)

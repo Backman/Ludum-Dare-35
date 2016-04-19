@@ -7,6 +7,7 @@ public class Stats : MonoBehaviour
 	public static int henchmanKills { get; set; }
 	public static int rainbowCoinsPickedUp { get; set; }
 	public static int enemiesSpawned { get; set; }
+	public static int highestCombo { get; set; }
 	public static int wavesCleared { get; set; }
 
 	public static float secondsRainbow { get; set; }
@@ -20,6 +21,7 @@ public class Stats : MonoBehaviour
 		PlayerPrefs.SetInt("RAINBOW_COINS_PICKED_UP", rainbowCoinsPickedUp);
 		PlayerPrefs.SetInt("WAVES_CLEARED", wavesCleared);
 		PlayerPrefs.SetInt("ENEMIES_SPAWNED", enemiesSpawned);
+		PlayerPrefs.SetInt("HIGHEST_COMBO", enemiesSpawned);
 		PlayerPrefs.SetFloat("SECONDS_RAINBOW", damageDone);
 		PlayerPrefs.SetFloat("DAMAGE_DONE", damageDone);
 		PlayerPrefs.SetFloat("UNITS_MOVED", unitsMoved);
